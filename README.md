@@ -2,7 +2,8 @@
 Rabice, Schultz and Muffly
 
 Referenced data sources:
-https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/
+1). https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/
+2). http://mcdc.missouri.edu/applications/geocorr2018.html, Geographic Correspondence Engine at Missouri Census Data Center
 
 
 
