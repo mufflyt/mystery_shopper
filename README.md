@@ -31,3 +31,6 @@ Some results from Wait Times by Individual Female Pelvic Medicine and Reconstruc
 
 RedCAP database is used to store the data and enter it in real-time.  
 https://redcap.ucdenver.edu/redcap_v9.5.23/index.php?pid=17708
+
+The study was written using the STROBE checklist:
+https://www.strobe-statement.org/index.php?id=available-checklists
