@@ -1,9 +1,10 @@
 # mystery_shopper
-Rabice, Schultz and Muffly
+"Appointment Wait Times in Female Pelvic Medicine and Reconstructive Surgery: A Mystery Caller Study"
+Rabice, Schultz, Muffly
 
 Referenced data sources:
-1). https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/
-2). http://mcdc.missouri.edu/applications/geocorr2018.html, Geographic Correspondence Engine at Missouri Census Data Center
+## https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/
+## http://mcdc.missouri.edu/applications/geocorr2018.html, Geographic Correspondence Engine at Missouri Census Data Center
 
 
 
@@ -17,3 +18,7 @@ CONCLUSION:  Typically, a woman with uterine prolapse can expect to wait at leas
 
 
 We wrote the paper on GoogleDocs.  The mailing list was kept on Google Sheets.  The data was not sensitive so it was kept on Dropbox.  
+
+Some results from Wait Times by Individual Female Pelvic Medicine and Reconstructive Surgery Office
+##https://exploratory.io/viz/8171776323392484/Dot-map-VQG6RIQ9cT
+##https://exploratory.io/viz/8171776323392484/Included-only-map-bZN1KRg1sh
