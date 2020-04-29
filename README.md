@@ -76,6 +76,8 @@ A codebook is a technical description of the data that was collected for a parti
 22.  `Business Days Until Appointment` - Categorical
 23.  `American Congress of Obstetricians and Gynecologists District` - See map link above
 
+[![ACOG district map](https://acogpresident.files.wordpress.com/2013/03/districtmapupdated.jpg?w=608)](https://acogpresident.files.wordpress.com/2013/03/districtmapupdated.jpg?w=608) 
+
 This data was cleaned with the help of exploratory.io. The script is present in github called: mystery_shopper.R.  
 
 # `myster_shopper.R`
