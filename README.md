@@ -13,6 +13,7 @@ Data Sources
 * http://www.exploratory.io
 * https://www.jessesadler.com/post/geocoding-with-r/
 * https://console.cloud.google.com/google/maps-apis/overview?pli=1
+* https://learn.r-journalism.com/en/mapping/geolocating/geolocating/
 
 ## Installation and use
 These are scripts to pull and prepare data. This is an active project and scripts will change, so please always update to the latest version.
@@ -90,6 +91,10 @@ Does what it says.
 
 # `correct_lat_long`
 I had this from a separate project that I had done.  Next I geocoded the street address, city, state of each FPMRS into lat and long using the Google geocoding API.  Zip codes were challenging to use and the street address, city, state information was accurate without zip codes.  Any non-matches were omitted.  These data were written to a file called locations.csv.  Many thanks to Jesse Adler for the great code.  I need to put google key.  
+
+[![Geocoding, how does it work](https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2018/05/geocoding-graph.jpg)](https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2018/05/geocoding-graph.jpg) 
+
+
 
 ```r
 # Google geocoding of FPMRS physician locations ----
