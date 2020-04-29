@@ -94,6 +94,7 @@ I had this from a separate project that I had done.  Next I geocoded the street 
 
 [![Geocoding, how does it work](https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2018/05/geocoding-graph.jpg)](https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2018/05/geocoding-graph.jpg) 
 
+[![Zip codes, how does it work](https://www.unitedstateszipcodes.org/images/zip-codes/zip-codes.png)](https://www.unitedstateszipcodes.org/images/zip-codes/zip-codes.png) 
 
 
 ```r
