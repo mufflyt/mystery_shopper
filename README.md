@@ -168,3 +168,10 @@ https://www.strobe-statement.org/index.php?id=available-checklists
 References
 ==========
 * https://www.merritthawkins.com/uploadedFiles/MerrittHawkins/Content/Pdf/MerrittHawkins_PhysiciansFoundation_Survey2018.pdf, Merritt-Hawkins Physicians Foundation Survey
+
+Future Directions
+==========
+* https://web.archive.org/web/20070701222152/http://www.wcn.org/interior.cfm?diseaseid=13&featureid=4
+* http://asrm.org
+* https://www.smfm.org/members/search
+* http://voicesforpfd.org
