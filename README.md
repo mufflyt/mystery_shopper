@@ -175,3 +175,5 @@ Future Directions
 * http://asrm.org
 * https://www.smfm.org/members/search
 * http://voicesforpfd.org
+
+Get at least one person to call for each subspecialty.  Medical students?  All should probably be women or men.  Do an elective with Muffly in December to make the phone calls.  Able to work from home with the redcap database and a telephone.  Scenarios would be: 4 cm simple cyst, infertility, prior CHTN, and SUI.  
