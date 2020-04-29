@@ -145,14 +145,10 @@ GoogleDocs and Endnote do not play well together.  Therefore we used Endnote for
 The mailing list was kept on Google Sheets.  
 The data was not sensitive so it was kept on Dropbox.  
 
-# Results
-[![Zip codes, how does it work](https://exploratory.io/viz/8171776323392484/Exclusions-Nnx0MDG5GD)](https://exploratory.io/viz/8171776323392484/Exclusions-Nnx0MDG5GD) 
-
-
 Some results from Wait Times by Individual Female Pelvic Medicine and Reconstructive Surgery Office
 * https://exploratory.io/viz/8171776323392484/Dot-map-VQG6RIQ9cT
 * https://exploratory.io/viz/8171776323392484/Included-only-map-bZN1KRg1sh
-
+* https://exploratory.io/viz/8171776323392484/Exclusions-Nnx0MDG5GD
 
 RedCAP database is used to store the data and enter it in real-time.  
 https://redcap.ucdenver.edu/redcap_v9.5.23/index.php?pid=17708
