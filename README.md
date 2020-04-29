@@ -4,6 +4,10 @@ Rabice, Schultz, Muffly
 *Objective:  *
 *To evaluate the mean appointment wait time for a new patient visit at outpatient female pelvic medicine and reconstructive surgery offices for US women with the common and non-emergent complaint of uterine prolapse.*
 
+https://qtxasset.com/styles/breakpoint_xl_880px_w/s3/2016-07/doctor%20time%20pressure_workflow_efficiency_3.jpg?uDX919pEHAYTO1r6lKp7qT3dGPFjo1R_&itok=bGaBk9j6
+
+[![wait time image](https://qtxasset.com/styles/breakpoint_xl_880px_w/s3/2016-07/doctor%20time%20pressure_workflow_efficiency_3.jpg?uDX919pEHAYTO1r6lKp7qT3dGPFjo1R_&itok=bGaBk9j6)](https://qtxasset.com/styles/breakpoint_xl_880px_w/s3/2016-07/doctor%20time%20pressure_workflow_efficiency_3.jpg?uDX919pEHAYTO1r6lKp7qT3dGPFjo1R_&itok=bGaBk9j6) 
+
 Data Sources 
 ==========
 * https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/, Geographic Correspondence Engine at Missouri Census Data Center
@@ -153,3 +157,8 @@ https://redcap.ucdenver.edu/redcap_v9.5.23/index.php?pid=17708
 
 The study was written using the STROBE checklist:
 https://www.strobe-statement.org/index.php?id=available-checklists
+
+
+References
+==========
+* https://www.merritthawkins.com/uploadedFiles/MerrittHawkins/Content/Pdf/MerrittHawkins_PhysiciansFoundation_Survey2018.pdf, Merritt-Hawkins Physicians Foundation Survey
