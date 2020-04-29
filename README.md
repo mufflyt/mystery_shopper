@@ -80,7 +80,16 @@ A codebook is a technical description of the data that was collected for a parti
 
 [![ACOG district map](https://acogpresident.files.wordpress.com/2013/03/districtmapupdated.jpg?w=608)](https://acogpresident.files.wordpress.com/2013/03/districtmapupdated.jpg?w=608) 
 
-This data was cleaned with the help of exploratory.io. The script is present in github called: mystery_shopper.R.  
+This data was cleaned with the help of exploratory.io. The script is present in github called: mystery_shopper.R.  Due to COVID-19 I was unable to meet with my resident to do the analysis sitting together.  Therefore I made several screencasts to describe the process.  The videos are in a playlist on my YouTube channel.  
+* https://youtu.be/qB9amV4Noqc
+* https://youtu.be/1LffvD2lkaY
+* https://youtu.be/DnO8LPdr1yk
+* https://youtu.be/V90Cgt6fGq4
+* https://youtu.be/KuFfB100ph0
+* https://youtu.be/bWrgrM8i7mU
+* https://youtu.be/yBRe_TK_TKk
+* https://youtu.be/sZ9w_PdV-EM
+* https://youtu.be/o6nwbo7-rtQ
 
 # `myster_shopper.R`
 Mainly a ton of data cleaning because we didn't have our database set up properly from the very start.  
@@ -140,10 +149,9 @@ CONCLUSION:  Typically, a woman with uterine prolapse can expect to wait at leas
 
 
 We wrote the paper on GoogleDocs.  https://docs.google.com/document/d/1rg6Mf4ZHYE5o3s4v1CIz-KRAm7NSHbDIPWPyU3ezaws/edit?usp=sharing
-GoogleDocs and Endnote do not play well together.  Therefore we used Endnote for references once the final product was exported into Microsoft Word.  I have an endnote x8 group called `MysteryCallerStudy`.  
+GoogleDocs and Endnote do not play well together.  Therefore we used Endnote for references once the final product was exported into Microsoft Word.  I have an endnote x8 group called `MysteryCallerStudy` in the `gethispainthingdone.enlp` library.  I found the easiest way to use endnote was to click on the Online Search --> PubMed(NLM) and search for the articles that way.  Then I could pull the reference into the Word document.  
 
 The mailing list was kept on Google Sheets.  
-The data was not sensitive so it was kept on Dropbox.  
 
 Some results from Wait Times by Individual Female Pelvic Medicine and Reconstructive Surgery Office
 * https://exploratory.io/viz/8171776323392484/Dot-map-VQG6RIQ9cT
