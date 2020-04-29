@@ -145,6 +145,10 @@ GoogleDocs and Endnote do not play well together.  Therefore we used Endnote for
 The mailing list was kept on Google Sheets.  
 The data was not sensitive so it was kept on Dropbox.  
 
+# Results
+[![Zip codes, how does it work](https://exploratory.io/viz/8171776323392484/Exclusions-Nnx0MDG5GD)](https://exploratory.io/viz/8171776323392484/Exclusions-Nnx0MDG5GD) 
+
+
 Some results from Wait Times by Individual Female Pelvic Medicine and Reconstructive Surgery Office
 * https://exploratory.io/viz/8171776323392484/Dot-map-VQG6RIQ9cT
 * https://exploratory.io/viz/8171776323392484/Included-only-map-bZN1KRg1sh
