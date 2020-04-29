@@ -6,8 +6,7 @@ Rabice, Schultz, Muffly
 
 Data Sources 
 ==========
-* https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/
-* Geographic Correspondence Engine at Missouri Census Data Center
+* https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/, Geographic Correspondence Engine at Missouri Census Data Center
 * http://mcdc.missouri.edu/applications/geocorr2018.html
 * https://www.voicesforpfd.org/find-a-provider/
 * https://acogpresident.files.wordpress.com/2013/03/districtmapupdated.jpg?w=608
