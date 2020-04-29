@@ -12,7 +12,7 @@ Data Sources
 * http://mcdc.missouri.edu/applications/geocorr2018.html
 * https://www.voicesforpfd.org/find-a-provider/
 * https://acogpresident.files.wordpress.com/2013/03/districtmapupdated.jpg?w=608
-* http://www.exploratory.io
+* http://www.exploratory.io, Sign up for student version
 * https://www.jessesadler.com/post/geocoding-with-r/
 * https://console.cloud.google.com/google/maps-apis/overview?pli=1
 * https://learn.r-journalism.com/en/mapping/geolocating/geolocating/
