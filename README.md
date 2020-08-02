@@ -179,3 +179,10 @@ Future Directions
 * http://voicesforpfd.org
 
 Get at least one person to call for each subspecialty.  Medical students?  All should probably be women or men.  Do an elective with Muffly in December to make the phone calls.  Able to work from home with the redcap database and a telephone.  Scenarios would be: 4 cm simple cyst, infertility, prior CHTN, and SUI.  
+
+# How to pick physicians to call based off nomogram code
+```r
+dplyr::group_by(Match_Status, white_non_white, Gender) %>%  #selected equal numbers of people with various match_status, white_non_white, and genders.  
+  exploratory::sample_rows(1) %>%
+  as_tibble()
+```
