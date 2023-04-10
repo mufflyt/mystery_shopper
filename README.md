@@ -1,6 +1,5 @@
-# Appointment Wait Times in Female Pelvic Medicine and Reconstructive Surgery: A Mystery Caller Study
+# Appointment Wait Times: A Mystery Caller Study
 Rabice, Schultz, Muffly
-Turner, Rabice, Schultz, Muffly
 Corbisiero and lab
 
 *Objective:  *
@@ -607,3 +606,142 @@ do_search()
 do_extract_data()
 do_data_cleaning()
 ```
+
+# Inclusion and Exclusion
+Inclusion criteria: ENT physician with subspecialty training listed on enthealth.org find a physician list.  
+Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
+
+# Code to clean the data output from enthealth.org find a doctor.  
+This is what will be uploaded to RedCAP.  
+
+```r
+# Set libPaths.
+.libPaths("/Users/tylermuffly/.exploratory/R/4.2")
+
+# Load required packages.
+library(bizdays)
+library(humaniformat)
+library(gender)
+library(janitor)
+library(lubridate)
+library(hms)
+library(tidyr)
+library(stringr)
+library(readr)
+library(cpp11)
+library(forcats)
+library(RcppRoll)
+library(dplyr)
+library(tibble)
+library(bit64)
+library(zipangu)
+library(exploratory)
+
+# Steps to produce zip_to_lat_long
+`zip_to_lat_long` <- 
+  # https://gist.github.com/mufflyt/369fee8b22cdffd21d77377876ece393
+  exploratory::read_excel_file( "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/Data/zip to lat long.xlsx", sheet = 1, na = c('','NA'), skip=0, col_names=TRUE, trim_ws=TRUE, tzone='America/Denver') %>%
+  readr::type_convert() %>%
+  exploratory::clean_data_frame() %>%
+  separate(`ZIP,LAT,LNG`, into = c("zip", "lat", "lng"), sep = "\\s*\\,\\s*", convert = TRUE) %>%
+  mutate(zip = as.character(zip))
+
+# Steps to produce the output
+
+  # From Bart's scrape of AAO-HNS.  
+  exploratory::read_excel_file( "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Data/results.xlsx", sheet = 1, col_names=TRUE, trim_ws=TRUE, tzone='America/Denver') %>%
+  readr::type_convert() %>%
+  exploratory::clean_data_frame() %>%
+  distinct(url, .keep_all = TRUE) %>%
+  reorder_cols(full_name, company_name, address, city, state_code, post_code, country, phone_number, specialty_primary, specialty_secondary, url) %>%
+  
+  # They have to have a phone number listed to participate.  
+  filter(!is.na(phone_number)) %>%
+  
+  # Only look at specialty_primary
+  select(-address, -country, -specialty_secondary) %>%
+  
+  # Fill in "General Otolaryngology" for all NA values.  
+  mutate(specialty_primary = impute_na(specialty_primary, type = "value", val = "General Otolaryngology")) %>%
+  
+  # Limited to six subspecialties.  
+  filter(specialty_primary %nin% c("General Otolaryngology", "Allergy", "Endocrine Surgery", "Otology/Audiology", "Sleep Medicine")) %>%
+  mutate(state_code = statecode(state_code, output_type = "name")) %>%
+  mutate(state_code = impute_na(state_code, type = "value", val = "Colorado")) %>%
+  
+  # Change state name to Board of Governors Regions.  
+  mutate(AAO_regions = recode(state_code, "Alabama" = "Region 4", "Alaska" = "Region 9", "Arizona" = "Region 10", "Arkansas" = "Region 6", "California" = "Region 10", "Colorado" = "Region 8", "Connecticut" = "Region 1", "Delaware" = "Region 3", "District of Columbia" = "Region 3", "Florida" = "Region 4", "Georgia" = "Region 4", "Hawaii" = "Region 10", "Idaho" = "Region 9", "Illinois" = "Region 5", "Indiana" = "Region 5", "Iowa" = "Region 7", "Kansas" = "Region 7", "Kentucky" = "Region 4", "Louisiana" = "Region 6", "Maryland" = "Region 3", "Massachusetts" = "Region 1", "Michigan" = "Region 5", "Minnesota" = "Region 5", "Mississippi" = "Region 4", "Missouri" = "Region 7", "Montana" = "Region 8", "Nebraska" = "Region 7", "Nevada" = "Region 10", "New Hampshire" = "Region 1", "New Jersey" = "Region 2", "New Mexico" = "Region 6", "New York" = "Region 2", "North Carolina" = "Region 4", "North Dakota" = "Region 8", "Ohio" = "Region 5", "Oklahoma" = "Region 6", "Oregon" = "Region 9", "Pennsylvania" = "Region 3", "Puerto Rico" = "Region 2", "Rhode Island" = "Region 1", "South Carolina" = "Region 4", "South Dakota" = "Region 8", "Tennessee" = "Region 4", "Texas" = "Region 6", "Utah" = "Region 8", "Vermont" = "Region 1", "Virgin Islands" = "Region 2", "Virginia" = "Region 3", "Washington" = "Region 9", "West Virginia" = "Region 3", "Wisconsin" = "Region 5", "Wyoming" = "Region 8"), .after = ifelse("state_code" %in% names(.), "state_code", last_col())) %>%
+  mutate(across(c(AAO_regions, specialty_primary), factor)) %>%
+  
+  # Make sure that the AAO_regions are leveled from 1 to 10.  
+  mutate(AAO_regions = fct_relevel(AAO_regions, "Region 1", "Region 2", "Region 3", "Region 4", "Region 5", "Region 6", "Region 7", "Region 8", "Region 9", "Region 10")) %>%
+  mutate(specialty_primary = fct_infreq(specialty_primary)) %>%
+  
+  # Group by AAO_regions and specialty before sample.  
+  group_by(AAO_regions, specialty_primary) %>%
+  
+  # Sampling step here.  More than 10 samples by region and by specialty starts to get problematic after more than 10.  
+  sample_rows(10, seed = 1978) %>%
+  
+  # Clean up the postal code.  
+  mutate(zip = str_extract_before(post_code, sep = "\\-"), .after = ifelse("post_code" %in% names(.), "post_code", last_col())) %>%
+  
+  # Bring together two columns of zip code: "zip" and "post_code".  
+  mutate(zip = coalesce(zip, post_code)) %>%
+  mutate(zip = parse_number(zip)) %>%
+  mutate(zip = as.character(zip)) %>%
+  
+  # Match the zip code to latitude and longitude.  
+  left_join(`zip_to_lat_long`, by = c("zip" = "zip"), target_columns = c("zip", "lat", "lng"), ignorecase=TRUE) %>%
+  
+  # Use humaniformat to clean the names so that matches can be made between dataframes based on names.  
+  mutate(first = humaniformat::first_name(full_name)) %>%
+  separate(full_name, into = c("full_name_1", "full_name_2"), sep = "\\s*\\,\\s*", remove = FALSE, convert = TRUE) %>%
+  mutate(last = humaniformat::last_name(full_name_1)) %>%
+  
+  # Create the line of text with name, phone number, specialty, and insurance type.  
+  mutate(calculation_1 = "Dr") %>%
+  unite(united_column, calculation_1, last, sep = " ", remove = FALSE, na.rm = FALSE) %>%
+  
+  # Unite all parts of the name, specialty, etc.  
+  unite(redcap_data, specialty_primary, united_column, phone_number, full_name, sep = ",  ", remove = FALSE, na.rm = FALSE) %>%
+  ungroup() %>%
+  
+  # Amazing.  Creates a numbered row column.  
+  mutate(id = 1:n()) %>%
+  
+  # Doubles amount of rows by stacking a copy of the rows on top of the dataframe. In this code, the . refers to the input data frame (df), and the duplicated data frame is created by binding it with itself using bind_rows(., .).
+  bind_rows(., .) %>%
+  
+  # Arrange by url so that one person has two rows consecutively.  
+  arrange(url) %>%
+  
+  # Add the two different insurances: BCBS and Medicaid for each person.  
+  mutate(Insurance = rep(c("Blue Cross/Blue Shield", "Medicaid"), length.out = nrow(.))) %>%
+  
+  # Each physician has two duplicate rows with the same id number.  
+  arrange(id) %>%
+  select(-id) %>%
+  
+  # Unique row number for each row.  
+  mutate(id = 1:n()) %>%
+  
+  # Unite all the information to upload to redcap: https://redcap.ucdenver.edu/redcap_v13.1.18/ProjectSetup/index.php?pid=28103. 
+  unite(united_column, id, redcap_data, Insurance, sep = ", ", remove = FALSE, na.rm = FALSE) %>%
+  filter(!str_detect(company_name, fixed("miliary", ignore_case=TRUE)) & !str_detect(company_name, fixed("Retired"))) %>%
+  
+  # Academic or Not based on strings.  
+  mutate(academic = ifelse(str_detect(company_name, str_c(c("Medical College", "University of", "University", "Univ", "Children's", "Infirmary", "Medical School", "Medical Center", "Medical Center", "Children", "Health System", "Foundation", "Sch of Med", "Dept of Oto", "Mayo", "UAB", "OTO Dept", "Cancer Ctr", "Penn", "College of Medicine", "Cancer", "Cleveland Clinic", "Henry Ford", "Yale", "Brigham", "Dept of OTO", "Health Sciences Center", "SUNY"), collapse = "|", sep = "\\b|\\b", fixed = TRUE)), "University", "Private Practice")) %>%
+  reorder_cols(AAO_regions, united_column, redcap_data, specialty_primary, full_name, full_name_1, full_name_2, company_name, academic, city, state_code, post_code, zip, phone_number, url, lat, lng, first, last, calculation_1, Insurance, id)
+```
+
+
+# RedCAP: The project name is called, "ENT subspecialty mystery caller".
+Please note that any publication that results from a project utilizing REDCap should cite grant support (NIH/NCATS Colorado CTSA Grant Number UL1 TR002535).  Please cite the publications below in study manuscripts using REDCap for data collection and management. We recommend the following boilerplate language:
+
+Study data were collected and managed using REDCap electronic data capture tools hosted at [YOUR INSTITUTION].1,2 REDCap (Research Electronic Data Capture) is a secure, web-based software platform designed to support data capture for research studies, providing 1) an intuitive interface for validated data capture; 2) audit trails for tracking data manipulation and export procedures; 3) automated export procedures for seamless data downloads to common statistical packages; and 4) procedures for data integration and interoperability with external sources.
+
+1PA Harris, R Taylor, R Thielke, J Payne, N Gonzalez, JG. Conde, Research electronic data capture (REDCap) – A metadata-driven methodology and workflow process for providing translational research informatics support, J Biomed Inform. 2009 Apr;42(2):377-81.
+
+2PA Harris, R Taylor, BL Minor, V Elliott, M Fernandez, L O’Neal, L McLeod, G Delacqua, F Delacqua, J Kirby, SN Duda, REDCap Consortium, The REDCap consortium: Building an international community of software partners, J Biomed Inform. 2019 May 9 [doi: 10.1016/j.jbi.2019.103208]
+
