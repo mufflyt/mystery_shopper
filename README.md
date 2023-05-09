@@ -33,6 +33,24 @@ https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery c
 
 https://youtu.be/miW_03ZqqEE
 ```
+## Nightly e-mail to the team
+```r
+Dear All,
+
+I appreciate your help today calling the ENT offices.  It was a slow start due to REDCap access issues, with 61 offices called on Monday (May 8).  We apologize for not making sure everyone had access before starting.  Please let us know if your REDCap access remains limited.  
+
+A few simple reminders:
+Please don't make any appointments.  This is out of respect for the ENT practices and actual patients.  
+If you are on hold for five minutes, you can just hang up and mark this in the exclusions.  
+Analyzing the data, the mean time for a new patient appointment is 29.5 days with a standard deviation of 31 days.  
+
+Do not hesitate to reach out if you have any questions or concerns.  
+
+Thanks,
+Muffly
+720-810-9863
+```
+
 # Export the data
 Export the data:
 ![Screen Shot 2023-05-08 at 8 20 28 PM](https://user-images.githubusercontent.com/44621942/236977534-3ea48f46-4114-40d6-a34a-b5c51b4c4a74.jpg)
