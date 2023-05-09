@@ -2,7 +2,12 @@
 # Corbisiero
 
 Code to evaluate enthealth.org list of physicians
-```r
+
+<details>
+<summary>Click to expand code</summary>
+
+```R
+# Your R code here
 require(rvest)
 require(magrittr)
 require(httr)
@@ -231,7 +236,8 @@ do_search()
 do_extract_data()
 do_data_cleaning()
 ```
-
+ </details>
+  
 # Inclusion and Exclusion
 Inclusion criteria: ENT physician with generalist and subspecialty training listed on enthealth.org find a physician list.  
 Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
@@ -239,7 +245,10 @@ Exclusion criteria: No phone number, outside the USA, unable to reach after 2 ph
 # Code to clean the data output from enthealth.org find a doctor.  
 This is what will be uploaded to RedCAP.  
 
-```r
+<details>
+<summary>Click to expand code</summary>
+  
+```R
 # Set libPaths.
 .libPaths("/Users/tylermuffly/.exploratory/R/4.2")
 
@@ -359,7 +368,7 @@ library(exploratory)
   mutate(academic = ifelse(str_detect(company_name, str_c(c("Medical College", "University of", "University", "Univ", "Children's", "Infirmary", "Medical School", "Medical Center", "Medical Center", "Children", "Health System", "Foundation", "Sch of Med", "Dept of Oto", "Mayo", "UAB", "OTO Dept", "Cancer Ctr", "Penn", "College of Medicine", "Cancer", "Cleveland Clinic", "Henry Ford", "Yale", "Brigham", "Dept of OTO", "Health Sciences Center", "SUNY"), collapse = "|", sep = "\\b|\\b", fixed = TRUE)), "University", "Private Practice")) %>%
   reorder_cols(AAO_regions, united_column, redcap_data, specialty_primary, full_name, full_name_1, full_name_2, company_name, academic, city, state_code, post_code, zip, phone_number, url, lat, lng, first, last, calculation_1, Insurance, id)
 ```
-
+</details>
 
 # RedCAP: The project name is called, "ENT subspecialty mystery caller".
 Please note that any publication that results from a project utilizing REDCap should cite grant support (NIH/NCATS Colorado CTSA Grant Number UL1 TR002535).  Please cite the publications below in study manuscripts using REDCap for data collection and management. We recommend the following boilerplate language:
@@ -375,13 +384,7 @@ Study data were collected and managed using REDCap electronic data capture tools
 https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
 
 
-
-Rabice, Schultz, Muffly
-Corbisiero and lab
-
-*Objective:  *
-*To evaluate the mean appointment wait time for a new patient visit at outpatient female pelvic medicine and reconstructive surgery offices for US women with the common and non-emergent complaint of uterine prolapse.*
-
+# Corbisiero and lab
 [![wait time image](https://qtxasset.com/styles/breakpoint_xl_880px_w/s3/2016-07/doctor%20time%20pressure_workflow_efficiency_3.jpg?uDX919pEHAYTO1r6lKp7qT3dGPFjo1R_&itok=bGaBk9j6)](https://qtxasset.com/styles/breakpoint_xl_880px_w/s3/2016-07/doctor%20time%20pressure_workflow_efficiency_3.jpg?uDX919pEHAYTO1r6lKp7qT3dGPFjo1R_&itok=bGaBk9j6) 
 
 Data Sources 
