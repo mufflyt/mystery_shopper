@@ -5,9 +5,9 @@
 See `scrape.R` for enthealth.org from AAO-HNS.  
 ![Screen Shot 2023-05-08 at 8 27 35 PM](https://user-images.githubusercontent.com/44621942/236978474-12f9969f-1dee-46e6-a739-4dc7d39c5949.jpg)
 
-
 ## Code to clean up the scrape and get it ready for redcap
-See `Clean data from scrape and ready it for redcap.R`.  Can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'
+See `Clean data from scrape and ready it for redcap.R`.  Can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
+![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
 
 ## Searching for NPI numbers
 `npi_search_working.R` is the file uploaded to github.com.  This code performs a search on the National Plan and Provider Enumeration System (NPPES) database for National Provider Identifier (NPI) numbers for a list of healthcare providers in the Otolaryngology (ENT) field. It reads in a dataset of Otolaryngology providers, filters out non-U.S. providers, removes special characters, and creates a list of first and last names to search for NPI numbers.  The code then performs a search for each name pair using the npi_search function from the npi package, and stores the results in a list. It flattens the search results and removes duplicates to get only distinct NPI numbers. Then it joins the search results with the original dataset of provider names, keeping only matching NPI numbers, and filters to select only Otolaryngology providers. It cleans up and selects relevant columns, and writes the final result to a CSV file.
@@ -17,6 +17,21 @@ See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
 This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/For_each_caller" directory and splits the data into eight parts. Each split is saved as a separate XLSX file in the same directory.  The split() function is used to split the data frame into 8 parts based on row numbers. The cut() function is used to create a factor variable that assigns each row to one of the 8 groups. The names() function is then used to get the names of each group.  The for-loop iterates through each group, creates a file name for each group based on the group name, date, and row number. The write.xlsx() function is used to save each split data frame as a separate XLSX file in the output directory.  The output files will have names like "Sophie_2023-05-06_153_rows_1_to_19.xlsx", where "Sophie" is the name of the split, "2023-05-06" is the current date, "153" is the number of rows in the split, and "1_to_19" are the row IDs of the first and last rows in the split.
 ![Screen Shot 2023-05-08 at 8 29 42 PM](https://user-images.githubusercontent.com/44621942/236978744-1dfa24b5-ad26-4ace-8c05-220aa2197f9e.jpg)
 
+## Meeting for the callers and team
+```r
+Hi Team, 
+
+We will be meeting in the next week or so to discuss the study and our anticipated "calling" May 8 - May 12. During our Zoom, we will discuss the study, its aims, methods, and individual responsibilities. It will be roughly 30-45 minutes max. 
+
+Please fill out the When2Meet form within the next 24-48 hours, or let me know if you are unable to still participate. https://www.when2meet.com/?19887642-Rc5OV
+
+In the meantime, I'm happy to answer any questions you may have, so please reach out. 
+
+Thank you, 
+
+Michaele Francesco Corbisiero
+(626) 646-9087
+```
 
 ## Start calling instructions
 Send e-mail with all the excel files created by: 'Splitting_dataframe_to_send_to_callers.R'.  
@@ -27,6 +42,8 @@ I've attached your calling assignments with your name or e-mail.  There are eigh
 
 Please make sure you have signed up for REDcap access:
 https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
+https://redcap.ucdenver.edu/surveys/?s=wcIyV5ajVM
+
 
 The redcap login can be found here:  
 https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery caller."  Please see the left-handed rail where it says "Add/Edit Records."  Click the green button that says "Add New Record".  Type in the physician's name, and you are ready.  Here is a link to a video about how to do the calling:  
