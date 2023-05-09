@@ -1,4 +1,381 @@
 # Appointment Wait Times: A Mystery Caller Study
+# Corbisiero
+
+Code to evaluate enthealth.org list of physicians
+```r
+require(rvest)
+require(magrittr)
+require(httr)
+require(jsonlite)
+require(stringi)
+require(dplyr)
+require(xlsx)
+
+# 1. Install packages 
+# 2. Set settings
+# 3. Run a script
+
+
+# User settings -----------------------------------------------------------
+
+
+use_cached_data = FALSE  # don't remove temporary data
+
+country = "United States"
+
+output_file_name = "results.xlsx"  # path to final file
+
+
+
+# Definition of variables and functions -----------------------------------
+
+
+
+temp_search_results = "temp_1.xlsx"
+temp_search_individuals = "temp_2.xlsx"
+
+# Session ID
+ent <- 'https://www.enthealth.org/find-ent/' %>%
+  session() %>%
+  html_node('input[name="_ent_nonce"]') %>%
+  html_attr("value")
+
+# HTTP parameters
+base_url = 'https://www.enthealth.org/wp-admin/admin-ajax.php'
+
+headers = c(
+  'authority' = 'www.enthealth.org',
+  'accept' = 'application/json, text/javascript, */*; q=0.01',
+  'accept-language' = 'pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7',
+  'content-type' = 'application/x-www-form-urlencoded; charset=UTF-8',
+  'origin' = 'https://www.enthealth.org',
+  'referer' = 'https://www.enthealth.org/find-ent/',
+  'sec-ch-ua' = '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
+  'sec-ch-ua-mobile' = '?0',
+  'sec-ch-ua-platform' = '"Windows"',
+  'sec-fetch-dest' = 'empty',
+  'sec-fetch-mode' = 'cors',
+  'sec-fetch-site' = 'same-origin',
+  'user-agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+  'x-requested-with' = 'XMLHttpRequest'
+)
+
+set_body <- function(page_number) {
+  body = paste0('action=find_ent_response&_ent_nonce=', ent, '&paged=', page_number, '&radiuszip=&distance=&lname=&city=&state=&country=', country, '&specialty=&ajaxrequest=true&submit=Submit+Form')
+  return(body)
+}
+
+html_text_na <- function(x, ...) {
+  
+  txt <- try(html_text(x, ...))
+  if (inherits(txt, "try-error") |
+      (length(txt)==0)) { return(NA) }
+  return(txt)
+  
+}
+
+# Search page navigation
+search <- function(page_number) {
+  # POST
+  r = httr::POST(base_url, add_headers(headers), body = set_body(page_number), encode="json")
+  
+  # Select results from JSON
+  s <- content(r, 'text') %>% fromJSON()
+  results <- s$results_html %>% read_html
+  
+  # Select URL's to individuals
+  # Filter by United States
+  results %<>%
+    html_nodes('.result')
+  urls <- c()
+  for (result in results) {
+    is_us <- result %>% 
+      html_node('.address') %>% 
+      html_text_na() %>% 
+      stri_detect_regex(country) %>%
+      {ifelse(is.na(.), TRUE, .)}
+    if (is_us) {
+      urls %<>% c(
+        result %>%
+        html_nodes('a') %>%
+        html_attr("href") %>%
+        paste0('https://www.enthealth.org', .) %>%
+        stri_trans_general(id = "Latin-ASCII") %>%
+        stri_split_fixed('?') %>%
+        extract2(1) %>% extract(1)
+      )
+    }
+  }
+  # Check if there is a next page
+  next_page_number <- s$results_pagination %>% 
+    read_html %>% 
+    html_node('.next') %>%
+    html_attr("href")
+  if (!is.na(next_page_number)) {
+    next_page_number %<>% 
+      stri_extract_all_regex('[0-9]+$') %>%
+      extract2(1) %>%
+      as.integer()
+  } else {
+    next_page_number <- 0
+  }
+  
+  page_numbers <- (s$results_rows %/% 10) + 1
+  
+  return(list("urls" = urls, 
+              "next_page_number" = next_page_number,
+              "page_numbers" = page_numbers))
+}
+
+# Extract data from individual page
+extract_data <- function(url) {
+  s <- session(url)
+  
+  result <- list(
+    "url" = url,
+    "full_name" = s %>% html_nodes('.name') %>% html_text_na(),
+    "specialty_primary" = s %>% html_nodes('.primary-specialty') %>% html_text_na(),
+    "specialty_secondary" = s %>% html_nodes('.secondary-specialty') %>% html_text_na(),
+    "company" = s %>% html_nodes(".company") %>% html_text_na(),
+    "address_line_1" = s %>% html_nodes(".address") %>% extract(1) %>% html_text_na(),
+    "address_line_2" = s %>% html_nodes(".address") %>% extract(2) %>% html_text_na(),
+    "phone_number" = s %>% html_nodes(".phone") %>% html_text_na(),
+    "fellowship" = s %>% html_nodes('li:contains("Fellowship: ")') %>% html_text_na() %>% stri_replace_all_fixed("Fellowship: ", "") %>% {ifelse(any(is.na(.)), NA, paste(., collapse=', '))},
+    "residency" = s %>% html_nodes('li:contains("Residency: ")') %>% html_text_na() %>% stri_replace_all_fixed("Residency: ", "") %>% {ifelse(any(is.na(.)), NA, paste(., collapse=', '))},
+    "medical_school" = s %>% html_nodes('li:contains("Medical School: ")') %>% html_text_na() %>% stri_replace_all_fixed("Medical School: ", "") %>% {ifelse(any(is.na(.)), NA, paste(., collapse=', '))},
+    "certification" = s %>% html_nodes('h3:contains("Board Certifications") + ul > li') %>% html_text_na() %>% {ifelse(any(is.na(.)), NA, paste(., collapse=', '))}
+  )
+  
+  return(result)
+}
+
+do_search <- function() {
+  print(paste0('Get all URLs from search page - filtered by ', country))
+  page_numbers <- search(1)$page_numbers
+  search_results <- pbapply::pblapply(1:page_numbers, search)
+  urls <- unlist(lapply(search_results, function(x) {x$urls}))
+  print(paste0('Save temporary data to ', temp_search_results))
+  df <- data.frame(list("urls" = urls))
+  df %>% write.xlsx(temp_search_results, row.names = FALSE)
+}
+
+do_extract_data <- function() {
+  if (use_cached_data) {
+    results_cached <- read.xlsx(temp_search_individuals, 1)
+  } else {
+    results_cached <- data.frame()
+  }
+  
+  print('Get data from URLs')
+  df <- read.xlsx(temp_search_results, 1)
+  urls <- df$urls
+  if (use_cached_data) {
+    urls <- setdiff(urls, results_cached$url)
+  }
+  results <- pbapply::pblapply(urls, extract_data)
+  print(paste0('Save temporary data to ', temp_search_individuals))
+  data = do.call(rbind.data.frame, results)
+  data %<>% rbind(results_cached)
+  data %>% write.xlsx(temp_search_individuals, row.names = FALSE)
+}
+
+do_data_cleaning <- function() {
+  print('Data cleaning...')
+  df <- read.xlsx(temp_search_individuals, 1)
+  
+  # 
+  df[(df$address_line_1 %>% 
+        stri_detect_regex(country)) & is.na(df$address_line_2), 
+     'address_line_2'] <- df[(df$address_line_1 %>% 
+                                stri_detect_regex(country)) & is.na(df$address_line_2), 
+                             'address_line_1']
+  df[(df$address_line_1 %>% stri_detect_regex(country)), 'address_line_1'] <- NA
+  
+  # extract country
+  df['country'] <- country
+  df[['address_line_2']] %<>% stri_replace_all_regex(country, '') %>% trimws()
+  
+  # extract city
+  df %<>% mutate('city' = stri_split_regex(address_line_2, ' [A-Z]{2} '))
+  df[['city']] %<>% sapply(function(x){x[1]})
+  df %<>% mutate('address_line_2' = stri_replace_all_regex(address_line_2, city, '') %>% trimws)
+  
+  # extract state code
+  df %<>% mutate('state_code' = stri_extract_first_regex(address_line_2, '[A-Z]{2}'))
+  df %<>% mutate('address_line_2' = stri_replace_all_regex(address_line_2, state_code, '') %>% trimws)
+  
+  # extract post code
+  df %<>% mutate('post_code' = stri_extract_first_regex(address_line_2, '[0-9]+(-[0-9]+)?'))
+  df %<>% mutate('address_line_2' = stri_replace_all_regex(address_line_2, post_code, '') %>% trimws)
+  
+  # final table
+  data <- df %>%
+    select(
+      url, full_name, 
+      company, address_line_1, city, state_code, post_code, country,
+      phone_number, specialty_primary, specialty_secondary
+    )
+  for (col in colnames(data)) {
+    data[[col]] %<>% trimws
+    data[[col]] %<>% {ifelse(. == '', NA, .)}
+  }
+  data %<>% rename('company_name' = 'company', 'address' = 'address_line_1')
+  
+  # save data
+  data %>% write.xlsx(output_file_name, row.names = FALSE, showNA = FALSE)
+}
+
+# Main script -------------------------------------------------------------
+
+do_search()
+do_extract_data()
+do_data_cleaning()
+```
+
+# Inclusion and Exclusion
+Inclusion criteria: ENT physician with generalist and subspecialty training listed on enthealth.org find a physician list.  
+Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
+
+# Code to clean the data output from enthealth.org find a doctor.  
+This is what will be uploaded to RedCAP.  
+
+```r
+# Set libPaths.
+.libPaths("/Users/tylermuffly/.exploratory/R/4.2")
+
+# Load required packages.
+library(bizdays)
+library(humaniformat)
+library(gender)
+library(janitor)
+library(lubridate)
+library(hms)
+library(tidyr)
+library(stringr)
+library(readr)
+library(cpp11)
+library(forcats)
+library(RcppRoll)
+library(dplyr)
+library(tibble)
+library(bit64)
+library(zipangu)
+library(exploratory)
+
+# Steps to produce zip_to_lat_long
+`zip_to_lat_long` <- 
+  # https://gist.github.com/mufflyt/369fee8b22cdffd21d77377876ece393
+  exploratory::read_excel_file( "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/Data/zip to lat long.xlsx", sheet = 1, na = c('','NA'), skip=0, col_names=TRUE, trim_ws=TRUE, tzone='America/Denver') %>%
+  readr::type_convert() %>%
+  exploratory::clean_data_frame() %>%
+  separate(`ZIP,LAT,LNG`, into = c("zip", "lat", "lng"), sep = "\\s*\\,\\s*", convert = TRUE) %>%
+  mutate(zip = as.character(zip))
+
+# Steps to produce the output
+
+  # From Bart's scrape of AAO-HNS.  
+  exploratory::read_excel_file( "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Data/results.xlsx", sheet = 1, col_names=TRUE, trim_ws=TRUE, tzone='America/Denver') %>%
+  readr::type_convert() %>%
+  exploratory::clean_data_frame() %>%
+  distinct(url, .keep_all = TRUE) %>%
+  reorder_cols(full_name, company_name, address, city, state_code, post_code, country, phone_number, specialty_primary, specialty_secondary, url) %>%
+  
+  # They have to have a phone number listed to participate.  
+  filter(!is.na(phone_number)) %>%
+  
+  # Only look at specialty_primary
+  select(-address, -country, -specialty_secondary) %>%
+  
+  # Fill in "General Otolaryngology" for all NA values.  
+  mutate(specialty_primary = impute_na(specialty_primary, type = "value", val = "General Otolaryngology")) %>%
+  
+  # Limited to six subspecialties.  
+  filter(specialty_primary %nin% c("General Otolaryngology", "Allergy", "Endocrine Surgery", "Otology/Audiology", "Sleep Medicine")) %>%
+  mutate(state_code = statecode(state_code, output_type = "name")) %>%
+  mutate(state_code = impute_na(state_code, type = "value", val = "Colorado")) %>%
+  
+  # Change state name to Board of Governors Regions.  
+  mutate(AAO_regions = recode(state_code, "Alabama" = "Region 4", "Alaska" = "Region 9", "Arizona" = "Region 10", "Arkansas" = "Region 6", "California" = "Region 10", "Colorado" = "Region 8", "Connecticut" = "Region 1", "Delaware" = "Region 3", "District of Columbia" = "Region 3", "Florida" = "Region 4", "Georgia" = "Region 4", "Hawaii" = "Region 10", "Idaho" = "Region 9", "Illinois" = "Region 5", "Indiana" = "Region 5", "Iowa" = "Region 7", "Kansas" = "Region 7", "Kentucky" = "Region 4", "Louisiana" = "Region 6", "Maryland" = "Region 3", "Massachusetts" = "Region 1", "Michigan" = "Region 5", "Minnesota" = "Region 5", "Mississippi" = "Region 4", "Missouri" = "Region 7", "Montana" = "Region 8", "Nebraska" = "Region 7", "Nevada" = "Region 10", "New Hampshire" = "Region 1", "New Jersey" = "Region 2", "New Mexico" = "Region 6", "New York" = "Region 2", "North Carolina" = "Region 4", "North Dakota" = "Region 8", "Ohio" = "Region 5", "Oklahoma" = "Region 6", "Oregon" = "Region 9", "Pennsylvania" = "Region 3", "Puerto Rico" = "Region 2", "Rhode Island" = "Region 1", "South Carolina" = "Region 4", "South Dakota" = "Region 8", "Tennessee" = "Region 4", "Texas" = "Region 6", "Utah" = "Region 8", "Vermont" = "Region 1", "Virgin Islands" = "Region 2", "Virginia" = "Region 3", "Washington" = "Region 9", "West Virginia" = "Region 3", "Wisconsin" = "Region 5", "Wyoming" = "Region 8"), .after = ifelse("state_code" %in% names(.), "state_code", last_col())) %>%
+  mutate(across(c(AAO_regions, specialty_primary), factor)) %>%
+  
+  # Make sure that the AAO_regions are leveled from 1 to 10.  
+  mutate(AAO_regions = fct_relevel(AAO_regions, "Region 1", "Region 2", "Region 3", "Region 4", "Region 5", "Region 6", "Region 7", "Region 8", "Region 9", "Region 10")) %>%
+  mutate(specialty_primary = fct_infreq(specialty_primary)) %>%
+  
+  # Group by AAO_regions and specialty before sample.  
+  group_by(AAO_regions, specialty_primary) %>%
+  
+  # Sampling step here.  More than 10 samples by region and by specialty starts to get problematic after more than 10.  
+  sample_rows(10, seed = 1978) %>%
+  
+  # Clean up the postal code.  
+  mutate(zip = str_extract_before(post_code, sep = "\\-"), .after = ifelse("post_code" %in% names(.), "post_code", last_col())) %>%
+  
+  # Bring together two columns of zip code: "zip" and "post_code".  
+  mutate(zip = coalesce(zip, post_code)) %>%
+  mutate(zip = parse_number(zip)) %>%
+  mutate(zip = as.character(zip)) %>%
+  
+  # Match the zip code to latitude and longitude.  
+  left_join(`zip_to_lat_long`, by = c("zip" = "zip"), target_columns = c("zip", "lat", "lng"), ignorecase=TRUE) %>%
+  
+  # Use humaniformat to clean the names so that matches can be made between dataframes based on names.  
+  mutate(first = humaniformat::first_name(full_name)) %>%
+  separate(full_name, into = c("full_name_1", "full_name_2"), sep = "\\s*\\,\\s*", remove = FALSE, convert = TRUE) %>%
+  mutate(last = humaniformat::last_name(full_name_1)) %>%
+  
+  # Create the line of text with name, phone number, specialty, and insurance type.  
+  mutate(calculation_1 = "Dr") %>%
+  unite(united_column, calculation_1, last, sep = " ", remove = FALSE, na.rm = FALSE) %>%
+  
+  # Unite all parts of the name, specialty, etc.  
+  unite(redcap_data, specialty_primary, united_column, phone_number, full_name, sep = ",  ", remove = FALSE, na.rm = FALSE) %>%
+  ungroup() %>%
+  
+  # Amazing.  Creates a numbered row column.  
+  mutate(id = 1:n()) %>%
+  
+  # Doubles amount of rows by stacking a copy of the rows on top of the dataframe. In this code, the . refers to the input data frame (df), and the duplicated data frame is created by binding it with itself using bind_rows(., .).
+  bind_rows(., .) %>%
+  
+  # Arrange by url so that one person has two rows consecutively.  
+  arrange(url) %>%
+  
+  # Add the two different insurances: BCBS and Medicaid for each person.  
+  mutate(Insurance = rep(c("Blue Cross/Blue Shield", "Medicaid"), length.out = nrow(.))) %>%
+  
+  # Each physician has two duplicate rows with the same id number.  
+  arrange(id) %>%
+  select(-id) %>%
+  
+  # Unique row number for each row.  
+  mutate(id = 1:n()) %>%
+  
+  # Unite all the information to upload to redcap: https://redcap.ucdenver.edu/redcap_v13.1.18/ProjectSetup/index.php?pid=28103. 
+  unite(united_column, id, redcap_data, Insurance, sep = ", ", remove = FALSE, na.rm = FALSE) %>%
+  filter(!str_detect(company_name, fixed("miliary", ignore_case=TRUE)) & !str_detect(company_name, fixed("Retired"))) %>%
+  
+  # Academic or Not based on strings.  
+  mutate(academic = ifelse(str_detect(company_name, str_c(c("Medical College", "University of", "University", "Univ", "Children's", "Infirmary", "Medical School", "Medical Center", "Medical Center", "Children", "Health System", "Foundation", "Sch of Med", "Dept of Oto", "Mayo", "UAB", "OTO Dept", "Cancer Ctr", "Penn", "College of Medicine", "Cancer", "Cleveland Clinic", "Henry Ford", "Yale", "Brigham", "Dept of OTO", "Health Sciences Center", "SUNY"), collapse = "|", sep = "\\b|\\b", fixed = TRUE)), "University", "Private Practice")) %>%
+  reorder_cols(AAO_regions, united_column, redcap_data, specialty_primary, full_name, full_name_1, full_name_2, company_name, academic, city, state_code, post_code, zip, phone_number, url, lat, lng, first, last, calculation_1, Insurance, id)
+```
+
+
+# RedCAP: The project name is called, "ENT subspecialty mystery caller".
+Please note that any publication that results from a project utilizing REDCap should cite grant support (NIH/NCATS Colorado CTSA Grant Number UL1 TR002535).  Please cite the publications below in study manuscripts using REDCap for data collection and management. We recommend the following boilerplate language:
+
+Study data were collected and managed using REDCap electronic data capture tools hosted at [YOUR INSTITUTION].1,2 REDCap (Research Electronic Data Capture) is a secure, web-based software platform designed to support data capture for research studies, providing 1) an intuitive interface for validated data capture; 2) audit trails for tracking data manipulation and export procedures; 3) automated export procedures for seamless data downloads to common statistical packages; and 4) procedures for data integration and interoperability with external sources.
+
+1PA Harris, R Taylor, R Thielke, J Payne, N Gonzalez, JG. Conde, Research electronic data capture (REDCap) – A metadata-driven methodology and workflow process for providing translational research informatics support, J Biomed Inform. 2009 Apr;42(2):377-81.
+
+2PA Harris, R Taylor, BL Minor, V Elliott, M Fernandez, L O’Neal, L McLeod, G Delacqua, F Delacqua, J Kirby, SN Duda, REDCap Consortium, The REDCap consortium: Building an international community of software partners, J Biomed Inform. 2019 May 9 [doi: 10.1016/j.jbi.2019.103208]
+
+
+# Sign up for REDCap
+https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
+
+
+
 Rabice, Schultz, Muffly
 Corbisiero and lab
 
@@ -372,376 +749,3 @@ CONCLUSION:  Typically, a woman with uterine prolapse can expect to wait at leas
 
 We wrote the paper on GoogleDocs.  https://docs.google.com/document/d/1rg6Mf4ZHYE5o3s4v1CIz-KRAm7NSHbDIPWPyU3ezaws/edit?usp=sharing
 GoogleDocs and Endnote do not play well together.  Therefore we used Endnote for references once the final product was exported into Microsoft Word.  I have an endnote x8 group called `MysteryCallerStudy` in the `gethispainthingdone.enlp` library.  I found the easiest way to use endnote was to click on the Online Search --> PubMed(NLM) and search for the articles that way.  Then I could pull the reference into the Word document.  
-
-
-# Corbisiero
-
-Code to evaluate enthealth.org list of physicians
-```r
-require(rvest)
-require(magrittr)
-require(httr)
-require(jsonlite)
-require(stringi)
-require(dplyr)
-require(xlsx)
-
-# 1. Install packages 
-# 2. Set settings
-# 3. Run a script
-
-
-# User settings -----------------------------------------------------------
-
-
-use_cached_data = FALSE  # don't remove temporary data
-
-country = "United States"
-
-output_file_name = "results.xlsx"  # path to final file
-
-
-
-# Definition of variables and functions -----------------------------------
-
-
-
-temp_search_results = "temp_1.xlsx"
-temp_search_individuals = "temp_2.xlsx"
-
-# Session ID
-ent <- 'https://www.enthealth.org/find-ent/' %>%
-  session() %>%
-  html_node('input[name="_ent_nonce"]') %>%
-  html_attr("value")
-
-# HTTP parameters
-base_url = 'https://www.enthealth.org/wp-admin/admin-ajax.php'
-
-headers = c(
-  'authority' = 'www.enthealth.org',
-  'accept' = 'application/json, text/javascript, */*; q=0.01',
-  'accept-language' = 'pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7',
-  'content-type' = 'application/x-www-form-urlencoded; charset=UTF-8',
-  'origin' = 'https://www.enthealth.org',
-  'referer' = 'https://www.enthealth.org/find-ent/',
-  'sec-ch-ua' = '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
-  'sec-ch-ua-mobile' = '?0',
-  'sec-ch-ua-platform' = '"Windows"',
-  'sec-fetch-dest' = 'empty',
-  'sec-fetch-mode' = 'cors',
-  'sec-fetch-site' = 'same-origin',
-  'user-agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
-  'x-requested-with' = 'XMLHttpRequest'
-)
-
-set_body <- function(page_number) {
-  body = paste0('action=find_ent_response&_ent_nonce=', ent, '&paged=', page_number, '&radiuszip=&distance=&lname=&city=&state=&country=', country, '&specialty=&ajaxrequest=true&submit=Submit+Form')
-  return(body)
-}
-
-html_text_na <- function(x, ...) {
-  
-  txt <- try(html_text(x, ...))
-  if (inherits(txt, "try-error") |
-      (length(txt)==0)) { return(NA) }
-  return(txt)
-  
-}
-
-# Search page navigation
-search <- function(page_number) {
-  # POST
-  r = httr::POST(base_url, add_headers(headers), body = set_body(page_number), encode="json")
-  
-  # Select results from JSON
-  s <- content(r, 'text') %>% fromJSON()
-  results <- s$results_html %>% read_html
-  
-  # Select URL's to individuals
-  # Filter by United States
-  results %<>%
-    html_nodes('.result')
-  urls <- c()
-  for (result in results) {
-    is_us <- result %>% 
-      html_node('.address') %>% 
-      html_text_na() %>% 
-      stri_detect_regex(country) %>%
-      {ifelse(is.na(.), TRUE, .)}
-    if (is_us) {
-      urls %<>% c(
-        result %>%
-        html_nodes('a') %>%
-        html_attr("href") %>%
-        paste0('https://www.enthealth.org', .) %>%
-        stri_trans_general(id = "Latin-ASCII") %>%
-        stri_split_fixed('?') %>%
-        extract2(1) %>% extract(1)
-      )
-    }
-  }
-  # Check if there is a next page
-  next_page_number <- s$results_pagination %>% 
-    read_html %>% 
-    html_node('.next') %>%
-    html_attr("href")
-  if (!is.na(next_page_number)) {
-    next_page_number %<>% 
-      stri_extract_all_regex('[0-9]+$') %>%
-      extract2(1) %>%
-      as.integer()
-  } else {
-    next_page_number <- 0
-  }
-  
-  page_numbers <- (s$results_rows %/% 10) + 1
-  
-  return(list("urls" = urls, 
-              "next_page_number" = next_page_number,
-              "page_numbers" = page_numbers))
-}
-
-# Extract data from individual page
-extract_data <- function(url) {
-  s <- session(url)
-  
-  result <- list(
-    "url" = url,
-    "full_name" = s %>% html_nodes('.name') %>% html_text_na(),
-    "specialty_primary" = s %>% html_nodes('.primary-specialty') %>% html_text_na(),
-    "specialty_secondary" = s %>% html_nodes('.secondary-specialty') %>% html_text_na(),
-    "company" = s %>% html_nodes(".company") %>% html_text_na(),
-    "address_line_1" = s %>% html_nodes(".address") %>% extract(1) %>% html_text_na(),
-    "address_line_2" = s %>% html_nodes(".address") %>% extract(2) %>% html_text_na(),
-    "phone_number" = s %>% html_nodes(".phone") %>% html_text_na(),
-    "fellowship" = s %>% html_nodes('li:contains("Fellowship: ")') %>% html_text_na() %>% stri_replace_all_fixed("Fellowship: ", "") %>% {ifelse(any(is.na(.)), NA, paste(., collapse=', '))},
-    "residency" = s %>% html_nodes('li:contains("Residency: ")') %>% html_text_na() %>% stri_replace_all_fixed("Residency: ", "") %>% {ifelse(any(is.na(.)), NA, paste(., collapse=', '))},
-    "medical_school" = s %>% html_nodes('li:contains("Medical School: ")') %>% html_text_na() %>% stri_replace_all_fixed("Medical School: ", "") %>% {ifelse(any(is.na(.)), NA, paste(., collapse=', '))},
-    "certification" = s %>% html_nodes('h3:contains("Board Certifications") + ul > li') %>% html_text_na() %>% {ifelse(any(is.na(.)), NA, paste(., collapse=', '))}
-  )
-  
-  return(result)
-}
-
-do_search <- function() {
-  print(paste0('Get all URLs from search page - filtered by ', country))
-  page_numbers <- search(1)$page_numbers
-  search_results <- pbapply::pblapply(1:page_numbers, search)
-  urls <- unlist(lapply(search_results, function(x) {x$urls}))
-  print(paste0('Save temporary data to ', temp_search_results))
-  df <- data.frame(list("urls" = urls))
-  df %>% write.xlsx(temp_search_results, row.names = FALSE)
-}
-
-do_extract_data <- function() {
-  if (use_cached_data) {
-    results_cached <- read.xlsx(temp_search_individuals, 1)
-  } else {
-    results_cached <- data.frame()
-  }
-  
-  print('Get data from URLs')
-  df <- read.xlsx(temp_search_results, 1)
-  urls <- df$urls
-  if (use_cached_data) {
-    urls <- setdiff(urls, results_cached$url)
-  }
-  results <- pbapply::pblapply(urls, extract_data)
-  print(paste0('Save temporary data to ', temp_search_individuals))
-  data = do.call(rbind.data.frame, results)
-  data %<>% rbind(results_cached)
-  data %>% write.xlsx(temp_search_individuals, row.names = FALSE)
-}
-
-do_data_cleaning <- function() {
-  print('Data cleaning...')
-  df <- read.xlsx(temp_search_individuals, 1)
-  
-  # 
-  df[(df$address_line_1 %>% 
-        stri_detect_regex(country)) & is.na(df$address_line_2), 
-     'address_line_2'] <- df[(df$address_line_1 %>% 
-                                stri_detect_regex(country)) & is.na(df$address_line_2), 
-                             'address_line_1']
-  df[(df$address_line_1 %>% stri_detect_regex(country)), 'address_line_1'] <- NA
-  
-  # extract country
-  df['country'] <- country
-  df[['address_line_2']] %<>% stri_replace_all_regex(country, '') %>% trimws()
-  
-  # extract city
-  df %<>% mutate('city' = stri_split_regex(address_line_2, ' [A-Z]{2} '))
-  df[['city']] %<>% sapply(function(x){x[1]})
-  df %<>% mutate('address_line_2' = stri_replace_all_regex(address_line_2, city, '') %>% trimws)
-  
-  # extract state code
-  df %<>% mutate('state_code' = stri_extract_first_regex(address_line_2, '[A-Z]{2}'))
-  df %<>% mutate('address_line_2' = stri_replace_all_regex(address_line_2, state_code, '') %>% trimws)
-  
-  # extract post code
-  df %<>% mutate('post_code' = stri_extract_first_regex(address_line_2, '[0-9]+(-[0-9]+)?'))
-  df %<>% mutate('address_line_2' = stri_replace_all_regex(address_line_2, post_code, '') %>% trimws)
-  
-  # final table
-  data <- df %>%
-    select(
-      url, full_name, 
-      company, address_line_1, city, state_code, post_code, country,
-      phone_number, specialty_primary, specialty_secondary
-    )
-  for (col in colnames(data)) {
-    data[[col]] %<>% trimws
-    data[[col]] %<>% {ifelse(. == '', NA, .)}
-  }
-  data %<>% rename('company_name' = 'company', 'address' = 'address_line_1')
-  
-  # save data
-  data %>% write.xlsx(output_file_name, row.names = FALSE, showNA = FALSE)
-}
-
-# Main script -------------------------------------------------------------
-
-do_search()
-do_extract_data()
-do_data_cleaning()
-```
-
-# Inclusion and Exclusion
-Inclusion criteria: ENT physician with subspecialty training listed on enthealth.org find a physician list.  
-Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
-
-# Code to clean the data output from enthealth.org find a doctor.  
-This is what will be uploaded to RedCAP.  
-
-```r
-# Set libPaths.
-.libPaths("/Users/tylermuffly/.exploratory/R/4.2")
-
-# Load required packages.
-library(bizdays)
-library(humaniformat)
-library(gender)
-library(janitor)
-library(lubridate)
-library(hms)
-library(tidyr)
-library(stringr)
-library(readr)
-library(cpp11)
-library(forcats)
-library(RcppRoll)
-library(dplyr)
-library(tibble)
-library(bit64)
-library(zipangu)
-library(exploratory)
-
-# Steps to produce zip_to_lat_long
-`zip_to_lat_long` <- 
-  # https://gist.github.com/mufflyt/369fee8b22cdffd21d77377876ece393
-  exploratory::read_excel_file( "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/Data/zip to lat long.xlsx", sheet = 1, na = c('','NA'), skip=0, col_names=TRUE, trim_ws=TRUE, tzone='America/Denver') %>%
-  readr::type_convert() %>%
-  exploratory::clean_data_frame() %>%
-  separate(`ZIP,LAT,LNG`, into = c("zip", "lat", "lng"), sep = "\\s*\\,\\s*", convert = TRUE) %>%
-  mutate(zip = as.character(zip))
-
-# Steps to produce the output
-
-  # From Bart's scrape of AAO-HNS.  
-  exploratory::read_excel_file( "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Data/results.xlsx", sheet = 1, col_names=TRUE, trim_ws=TRUE, tzone='America/Denver') %>%
-  readr::type_convert() %>%
-  exploratory::clean_data_frame() %>%
-  distinct(url, .keep_all = TRUE) %>%
-  reorder_cols(full_name, company_name, address, city, state_code, post_code, country, phone_number, specialty_primary, specialty_secondary, url) %>%
-  
-  # They have to have a phone number listed to participate.  
-  filter(!is.na(phone_number)) %>%
-  
-  # Only look at specialty_primary
-  select(-address, -country, -specialty_secondary) %>%
-  
-  # Fill in "General Otolaryngology" for all NA values.  
-  mutate(specialty_primary = impute_na(specialty_primary, type = "value", val = "General Otolaryngology")) %>%
-  
-  # Limited to six subspecialties.  
-  filter(specialty_primary %nin% c("General Otolaryngology", "Allergy", "Endocrine Surgery", "Otology/Audiology", "Sleep Medicine")) %>%
-  mutate(state_code = statecode(state_code, output_type = "name")) %>%
-  mutate(state_code = impute_na(state_code, type = "value", val = "Colorado")) %>%
-  
-  # Change state name to Board of Governors Regions.  
-  mutate(AAO_regions = recode(state_code, "Alabama" = "Region 4", "Alaska" = "Region 9", "Arizona" = "Region 10", "Arkansas" = "Region 6", "California" = "Region 10", "Colorado" = "Region 8", "Connecticut" = "Region 1", "Delaware" = "Region 3", "District of Columbia" = "Region 3", "Florida" = "Region 4", "Georgia" = "Region 4", "Hawaii" = "Region 10", "Idaho" = "Region 9", "Illinois" = "Region 5", "Indiana" = "Region 5", "Iowa" = "Region 7", "Kansas" = "Region 7", "Kentucky" = "Region 4", "Louisiana" = "Region 6", "Maryland" = "Region 3", "Massachusetts" = "Region 1", "Michigan" = "Region 5", "Minnesota" = "Region 5", "Mississippi" = "Region 4", "Missouri" = "Region 7", "Montana" = "Region 8", "Nebraska" = "Region 7", "Nevada" = "Region 10", "New Hampshire" = "Region 1", "New Jersey" = "Region 2", "New Mexico" = "Region 6", "New York" = "Region 2", "North Carolina" = "Region 4", "North Dakota" = "Region 8", "Ohio" = "Region 5", "Oklahoma" = "Region 6", "Oregon" = "Region 9", "Pennsylvania" = "Region 3", "Puerto Rico" = "Region 2", "Rhode Island" = "Region 1", "South Carolina" = "Region 4", "South Dakota" = "Region 8", "Tennessee" = "Region 4", "Texas" = "Region 6", "Utah" = "Region 8", "Vermont" = "Region 1", "Virgin Islands" = "Region 2", "Virginia" = "Region 3", "Washington" = "Region 9", "West Virginia" = "Region 3", "Wisconsin" = "Region 5", "Wyoming" = "Region 8"), .after = ifelse("state_code" %in% names(.), "state_code", last_col())) %>%
-  mutate(across(c(AAO_regions, specialty_primary), factor)) %>%
-  
-  # Make sure that the AAO_regions are leveled from 1 to 10.  
-  mutate(AAO_regions = fct_relevel(AAO_regions, "Region 1", "Region 2", "Region 3", "Region 4", "Region 5", "Region 6", "Region 7", "Region 8", "Region 9", "Region 10")) %>%
-  mutate(specialty_primary = fct_infreq(specialty_primary)) %>%
-  
-  # Group by AAO_regions and specialty before sample.  
-  group_by(AAO_regions, specialty_primary) %>%
-  
-  # Sampling step here.  More than 10 samples by region and by specialty starts to get problematic after more than 10.  
-  sample_rows(10, seed = 1978) %>%
-  
-  # Clean up the postal code.  
-  mutate(zip = str_extract_before(post_code, sep = "\\-"), .after = ifelse("post_code" %in% names(.), "post_code", last_col())) %>%
-  
-  # Bring together two columns of zip code: "zip" and "post_code".  
-  mutate(zip = coalesce(zip, post_code)) %>%
-  mutate(zip = parse_number(zip)) %>%
-  mutate(zip = as.character(zip)) %>%
-  
-  # Match the zip code to latitude and longitude.  
-  left_join(`zip_to_lat_long`, by = c("zip" = "zip"), target_columns = c("zip", "lat", "lng"), ignorecase=TRUE) %>%
-  
-  # Use humaniformat to clean the names so that matches can be made between dataframes based on names.  
-  mutate(first = humaniformat::first_name(full_name)) %>%
-  separate(full_name, into = c("full_name_1", "full_name_2"), sep = "\\s*\\,\\s*", remove = FALSE, convert = TRUE) %>%
-  mutate(last = humaniformat::last_name(full_name_1)) %>%
-  
-  # Create the line of text with name, phone number, specialty, and insurance type.  
-  mutate(calculation_1 = "Dr") %>%
-  unite(united_column, calculation_1, last, sep = " ", remove = FALSE, na.rm = FALSE) %>%
-  
-  # Unite all parts of the name, specialty, etc.  
-  unite(redcap_data, specialty_primary, united_column, phone_number, full_name, sep = ",  ", remove = FALSE, na.rm = FALSE) %>%
-  ungroup() %>%
-  
-  # Amazing.  Creates a numbered row column.  
-  mutate(id = 1:n()) %>%
-  
-  # Doubles amount of rows by stacking a copy of the rows on top of the dataframe. In this code, the . refers to the input data frame (df), and the duplicated data frame is created by binding it with itself using bind_rows(., .).
-  bind_rows(., .) %>%
-  
-  # Arrange by url so that one person has two rows consecutively.  
-  arrange(url) %>%
-  
-  # Add the two different insurances: BCBS and Medicaid for each person.  
-  mutate(Insurance = rep(c("Blue Cross/Blue Shield", "Medicaid"), length.out = nrow(.))) %>%
-  
-  # Each physician has two duplicate rows with the same id number.  
-  arrange(id) %>%
-  select(-id) %>%
-  
-  # Unique row number for each row.  
-  mutate(id = 1:n()) %>%
-  
-  # Unite all the information to upload to redcap: https://redcap.ucdenver.edu/redcap_v13.1.18/ProjectSetup/index.php?pid=28103. 
-  unite(united_column, id, redcap_data, Insurance, sep = ", ", remove = FALSE, na.rm = FALSE) %>%
-  filter(!str_detect(company_name, fixed("miliary", ignore_case=TRUE)) & !str_detect(company_name, fixed("Retired"))) %>%
-  
-  # Academic or Not based on strings.  
-  mutate(academic = ifelse(str_detect(company_name, str_c(c("Medical College", "University of", "University", "Univ", "Children's", "Infirmary", "Medical School", "Medical Center", "Medical Center", "Children", "Health System", "Foundation", "Sch of Med", "Dept of Oto", "Mayo", "UAB", "OTO Dept", "Cancer Ctr", "Penn", "College of Medicine", "Cancer", "Cleveland Clinic", "Henry Ford", "Yale", "Brigham", "Dept of OTO", "Health Sciences Center", "SUNY"), collapse = "|", sep = "\\b|\\b", fixed = TRUE)), "University", "Private Practice")) %>%
-  reorder_cols(AAO_regions, united_column, redcap_data, specialty_primary, full_name, full_name_1, full_name_2, company_name, academic, city, state_code, post_code, zip, phone_number, url, lat, lng, first, last, calculation_1, Insurance, id)
-```
-
-
-# RedCAP: The project name is called, "ENT subspecialty mystery caller".
-Please note that any publication that results from a project utilizing REDCap should cite grant support (NIH/NCATS Colorado CTSA Grant Number UL1 TR002535).  Please cite the publications below in study manuscripts using REDCap for data collection and management. We recommend the following boilerplate language:
-
-Study data were collected and managed using REDCap electronic data capture tools hosted at [YOUR INSTITUTION].1,2 REDCap (Research Electronic Data Capture) is a secure, web-based software platform designed to support data capture for research studies, providing 1) an intuitive interface for validated data capture; 2) audit trails for tracking data manipulation and export procedures; 3) automated export procedures for seamless data downloads to common statistical packages; and 4) procedures for data integration and interoperability with external sources.
-
-1PA Harris, R Taylor, R Thielke, J Payne, N Gonzalez, JG. Conde, Research electronic data capture (REDCap) – A metadata-driven methodology and workflow process for providing translational research informatics support, J Biomed Inform. 2009 Apr;42(2):377-81.
-
-2PA Harris, R Taylor, BL Minor, V Elliott, M Fernandez, L O’Neal, L McLeod, G Delacqua, F Delacqua, J Kirby, SN Duda, REDCap Consortium, The REDCap consortium: Building an international community of software partners, J Biomed Inform. 2019 May 9 [doi: 10.1016/j.jbi.2019.103208]
-
