@@ -68,6 +68,24 @@ Muffly
 720-810-9863
 ```
 
+## Second day calling e-mail
+```
+Dear All,
+
+A few great questions came up today:
+
+Q:  The office that I just called was for neurotology, and the scheduler informed me that the physician is not seeing patients for dizziness under any circumstances, regardless of insurance. So I was thinking that the result for Medicaid if I were to call again would most likely be the same
+A:I agree. If you could write something like that in the notes section, we can exclude them in an “other” category. 
+
+Q: If we call an office for BCBS for example and an exclusion applies like needing a referral or the number is disconnected, do we need to call that same number again for Medicaid, or do we just put in another data form with the same exclusion?
+A: We should Google search the physician’s name for a second call if the number is disconnected. Then add that to the notes section.
+
+Please do your best to work around the demand for a referral for a theoretical next available date. “Can you give me A ball park figure of when the next appt may be.”  
+
+Thanks,
+Muffly
+```
+
 # Export the data
 Export the data:
 ![Screen Shot 2023-05-08 at 8 20 28 PM](https://user-images.githubusercontent.com/44621942/236977534-3ea48f46-4114-40d6-a34a-b5c51b4c4a74.jpg)
