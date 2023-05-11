@@ -86,6 +86,20 @@ Thanks,
 Muffly
 ```
 
+## Third day e-mailing
+```r
+Dear All,
+
+Great job today!  Today we are up to a total of 428 records.  The mean time for a new patient appointment is 30.4 business days (SD +/- 32.6).  
+
+Today I worked on getting NPI numbers for each physician's name as we can match demographics to NPI numbers more easily.  NPI numbers are like social security numbers for physicians created in 2005 with the start of HIPAA.  Fun fact: NPI numbers never change even if the physician moves, changes their name, etc.  I did a hand search of the otolaryngology names and found unique NPI numbers for 83.7%.  The remainder will require a little more sleuthing.  
+
+Thank you for everyone's hard work.  
+
+Take care, 
+Muffly
+```
+
 # Export the data
 Export the data:
 ![Screen Shot 2023-05-08 at 8 20 28 PM](https://user-images.githubusercontent.com/44621942/236977534-3ea48f46-4114-40d6-a34a-b5c51b4c4a74.jpg)
@@ -106,10 +120,6 @@ Study data were collected and managed using REDCap electronic data capture tools
 ## Inclusion and Exclusion
 Inclusion criteria: ENT physician with generalist and subspecialty training listed on enthealth.org find a physician list.  
 Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
-
-
-# Corbisiero and lab
-[![wait time image](https://qtxasset.com/styles/breakpoint_xl_880px_w/s3/2016-07/doctor%20time%20pressure_workflow_efficiency_3.jpg?uDX919pEHAYTO1r6lKp7qT3dGPFjo1R_&itok=bGaBk9j6)](https://qtxasset.com/styles/breakpoint_xl_880px_w/s3/2016-07/doctor%20time%20pressure_workflow_efficiency_3.jpg?uDX919pEHAYTO1r6lKp7qT3dGPFjo1R_&itok=bGaBk9j6) 
 
 Data Sources 
 ==========
