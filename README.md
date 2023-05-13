@@ -100,6 +100,40 @@ Take care,
 Muffly
 ```
 
+## Not Making Our Numbers
+```
+Hi Michaele,
+
+We are not going to reach the target number of calls today.  These three people are far from the required 153 calls and have yet to contact me about needing help: ME, DG, NHG.  No one has met the goal, so it was probably unrealistic.  
+
+What do you want to do?  I see that we have a few options:
+Extend the study timeline: If reaching the target number of calls seems feasible with additional time, consider extending the study period by another week or a specified duration. Communicate the new deadline to all team members, including ME, DG, and NHG. Emphasize that meeting the deadline is crucial for achieving the study goals. Failure to complete the required calls within the extended timeframe may result in certain consequences: no authorship will be given.
+ 
+Prioritize completion of existing pairs: Instead of making calls to new providers, focus on completing the remaining Medicaid and BCBS calls already initiated. By prioritizing the completion of existing pairs, you can ensure that the data collection for these specific cases is thorough and consistent. This approach allows for a more comprehensive analysis of the completed pairs, even if the overall number of calls falls short of the initial target. 
+
+Readjust the sample size and power: If reaching the target number of calls becomes unattainable despite the available options, consider readjusting the sample size and power of the study. Reducing the sample size can help accommodate the limitations in call numbers while still providing meaningful insights. However, it is important to carefully evaluate the impact of smaller sample size on the statistical power and the study's ability to draw valid conclusions.  We would need to talk to a statistician about this.  
+As you well know, flexibility and adaptability are key in research studies, and finding the right balance between achieving study objectives and addressing practical constraints is essential.
+
+Thoughts?
+
+Muffly
+```
+
+## Email of concern that we are not going to finish on time.
+```
+I am writing to inform you of a critical update to our project timeline. We have established a new hard deadline for completing all calls, which is now set for the upcoming ***Monday.
+
+Given the importance of these calls to the successful completion of our project, it is crucial that everyone adheres to this deadline. We understand that unforeseen circumstances may arise, and we appreciate your flexibility and diligence in working towards this goal.
+
+However, if you foresee any difficulty in meeting this deadline, please reach out to me as soon as possible. We will do our best to provide the necessary support and assistance to help you fulfill this task.
+
+Please note, failure to complete your assigned calls by the deadline and/or failure to communicate any potential delays may result in your removal from the project's authorship list, which we all know is an outcome no one wants.
+
+We greatly appreciate your contributions and dedication to this project. We trust in your commitment to meet this new deadline.
+
+Thank you for your understanding and cooperation."
+```
+
 # Export the data
 Export the data:
 ![Screen Shot 2023-05-08 at 8 20 28 PM](https://user-images.githubusercontent.com/44621942/236977534-3ea48f46-4114-40d6-a34a-b5c51b4c4a74.jpg)
