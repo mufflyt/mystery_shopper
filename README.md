@@ -143,6 +143,30 @@ We greatly appreciate your contributions and dedication to this project. We trus
 Thank you for your understanding and cooperation."
 ```
 
+## Review of Week 1 calling results
+```r
+Hello All,
+
+Thanks for your great work this week Michaele. This week, we made 897 call attempts with the goal of reaching 1,224 calls to achieve a sufficient sample size. The attached figures provide further information. Based on my current statistics, there is no notable difference between insurance and business days for scheduling new appointments (p=0.06). It's crucial that we complete the necessary calls to confirm or refute this null hypothesis.  
+
+Tasks remaining for the group:
+* Complete remaining calls.  If you need help, please don't hesitate to reach out.  
+
+Here are some tasks for Muffly/Corbisiero:
+* Table 1 of participant and no contact physicians: Finish hand-searching the NPI numbers, as this helps us get the needed demographics from public databases.
+* Table 1 participant and no contact physicians: Lookup of participant ages on healthgrades.com.
+* Figure 1: Create the scatter plot of wait time for Medicaid on the y-axis and wait time for BCBS on the x-axis using Marcos' code.  
+* Send a letter via the United States postal service to participating office explaining that they received a call from our mystery callers in May 2023.  
+* Move REDCap to "analysis/cleanup phase."
+* Finish manuscript results and write the discussion
+
+Long-term tasks:
+* Submit to an ENT journal.  CCM can make some journal recommendations.  
+
+Thanks,
+Muffly
+```
+
 # Export the data
 Export the data:
 ![Screen Shot 2023-05-08 at 8 20 28 PM](https://user-images.githubusercontent.com/44621942/236977534-3ea48f46-4114-40d6-a34a-b5c51b4c4a74.jpg)
