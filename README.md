@@ -167,6 +167,18 @@ Thanks,
 Muffly
 ```
 
+## E-mail to society about incorrect phone numbers in the patient-facing database
+```r
+Hi Michaele,
+
+In my opinion, the Notes section is the most informative section to read. However, we came across some errors while reviewing the information. For instance, we found listings of retired physicians, doctors who no longer practice at this location, wrong telephone numbers, and even personal physician numbers while taking phone numbers from the patient directory. We can inform AAO-HNS about these incorrect listings so that they can address the issues we found.  When we did the same project with urogyn their society was very thankful for "double checking" their patient-facing database.  
+
+Maybe in the future, we should confirm the phone numbers somehow before having the team start making phone calls so they can be more focused.  
+
+CCM who is the right person to pass this on to at AAO-HNS?  
+```
+
+
 # Export the data
 Export the data:
 ![Screen Shot 2023-05-08 at 8 20 28 PM](https://user-images.githubusercontent.com/44621942/236977534-3ea48f46-4114-40d6-a34a-b5c51b4c4a74.jpg)
