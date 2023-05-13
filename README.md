@@ -9,8 +9,8 @@ See `scrape.R` for enthealth.org from AAO-HNS.
 See `Clean data from scrape and ready it for redcap.R`.  Can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
 
-## SPARO Approval (Sponsored Programs and Research Office
-
+## SPARO Approval (Sponsored Programs and Research Office)
+DH approval was approved.  
 
 ## Redcap Survey
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
