@@ -553,3 +553,8 @@ CONCLUSION:  Typically, a woman with uterine prolapse can expect to wait at leas
 
 We wrote the paper on GoogleDocs.  https://docs.google.com/document/d/1rg6Mf4ZHYE5o3s4v1CIz-KRAm7NSHbDIPWPyU3ezaws/edit?usp=sharing
 GoogleDocs and Endnote do not play well together.  Therefore we used Endnote for references once the final product was exported into Microsoft Word.  I have an endnote x8 group called `MysteryCallerStudy` in the `gethispainthingdone.enlp` library.  I found the easiest way to use endnote was to click on the Online Search --> PubMed(NLM) and search for the articles that way.  Then I could pull the reference into the Word document.  
+
+# Closing Time
+* Move REDCap to "analysis/cleanup phase."
+![Screen Shot 2023-05-13 at 10 35 24 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/c1e8a18b-44f6-4863-969c-b3793b0458b7)
+
