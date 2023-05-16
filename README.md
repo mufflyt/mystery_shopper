@@ -1,6 +1,9 @@
 # Appointment Wait Times: A Mystery Caller Study
 # Corbisiero
 
+## For next time:
+Add the VA to the list of closed hospital systems under exclusions.  Add a "Retired" and a "Moved" option to the exclusions.  
+
 ## Code to evaluate enthealth.org list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
 ![Screen Shot 2023-05-08 at 8 27 35 PM](https://user-images.githubusercontent.com/44621942/236978474-12f9969f-1dee-46e6-a739-4dc7d39c5949.jpg)
