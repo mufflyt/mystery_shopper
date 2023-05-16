@@ -181,6 +181,20 @@ Maybe in the future, we should confirm the phone numbers somehow before having t
 CCM who is the right person to pass this on to at AAO-HNS?  
 ```
 
+```r
+Q: Lizzie texted me today asking if there's a way to search for a physician name or number. She has updates for her calls that were done using her excel sheet and need to be uploaded to redcap. 
+
+A: If anyone has notes they want to put in on their calls and the calls have been completed, they can search for the provider id in the "Choose an Existing Record" field. Please take a look at the redcap screenshot.  The provider id is the first number in the "upload_to_redcap" column of each Excel file given to each caller. I included a highlighted screenshot as well.   
+
+I would like to "lock" the database to any edits within the next 48 hours so we can proceed with the analysis.  Every time we change the data, we have to re-analyze, which gets painful after a while.  Let me know if this timeline works for you, please.  
+
+Thanks,
+Muffly
+```
+![Screen Shot 2023-05-16 at 10 19 24 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/c4432d19-d955-4b1b-a80b-e0a4f9dd78f1)
+![Screen Shot 2023-05-16 at 10 21 38 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/15e9a2b7-3d81-4639-9320-3b85863f489d)
+
+
 
 # Export the data
 Export the data:
