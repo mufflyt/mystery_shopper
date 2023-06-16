@@ -19,6 +19,7 @@ See `Clean data from scrape and ready it for redcap.R`.  Can also see explorator
 ## SPARO Approval (Sponsored Programs and Research Office)
 DH approval was approved.  
 [COMIRB application-for-protocol-review.pdf](https://github.com/mufflyt/mystery_shopper/files/11774684/COMIRB.application-for-protocol-review.pdf)
+See uploaded github file:  `COMIRB Protocol-template.doc`
 
 ## Redcap Survey
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
