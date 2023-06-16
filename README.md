@@ -8,6 +8,10 @@ Add the VA to the list of closed hospital systems under exclusions.  Add a "Reti
 See `scrape.R` for enthealth.org from AAO-HNS.  
 ![Screen Shot 2023-05-08 at 8 27 35 PM](https://user-images.githubusercontent.com/44621942/236978474-12f9969f-1dee-46e6-a739-4dc7d39c5949.jpg)
 
+## Code to evaluate ACOG list of physicians for generalists
+See '~scrape_obgyn_profile_experimental.R' for searching via zip codes.  The zip codes are built using the file `scrape_postal_code.R`.
+![Screen Shot 2023-06-16 at 1 35 04 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/f7c6b827-e860-4081-8b21-cb4775cb9dd0)
+
 ## Code to clean up the scrape and get it ready for redcap
 See `Clean data from scrape and ready it for redcap.R`.  Can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
@@ -23,6 +27,9 @@ DH approval was approved.
 
 ## Searching for NPI numbers
 `npi_search_working.R` is the file uploaded to github.com.  This code performs a search on the National Plan and Provider Enumeration System (NPPES) database for National Provider Identifier (NPI) numbers for a list of healthcare providers in the Otolaryngology (ENT) field. It reads in a dataset of Otolaryngology providers, filters out non-U.S. providers, removes special characters, and creates a list of first and last names to search for NPI numbers.  The code then performs a search for each name pair using the npi_search function from the npi package, and stores the results in a list. It flattens the search results and removes duplicates to get only distinct NPI numbers. Then it joins the search results with the original dataset of provider names, keeping only matching NPI numbers, and filters to select only Otolaryngology providers. It cleans up and selects relevant columns, and writes the final result to a CSV file.
+  
+### Matching Names to NPI numbers
+'npi_api.R' and 'npi_search_working.R' are both viable options that get about 70% matches of the names to NPI numbers.  
   
 ## Split list up to x number of callers
 See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
@@ -62,6 +69,10 @@ https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery c
 
 https://youtu.be/miW_03ZqqEE
 ```
+
+# Analysis using Marcos' Code
+'/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/code/Marcos/final ENT results of Marcos code.Rmd':  Permission was given by Marcos for us to change his code and use it for the ENT study.  
+
 ## Nightly e-mail to the team
 ```r
 Dear All,
