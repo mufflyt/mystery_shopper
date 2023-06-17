@@ -9,7 +9,7 @@ See `scrape.R` for enthealth.org from AAO-HNS.
 ![Screen Shot 2023-05-08 at 8 27 35 PM](https://user-images.githubusercontent.com/44621942/236978474-12f9969f-1dee-46e6-a739-4dc7d39c5949.jpg)
 
 ## Code to evaluate ACOG list of physicians for generalists
-See '~scrape_obgyn_profile_experimental.R' for searching via zip codes.  The zip codes are built using the file `scrape_postal_code.R`.
+See `~scrape_obgyn_profile_experimental.R` for searching via zip codes.  The zip codes are built using the file `scrape_postal_code.R`.
 ![Screen Shot 2023-06-16 at 1 35 04 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/f7c6b827-e860-4081-8b21-cb4775cb9dd0)
 
 ## Code to clean up the scrape and get it ready for redcap
@@ -18,7 +18,11 @@ See `Clean data from scrape and ready it for redcap.R`.  Can also see explorator
 
 ## Power Analysis
 <img width="468" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
-`Figure_1_Equation.Rmd`
+`Figure_1_Equation.Rmd`.  Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
+
+![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
+![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
+
 
 ## SPARO Approval (Sponsored Programs and Research Office)
 DH approval was approved.  
