@@ -3,6 +3,10 @@
 
 ## For next time:
 Add the VA to the list of closed hospital systems under exclusions.  Add a "Retired" and a "Moved" option to the exclusions.  
+Screen the telephone numbers before sending to the group.  Do a lit review about is this a legit approach?  Phase 1 determine the accuracy: "Hi is this the office of Dr. Muffly?"  Phase 2 is the calls to accurate studies.  
+Apparently, redcap can take two entries per physician and insurance combo.  See below the duplicates for Dr. Girod Medicaid with two entries.  
+![Screen Shot 2023-07-03 at 9 37 43 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/ba4d0894-8e29-4e01-ab0c-38c0d582e394)
+To callers:  Do NOT close the entry until you get a green light for a file complete.  Do NOT ignore the pop-up notices.  Print off the excel document and have them cross off calls are done and highlight when need to return.  
 
 ## Code to evaluate enthealth.org list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
