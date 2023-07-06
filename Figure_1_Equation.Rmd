@@ -1,0 +1,61 @@
+---
+title: "Equations"
+date: "9/20/2022"
+output:
+  html_document:
+    code_folding: hide
+  pdf_document:
+    toc: yes
+  word_document:
+    toc: yes
+---
+
+Creates a custom formula in markdown to show the sample size needed for the mystery caller study.  
+
+```{r setup, include = F, warning = F}
+# Check and install required packages
+required_packages <- c("dplyr", "ggplot2", "tidyverse", "lme4", "logitnorm", "kableExtra", 
+                       "cowplot", "grid", "gridExtra", "patchwork", "knitr")
+
+# Function to check if a package is installed
+is_package_installed <- function(package_name) {
+  return(package_name %in% installed.packages())
+}
+
+# Install packages if not already installed
+for (package in required_packages) {
+  if (!is_package_installed(package)) {
+    install.packages(package)
+  }
+}
+
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(lme4)
+library(logitnorm)
+library(kableExtra)
+library(cowplot)
+library(grid)
+library(gridExtra)
+library(patchwork)
+library(knitr)
+theme_set(theme_bw())
+opts_chunk$set(echo = T, message = F, warning = F, error = F, fig.retina = 3,
+               fig.align = "center", fig.width = 6, fig.asp = 0.7)
+```
+
+n = N/1 + N(e)^2
+n = 465/1+465(0.05)^2
+
+
+$$
+Minimum\ Necessary\ Sample\ Size = \frac{N_{population\ size}}{1+(N_{population\ size})({{error\ margin}}^2)}
+$$
+
+$$
+Minimum\ Necessary\ Sample\ Size = \frac{465}{1+465(0.05)^2}
+$$
+$$
+\frac{465}{1+465(0.05)^2} = 400
+$$
