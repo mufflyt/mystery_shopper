@@ -10,11 +10,12 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 ## Protocol submission
 * [FINAL full grant application 7.4.2015.docx](https://github.com/mufflyt/mystery_shopper/files/11963172/FINAL.full.grant.application.7.4.2015.docx)
 * [COMIRB application-tmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963205/COMIRB.application-tmm.pdf)
+* There is a word version of the COMIRB application in the directory called "COMIRB Protocol-template.doc".  
 
 ## SPARO Approval (Sponsored Programs and Research Office)
-DH approval was approved.  
+* Denver Health approval was given.  
 [COMIRB application-for-protocol-review.pdf](https://github.com/mufflyt/mystery_shopper/files/11774684/COMIRB.application-for-protocol-review.pdf)
-See uploaded github file:  `COMIRB Protocol-template.doc`
+* See uploaded github file:  `COMIRB Protocol-template.doc`
 
 
 ## Code to evaluate enthealth.org list of physicians
