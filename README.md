@@ -17,31 +17,41 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 [COMIRB application-for-protocol-review.pdf](https://github.com/mufflyt/mystery_shopper/files/11774684/COMIRB.application-for-protocol-review.pdf)
 * See uploaded github file:  `COMIRB Protocol-template.doc`
 
+## Inclusion and Exclusion Criteria
+* Inclusion criteria: ENT physician with generalist and subspecialty training listed on enthealth.org find a physician list.  
+* Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
 
-## Code to evaluate enthealth.org list of physicians
+## Articles of interest
+* [Protecting and Expanding Medicaid to Improve Womens Health.pdf](https://github.com/mufflyt/mystery_shopper/files/11963243/Protecting.and.Expanding.Medicaid.to.Improve.Womens.Health.pdf)
+* [VA wait times .pdf](https://github.com/mufflyt/mystery_shopper/files/11963260/VA.wait.times.pdf)
+* [mystery shopper IUD.pdf](https://github.com/mufflyt/mystery_shopper/files/11963264/mystery.shopper.IUD.pdf)
+* [access IUD removal.pdf](https://github.com/mufflyt/mystery_shopper/files/11963265/access.IUD.removal.pdf)
+* [MerrittHawkins2018.pdf](https://github.com/mufflyt/mystery_shopper/files/11963267/MerrittHawkins2018.pdf)
+* [NEJM appendix Bisgaier supplemental.pdf](https://github.com/mufflyt/mystery_shopper/files/11963273/NEJM.appendix.Bisgaier.supplemental.pdf)
+* [Muffly FPMRS article.pdf](https://github.com/mufflyt/mystery_shopper/files/11963277/Muffly.FPMRS.article.pdf)
+
+
+## Phase 1 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
+
+### Code to evaluate enthealth.org list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
 ![Screen Shot 2023-05-08 at 8 27 35 PM](https://user-images.githubusercontent.com/44621942/236978474-12f9969f-1dee-46e6-a739-4dc7d39c5949.jpg)
 
-## Code to evaluate ACOG list of physicians for generalists
+### Code to evaluate ACOG list of physicians for generalists
 See `~scrape_obgyn_profile_experimental.R` for searching via zip codes.  The zip codes are built using the file `scrape_postal_code.R`.
 ![Screen Shot 2023-06-16 at 1 35 04 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/f7c6b827-e860-4081-8b21-cb4775cb9dd0)
 
-## Code to clean up the scrape and get it ready for redcap
+### Code to clean up the scrape and get it ready for redcap
 See `Clean data from scrape and ready it for redcap.R`.  Can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
 
 ## Power Analysis
 <img width="468" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
-`Figure_1_Equation.Rmd`.  Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
+`Figure_1_Equation.Rmd`.  
+* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
 
 ![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
 ![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
-
-
-## Redcap Survey
-* [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
-* [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
-![Screen Shot 2023-05-12 at 8 48 59 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/24171fb7-e5bc-4171-a60c-b1de789680cd)
 
 ## Searching for NPI numbers
 `npi_search_working.R` is the file uploaded to github.com.  This code performs a search on the National Plan and Provider Enumeration System (NPPES) database for National Provider Identifier (NPI) numbers for a list of healthcare providers in the Otolaryngology (ENT) field. It reads in a dataset of Otolaryngology providers, filters out non-U.S. providers, removes special characters, and creates a list of first and last names to search for NPI numbers.  The code then performs a search for each name pair using the npi_search function from the npi package, and stores the results in a list. It flattens the search results and removes duplicates to get only distinct NPI numbers. Then it joins the search results with the original dataset of provider names, keeping only matching NPI numbers, and filters to select only Otolaryngology providers. It cleans up and selects relevant columns, and writes the final result to a CSV file.
@@ -53,6 +63,13 @@ See `Clean data from scrape and ready it for redcap.R`.  Can also see explorator
 See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
 This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/For_each_caller" directory and splits the data into eight parts. Each split is saved as a separate XLSX file in the same directory.  The split() function is used to split the data frame into 8 parts based on row numbers. The cut() function is used to create a factor variable that assigns each row to one of the 8 groups. The names() function is then used to get the names of each group.  The for-loop iterates through each group, creates a file name for each group based on the group name, date, and row number. The write.xlsx() function is used to save each split data frame as a separate XLSX file in the output directory.  The output files will have names like "Sophie_2023-05-06_153_rows_1_to_19.xlsx", where "Sophie" is the name of the split, "2023-05-06" is the current date, "153" is the number of rows in the split, and "1_to_19" are the row IDs of the first and last rows in the split.
 ![Screen Shot 2023-05-08 at 8 29 42 PM](https://user-images.githubusercontent.com/44621942/236978744-1dfa24b5-ad26-4ace-8c05-220aa2197f9e.jpg)
+
+## Redcap Survey
+* [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
+* [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
+![Screen Shot 2023-05-12 at 8 48 59 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/24171fb7-e5bc-4171-a60c-b1de789680cd)
+
+# Phase 2 - Call the validated phone numbers to get the wait time to new patient appointment 
 
 ## Meeting for the callers and team
 ```r
@@ -89,7 +106,9 @@ https://youtu.be/miW_03ZqqEE
 ```
 
 # Analysis using Marcos' Code
-'/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/code/Marcos/final ENT results of Marcos code.Rmd':  Permission was given by Marcos for us to change his code and use it for the ENT study.  
+* Please see Marcos' original code in the directory folder: Test-Marcos-v6---Reviewer-comments-+-Revision-2.html
+* '/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/code/Marcos/final ENT results of Marcos code.Rmd':  Permission was given by Marcos for us to change his code and use it for the ENT study.  
+
 
 ## Nightly e-mail to the team
 ```r
@@ -226,10 +245,10 @@ Muffly
 
 
 # Export the data
-Export the data:
+* Export the data:
 ![Screen Shot 2023-05-08 at 8 20 28 PM](https://user-images.githubusercontent.com/44621942/236977534-3ea48f46-4114-40d6-a34a-b5c51b4c4a74.jpg)
 
-Export the data as a CSV with labels:
+* Export the data as a CSV with labels:
 ![Screen Shot 2023-05-08 at 8 23 43 PM](https://user-images.githubusercontent.com/44621942/236977942-395fca15-ef43-42ba-84d0-2fc7bba96379.jpg)
 
 # Manuscript
@@ -241,10 +260,6 @@ Study data were collected and managed using REDCap electronic data capture tools
 1PA Harris, R Taylor, R Thielke, J Payne, N Gonzalez, JG. Conde, Research electronic data capture (REDCap) – A metadata-driven methodology and workflow process for providing translational research informatics support, J Biomed Inform. 2009 Apr;42(2):377-81.
 
 2PA Harris, R Taylor, BL Minor, V Elliott, M Fernandez, L O’Neal, L McLeod, G Delacqua, F Delacqua, J Kirby, SN Duda, REDCap Consortium, The REDCap consortium: Building an international community of software partners, J Biomed Inform. 2019 May 9 [doi: 10.1016/j.jbi.2019.103208]
-
-## Inclusion and Exclusion
-Inclusion criteria: ENT physician with generalist and subspecialty training listed on enthealth.org find a physician list.  
-Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
 
 Data Sources 
 ==========
