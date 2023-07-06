@@ -9,7 +9,10 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 ## Protocol submission
 * [FINAL full grant application 7.4.2015.docx](https://github.com/mufflyt/mystery_shopper/files/11963172/FINAL.full.grant.application.7.4.2015.docx)
 * [COMIRB application-tmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963205/COMIRB.application-tmm.pdf)
-* There is a word version of the COMIRB application in the directory called "COMIRB Protocol-template.doc".  
+* There is a word version of the COMIRB application in the directory called "COMIRB Protocol-template.doc".
+* STROBE Checklist: [STROBE-checklist-v4-combined-PlosMedicine.pdf](https://github.com/mufflyt/mystery_shopper/files/11963484/STROBE-checklist-v4-combined-PlosMedicine.pdf)
+* Great ethics reference:  [2013-Secret-shoppers-and-conflicts-of-in.pdf](https://github.com/mufflyt/mystery_shopper/files/11963538/2013-Secret-shoppers-and-conflicts-of-in.pdf)
+
 
 ## SPARO Approval (Sponsored Programs and Research Office)
 * Denver Health approval was given.  
@@ -239,7 +242,9 @@ Muffly
 ![Screen Shot 2023-05-16 at 10 19 24 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/c4432d19-d955-4b1b-a80b-e0a4f9dd78f1)
 ![Screen Shot 2023-05-16 at 10 21 38 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/15e9a2b7-3d81-4639-9320-3b85863f489d)
 
-
+## Cool flow chart for callers to follow from German Birth Control Study
+* We should create something that looks like this.  
+![Scenario-for-female-and-male-MCs-using-a-flow-chart-Note-The-green-arrows-indicate-the ppm](https://github.com/mufflyt/mystery_shopper/assets/44621942/6bc325ce-e175-4f81-ade2-2adb6745eb57)
 
 # Export the data
 * Export the data:
