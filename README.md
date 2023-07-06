@@ -30,14 +30,6 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 
 ## Phase 1 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
 
-## Power Analysis
-<img width="234" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
-`Figure_1_Equation.Rmd`.  
-* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
-
-![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
-![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
-
 ### Code to evaluate enthealth.org list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
 ![Screen Shot 2023-05-08 at 8 27 35 PM](https://user-images.githubusercontent.com/44621942/236978474-12f9969f-1dee-46e6-a739-4dc7d39c5949.jpg)
@@ -439,6 +431,14 @@ We will need to evaluate the data using a mixed linear regression model.  This i
 
 We can create our custom equation using `Figure_1_Equation.Rmd`.  This rmarkdown file is in the directory and should be knit. 
 ![Screen Shot 2023-07-06 at 2 29 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/757722cc-b009-4890-af11-e83914722fcd)
+
+## Power Analysis
+<img width="234" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
+`Figure_1_Equation.Rmd`.  
+* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
+
+![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
+![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
 
 Reference
 ==========
