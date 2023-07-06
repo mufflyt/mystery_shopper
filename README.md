@@ -1,5 +1,4 @@
 # Appointment Wait Times: A Mystery Caller Study
-# Corbisiero
 
 ## For next time:
 * Add the VA to the list of closed hospital systems under exclusions.  Add a "Retired" and a "Moved" option to the exclusions.  
