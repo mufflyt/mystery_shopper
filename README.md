@@ -2,11 +2,21 @@
 # Corbisiero
 
 ## For next time:
-Add the VA to the list of closed hospital systems under exclusions.  Add a "Retired" and a "Moved" option to the exclusions.  
+** Add the VA to the list of closed hospital systems under exclusions.  Add a "Retired" and a "Moved" option to the exclusions.  
 Screen the telephone numbers before sending to the group.  Do a lit review about is this a legit approach?  Phase 1 determine the accuracy: "Hi is this the office of Dr. Muffly?"  Phase 2 is the calls to accurate studies.  
-Apparently, redcap can take two entries per physician and insurance combo.  See below the duplicates for Dr. Girod Medicaid with two entries.  
+** Apparently, redcap can take two entries per physician and insurance combo.  See below the duplicates for Dr. Girod Medicaid with two entries.  
 ![Screen Shot 2023-07-03 at 9 37 43 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/ba4d0894-8e29-4e01-ab0c-38c0d582e394)
-To callers:  Do NOT close the entry until you get a green light for a file complete.  Do NOT ignore the pop-up notices.  Print off the excel document and have them cross off calls are done and highlight when need to return.  
+** To callers:  Do NOT close the entry until you get a green light for a file complete.  Do NOT ignore the pop-up notices.  Print off the excel document and have them cross off calls are done and highlight when need to return.  
+
+## Protocol submission
+[FINAL full grant application 7.4.2015.docx](https://github.com/mufflyt/mystery_shopper/files/11963172/FINAL.full.grant.application.7.4.2015.docx)
+[COMIRB application-tmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963205/COMIRB.application-tmm.pdf)
+
+## SPARO Approval (Sponsored Programs and Research Office)
+DH approval was approved.  
+[COMIRB application-for-protocol-review.pdf](https://github.com/mufflyt/mystery_shopper/files/11774684/COMIRB.application-for-protocol-review.pdf)
+See uploaded github file:  `COMIRB Protocol-template.doc`
+
 
 ## Code to evaluate enthealth.org list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
@@ -27,11 +37,6 @@ See `Clean data from scrape and ready it for redcap.R`.  Can also see explorator
 ![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
 ![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
 
-
-## SPARO Approval (Sponsored Programs and Research Office)
-DH approval was approved.  
-[COMIRB application-for-protocol-review.pdf](https://github.com/mufflyt/mystery_shopper/files/11774684/COMIRB.application-for-protocol-review.pdf)
-See uploaded github file:  `COMIRB Protocol-template.doc`
 
 ## Redcap Survey
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
