@@ -20,14 +20,6 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 * Inclusion criteria: ENT physician with generalist and subspecialty training listed on enthealth.org find a physician list.  
 * Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
 
-## Articles of interest
-* [Protecting and Expanding Medicaid to Improve Womens Health.pdf](https://github.com/mufflyt/mystery_shopper/files/11963243/Protecting.and.Expanding.Medicaid.to.Improve.Womens.Health.pdf)
-* [VA wait times .pdf](https://github.com/mufflyt/mystery_shopper/files/11963260/VA.wait.times.pdf)
-* [mystery shopper IUD.pdf](https://github.com/mufflyt/mystery_shopper/files/11963264/mystery.shopper.IUD.pdf)
-* [access IUD removal.pdf](https://github.com/mufflyt/mystery_shopper/files/11963265/access.IUD.removal.pdf)
-* [MerrittHawkins2018.pdf](https://github.com/mufflyt/mystery_shopper/files/11963267/MerrittHawkins2018.pdf)
-* [NEJM appendix Bisgaier supplemental.pdf](https://github.com/mufflyt/mystery_shopper/files/11963273/NEJM.appendix.Bisgaier.supplemental.pdf)
-
 ### Publications
 * [Muffly FPMRS article.pdf](https://github.com/mufflyt/mystery_shopper/files/11963277/Muffly.FPMRS.article.pdf)
 * [Muffly_OBGYN_subspecialist_study.pdf](https://github.com/mufflyt/mystery_shopper/files/11963320/Muffly_OBGYN_subspecialist_study.pdf)
