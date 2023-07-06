@@ -28,10 +28,21 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 * [access IUD removal.pdf](https://github.com/mufflyt/mystery_shopper/files/11963265/access.IUD.removal.pdf)
 * [MerrittHawkins2018.pdf](https://github.com/mufflyt/mystery_shopper/files/11963267/MerrittHawkins2018.pdf)
 * [NEJM appendix Bisgaier supplemental.pdf](https://github.com/mufflyt/mystery_shopper/files/11963273/NEJM.appendix.Bisgaier.supplemental.pdf)
-* [Muffly FPMRS article.pdf](https://github.com/mufflyt/mystery_shopper/files/11963277/Muffly.FPMRS.article.pdf)
 
+### Publications
+* [Muffly FPMRS article.pdf](https://github.com/mufflyt/mystery_shopper/files/11963277/Muffly.FPMRS.article.pdf)
+* [Muffly_OBGYN_subspecialist_study.pdf](https://github.com/mufflyt/mystery_shopper/files/11963320/Muffly_OBGYN_subspecialist_study.pdf)
+* [submitted_FQHC Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963346/submitted_FQHC.Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf)
 
 ## Phase 1 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
+
+## Power Analysis
+<img width="234" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
+`Figure_1_Equation.Rmd`.  
+* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
+
+![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
+![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
 
 ### Code to evaluate enthealth.org list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
@@ -44,14 +55,6 @@ See `~scrape_obgyn_profile_experimental.R` for searching via zip codes.  The zip
 ### Code to clean up the scrape and get it ready for redcap
 See `Clean data from scrape and ready it for redcap.R`.  Can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
-
-## Power Analysis
-<img width="468" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
-`Figure_1_Equation.Rmd`.  
-* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
-
-![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
-![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
 
 ## Searching for NPI numbers
 `npi_search_working.R` is the file uploaded to github.com.  This code performs a search on the National Plan and Provider Enumeration System (NPPES) database for National Provider Identifier (NPI) numbers for a list of healthcare providers in the Otolaryngology (ENT) field. It reads in a dataset of Otolaryngology providers, filters out non-U.S. providers, removes special characters, and creates a list of first and last names to search for NPI numbers.  The code then performs a search for each name pair using the npi_search function from the npi package, and stores the results in a list. It flattens the search results and removes duplicates to get only distinct NPI numbers. Then it joins the search results with the original dataset of provider names, keeping only matching NPI numbers, and filters to select only Otolaryngology providers. It cleans up and selects relevant columns, and writes the final result to a CSV file.
@@ -68,8 +71,11 @@ This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylerm
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
 * [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
 ![Screen Shot 2023-05-12 at 8 48 59 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/24171fb7-e5bc-4171-a60c-b1de789680cd)
+* [MysteryCallerDataEntryForm_Pes.pdf](https://github.com/mufflyt/mystery_shopper/files/11963391/MysteryCallerDataEntryForm_Pes.pdf)
+* [PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv](https://github.com/mufflyt/mystery_shopper/files/11963387/PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv)
 
 # Phase 2 - Call the validated phone numbers to get the wait time to new patient appointment 
+https://www.youtube.com/playlist?list=PLMUhma2xrRQ7IAe4HvKfzgeV52rgpifK-
 
 ## Meeting for the callers and team
 ```r
