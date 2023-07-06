@@ -433,12 +433,17 @@ https://redcap.ucdenver.edu/redcap_v9.5.23/index.php?pid=17708
 The study was written using the STROBE checklist:
 https://www.strobe-statement.org/index.php?id=available-checklists
 
+# Statistics
+We will need to evaluate the data using a mixed linear regression model.  This is because the data is nested with two calls to the same provider.  Therefore we need to control for calling the same provider twice.  This can be done using the `lmer`, `lmerTest`, and `performance` packages for R.  
+![image](https://github.com/mufflyt/mystery_shopper/assets/44621942/f5ba5d5d-17c5-431e-886c-cb902c3dc4e0)
+
+We can create our custom equation using `Figure_1_Equation.Rmd`.  This rmarkdown file is in the directory and should be knit.  
 
 Reference
 ==========
 * https://www.merritthawkins.com/uploadedFiles/MerrittHawkins/Content/Pdf/MerrittHawkins_PhysiciansFoundation_Survey2018.pdf, Merritt-Hawkins Physicians Foundation Survey
 
-Society Pages
+Society Patient-Facing Directory Web Pages
 ==========
 * https://web.archive.org/web/20070701222152/http://www.wcn.org/interior.cfm?diseaseid=13&featureid=4
 * http://asrm.org
