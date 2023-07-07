@@ -28,6 +28,17 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 * [Muffly_OBGYN_subspecialist_study.pdf](https://github.com/mufflyt/mystery_shopper/files/11963320/Muffly_OBGYN_subspecialist_study.pdf)
 * [submitted_FQHC Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963346/submitted_FQHC.Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf)
 
+## Articles of interest
+* [IUD mystery caller study.pdf](https://github.com/mufflyt/mystery_shopper/files/11973808/IUD.mystery.caller.study.pdf)
+* [Kunow-2021-A-nationwide-mystery-caller-evaluat.pdf](https://github.com/mufflyt/mystery_shopper/files/11973807/Kunow-2021-A-nationwide-mystery-caller-evaluat.pdf)
+* [Copper IUD.pdf](https://github.com/mufflyt/mystery_shopper/files/11973806/Copper.IUD.pdf)
+* [lgbtq mystery caller.pdf](https://github.com/mufflyt/mystery_shopper/files/11973805/lgbtq.mystery.caller.pdf)
+* [Catholic hospital birth control.pdf](https://github.com/mufflyt/mystery_shopper/files/11973804/Catholic.hospital.birth.control.pdf)
+* [Prescription COVID19.pdf](https://github.com/mufflyt/mystery_shopper/files/11973803/Prescription.COVID19.pdf)
+* [Access to Developmental Pediatrics Evaluations for At-Risk Children.pdf](https://github.com/mufflyt/mystery_shopper/files/11973802/Access.to.Developmental.Pediatrics.Evaluations.for.At-Risk.Children.pdf)
+* [Hamlyn-2016-Accessibility-and-barriers-to-oncol.pdf](https://github.com/mufflyt/mystery_shopper/files/11973801/Hamlyn-2016-Accessibility-and-barriers-to-oncol.pdf)
+* [Sandoval-2023-Institutional-barriers-to-clinical-.pdf](https://github.com/mufflyt/mystery_shopper/files/11973800/Sandoval-2023-Institutional-barriers-to-clinical-.pdf)
+
 ## Phase 1 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
 
 ### Code to evaluate enthealth.org list of physicians
