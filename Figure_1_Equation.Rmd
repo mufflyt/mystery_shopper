@@ -1,20 +1,19 @@
 ---
 title: "Equations"
 date: "9/20/2022"
-output:
-  html_document:
-    code_folding: hide
-  pdf_document:
-    toc: yes
-  word_document:
-    toc: yes
 ---
 
 Creates a custom formula in markdown to show the sample size needed for the mystery caller study.  
 
-```{r setup, include = F, warning = F}
+```{r setup, include = F, warning = F, eval=TRUE}
+remove.packages("kableExtra")
+remove.packages("knitr")
+
+install.packages("kableExtra")
+install.packages("knitr")
+
 # Check and install required packages
-required_packages <- c("dplyr", "ggplot2", "tidyverse", "lme4", "logitnorm", "kableExtra", 
+required_packages <- c("kableExtra", "dplyr", "ggplot2", "tidyverse", "lme4", "logitnorm", "kableExtra", 
                        "cowplot", "grid", "gridExtra", "patchwork", "knitr")
 
 # Function to check if a package is installed
@@ -50,12 +49,54 @@ n = 465/1+465(0.05)^2
 
 
 $$
-Minimum\ Necessary\ Sample\ Size = \frac{N_{population\ size}}{1+(N_{population\ size})({{error\ margin}}^2)}
+\frac{N_{population\ size}}{1+(N_{population\ size})({{error\ margin}}^2)} = Minimum\ Necessary\ Sample\ Size
+$$
+
+```{r, include = FALSE, warning= FALSE, message=FALSE}
+# Calculation
+result <- 1005 / (1 + 1005 * (0.05)^2)
+
+# Format result with thousands comma
+formatted_result <- format(result, big.mark = ",")
+
+# Print the result
+cat("Minimum Necessary Sample Size =", formatted_result, "\n")
+```
+
+
+$$
+\frac{1,005}{1+1,005(0.05)^2} = Minimum\ Necessary\ Sample\ Size
 $$
 
 $$
-Minimum\ Necessary\ Sample\ Size = \frac{465}{1+465(0.05)^2}
+\frac{1,005}{1+1,005(0.05)^2} = 286
 $$
+
 $$
-\frac{465}{1+465(0.05)^2} = 400
+\begin{align*}
+\textit{Business Days Until a New Patient Visit} = & \text{ Physician Age } + \text{Physician Gender} + \text{Physician Subspecialty} \\
+& + \text{Physician Medical School Training} + \text{ Physician Academic Affiliation} \\
+& + \text{ Physician American Academy of Otolaryngology Head and Neck Surgery Region} \\
+& + \text{ Number of Phone Transfers } + \text{Patient Insurance } \\
+& + (1|\text{ Physician Name})
+\end{align*}
 $$
+
+$$
+\begin{align*}
+\textit{Business Days Until a New Patient Visit} = & \beta_0 + \beta_1 \, \text{Physician Age} \\
+& + \beta_2 \, \text{Physician Gender} + \beta_3 \, \text{Physician Subspecialty} \\
+& + \beta_4 \, \text{Physician Medical School Training} + \beta_5 \, \text{Physician Academic Affiliation} \\
+& + \beta_6 \, \text{Physician American Academy of Otolaryngology Head and Neck Surgery Region}\\
+& + \beta_7 \, \text{Number of Phone Transfers} + \beta_8 \,\text{Patient Insurance } + (1|\text{ Physician Name})\\
+& + u_{0i} + \epsilon_{ij}\\
+\end{align*}
+$$
+
+The parameter \(\beta_0\) represents the intercept term in the linear regression equation. It denotes the expected value of the response variable (in this case, the log of the (\(Business\ Days\ Until\ a\ New\ Patient\ Visit)\) when all other predictor variables in the model are set to zero or their reference levels. In other words, \(\beta_0\) represents the average or baseline value of the response variable when all predictors are absent or have no effect. \(\beta_1\), \(\beta_2\), \(\beta_3\), \(\beta_4\), \(\beta_5\), \(\beta_6\), \(\beta_7\), and \(\beta_8\) are the regression coefficients associated with the respective predictor variables.
+
+The term (\(1|Physician\ Name)\) represents the random effect component in the linear mixed model. It indicates that there is random variation in the intercept (or baseline level) of the response variable across different levels of the "Physician Name" variable. This random effect allows for individual-level variability and accounts for potential heterogeneity among individuals in terms of their baseline values. In other words, it acknowledges that individuals with different years of leadership position experience may have different intercepts or starting points for the response variable. The notation "(\(1|Physician\ Name)\)" specifies that the random effect is associated with the grouping variable ( \(Physician\ Name)\).
+
+\(u_{0i}\) represents the random effect, capturing the individual-level variability and accounting for potential heterogeneity among individuals in terms of the intercept.
+
+\(\epsilon_{ij}\) is the error term, representing the random variation not accounted for by the fixed and random effects.
