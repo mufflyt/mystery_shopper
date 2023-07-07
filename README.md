@@ -72,7 +72,11 @@ This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylerm
 * [PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv](https://github.com/mufflyt/mystery_shopper/files/11963387/PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv)
 
 # Phase 2 - Call the validated phone numbers to get the wait time to new patient appointment 
-https://www.youtube.com/playlist?list=PLMUhma2xrRQ7IAe4HvKfzgeV52rgpifK-
+* https://www.youtube.com/playlist?list=PLMUhma2xrRQ7IAe4HvKfzgeV52rgpifK-
+* Figure 1: ![image](https://github.com/mufflyt/mystery_shopper/assets/44621942/d9eadab7-cf4c-415f-b2ea-8078317a368c) and Word document can be found in the directory.  
+
+![Screen Shot 2023-07-06 at 9 19 23 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/6253a743-1c7c-4a18-843f-66931a10f92a)
+
 
 ## Meeting for the callers and team
 ```r
