@@ -426,19 +426,24 @@ The study was written using the STROBE checklist:
 https://www.strobe-statement.org/index.php?id=available-checklists
 
 # Statistics
-We will need to evaluate the data using a mixed linear regression model.  This is because the data is nested with two calls to the same provider.  Therefore we need to control for calling the same provider twice.  This can be done using the `lmer`, `lmerTest`, and `performance` packages for R.  
-![image](https://github.com/mufflyt/mystery_shopper/assets/44621942/f5ba5d5d-17c5-431e-886c-cb902c3dc4e0)
-
-We can create our custom equation using `Figure_1_Equation.Rmd`.  This rmarkdown file is in the directory and should be knit. 
-![Screen Shot 2023-07-06 at 2 29 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/757722cc-b009-4890-af11-e83914722fcd)
-
-## Power Analysis
+### Power Analysis
 <img width="234" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
 `Figure_1_Equation.Rmd`.  
 * Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
 
 ![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
 ![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
+
+### Linear mixed regression model
+We will need to evaluate the data using a mixed linear regression model.  This is because the data is nested with two calls to the same provider.  Therefore we need to control for calling the same provider twice.  This can be done using the `lmer`, `lmerTest`, and `performance` packages for R.  
+![image](https://github.com/mufflyt/mystery_shopper/assets/44621942/f5ba5d5d-17c5-431e-886c-cb902c3dc4e0)
+![Screen Shot 2023-07-06 at 7 21 29 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2216f6eb-0ee6-4342-a317-6c920d4b438a)
+
+
+
+We can create our custom equation using `Figure_1_Equation.Rmd`.  This rmarkdown file is in the directory and should be knit. 
+![Screen Shot 2023-07-06 at 2 29 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/757722cc-b009-4890-af11-e83914722fcd)
+
 
 Reference
 ==========
