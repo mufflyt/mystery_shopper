@@ -38,6 +38,15 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 * [Access to Developmental Pediatrics Evaluations for At-Risk Children.pdf](https://github.com/mufflyt/mystery_shopper/files/11973802/Access.to.Developmental.Pediatrics.Evaluations.for.At-Risk.Children.pdf)
 * [Hamlyn-2016-Accessibility-and-barriers-to-oncol.pdf](https://github.com/mufflyt/mystery_shopper/files/11973801/Hamlyn-2016-Accessibility-and-barriers-to-oncol.pdf)
 * [Sandoval-2023-Institutional-barriers-to-clinical-.pdf](https://github.com/mufflyt/mystery_shopper/files/11973800/Sandoval-2023-Institutional-barriers-to-clinical-.pdf)
+* [Auditing Access to Specialty Care for Children with Public Insurance.pdf](https://github.com/mufflyt/mystery_shopper/files/11987090/Auditing.Access.to.Specialty.Care.for.Children.with.Public.Insurance.pdf)
+* [2014 Merritt Hawkins Survey.pdf](https://github.com/mufflyt/mystery_shopper/files/11987091/2014.Merritt.Hawkins.Survey.pdf)
+
+
+## Nice references for the materials and methods
+* [NEJM appendix Bisgaier supplemental.pdf](https://github.com/mufflyt/mystery_shopper/files/11987083/NEJM.appendix.Bisgaier.supplemental.pdf)
+* [medicaid access metaanalysis.pdf](https://github.com/mufflyt/mystery_shopper/files/11987086/medicaid.access.metaanalysis.pdf)
+* [Mystery shopping in health service  evaluation.pdf](https://github.com/mufflyt/mystery_shopper/files/11987089/Mystery.shopping.in.health.service.evaluation.pdf)
+* [STATE STANDARDS FOR  ACCESS TO CARE IN  MEDICAID MANAGED CARE.pdf](https://github.com/mufflyt/mystery_shopper/files/11987092/STATE.STANDARDS.FOR.ACCESS.TO.CARE.IN.MEDICAID.MANAGED.CARE.pdf)
 
 ### Ethics of a Mystery Caller Study
 * One ethical issue is informed consent. Participants have a right to know the purpose of the study, the potential risks and benefits, and what will be expected of them. With a mystery caller study, participants may not be aware that they are being observed or that their interactions are part of a research project. This lack of informed consent raises questions about autonomy and the participants' ability to make an informed decision about their participation. It is important to carefully weigh the potential benefits of the study against the potential harm caused by deception and ensure that participants' rights are protected.
