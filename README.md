@@ -39,6 +39,23 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 * [Hamlyn-2016-Accessibility-and-barriers-to-oncol.pdf](https://github.com/mufflyt/mystery_shopper/files/11973801/Hamlyn-2016-Accessibility-and-barriers-to-oncol.pdf)
 * [Sandoval-2023-Institutional-barriers-to-clinical-.pdf](https://github.com/mufflyt/mystery_shopper/files/11973800/Sandoval-2023-Institutional-barriers-to-clinical-.pdf)
 
+### Ethics of a Mystery Caller Study
+* One ethical issue is informed consent. Participants have a right to know the purpose of the study, the potential risks and benefits, and what will be expected of them. With a mystery caller study, participants may not be aware that they are being observed or that their interactions are part of a research project. This lack of informed consent raises questions about autonomy and the participants' ability to make an informed decision about their participation. It is important to carefully weigh the potential benefits of the study against the potential harm caused by deception and ensure that participants' rights are protected.
+
+* Another ethical concern is potential harm or distress caused by deception. Deceptive practices can lead to feelings of mistrust, confusion, and discomfort among participants when they discover they were not provided with accurate information. In a mystery caller study, individuals may feel violated or manipulated when they find out their conversations were recorded and analyzed without their knowledge. Researchers have a responsibility to minimize harm and ensure that participants' well-being is prioritized. Clear guidelines for handling and debriefing participants after the study should be in place to address any negative emotional or psychological effects that may arise from the deception.
+
+* To minimize and remedy the risks associated with deception in a mystery caller study, researchers can consider the following measures:
+
+1. Informed Consent: While complete transparency may compromise the study's objectives, it is essential to provide participants with informed consent to the extent possible. Researchers can disclose the general nature of the study without revealing specific details that may compromise the integrity of the research. Participants should understand that they may receive mystery calls or be part of a study involving observational research. This disclosure helps ensure that participants have a basic understanding of their involvement and can make an informed decision about participating.
+
+2. Debriefing: After the study is complete, researchers should conduct a thorough debriefing session with participants. This is an opportunity to explain the true purpose of the study, clarify any misconceptions, and address any concerns or emotional reactions that participants may have. During the debriefing, participants should be given the option to withdraw their data if they feel uncomfortable with their participation. Here is a copy of an example debriefing letter: `Muffly-Corbisiero Debriefing Letter.doc`, see directory.  
+
+3. Ethical Review: Researchers should seek ethical review and approval from relevant institutional review boards (IRBs) or ethics committees. These bodies can provide guidance on the study design, participant consent, and the potential risks and benefits of deception. 
+
+4. Minimize Harm: Researchers should take precautions to minimize potential harm caused by deception. This includes ensuring that the study design and procedures are carefully planned and implemented to mitigate any negative impacts on participants.
+
+5. Data Anonymization: To protect participants' privacy, all collected data should be properly anonymized and securely stored. Researchers should ensure that any identifiable information is removed or encrypted, reducing the risk of unintended disclosure or breaches of confidentiality.
+
 ## Phase 1 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
 
 ### Code to evaluate enthealth.org list of physicians
