@@ -10,9 +10,9 @@ Screen the telephone numbers before sending to the group.  Do a lit review about
 * [FINAL full grant application 7.4.2015.docx](https://github.com/mufflyt/mystery_shopper/files/11963172/FINAL.full.grant.application.7.4.2015.docx)
 * [COMIRB application-tmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963205/COMIRB.application-tmm.pdf)
 * There is a word version of the COMIRB application in the directory called "COMIRB Protocol-template.doc".
+* [COMIRB application-for-protocol-review.pdf](https://github.com/mufflyt/mystery_shopper/files/11987004/COMIRB.application-for-protocol-review.pdf) Further ethical reasoning about the mystery caller process.  
 * STROBE Checklist: [STROBE-checklist-v4-combined-PlosMedicine.pdf](https://github.com/mufflyt/mystery_shopper/files/11963484/STROBE-checklist-v4-combined-PlosMedicine.pdf)
 * Great ethics reference:  [2013-Secret-shoppers-and-conflicts-of-in.pdf](https://github.com/mufflyt/mystery_shopper/files/11963538/2013-Secret-shoppers-and-conflicts-of-in.pdf)
-
 
 ## SPARO Approval (Sponsored Programs and Research Office)
 * Denver Health approval was given.  
@@ -76,7 +76,6 @@ This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylerm
 * Figure 1: ![image](https://github.com/mufflyt/mystery_shopper/assets/44621942/d9eadab7-cf4c-415f-b2ea-8078317a368c) and Word document can be found in the directory.  
 
 ![Screen Shot 2023-07-06 at 9 19 23 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/6253a743-1c7c-4a18-843f-66931a10f92a)
-
 
 ## Meeting for the callers and team
 ```r
