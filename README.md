@@ -106,15 +106,86 @@ This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylerm
 # Analysis using Marcos' Code
 * Please see Marcos' original code in the directory folder: Test-Marcos-v6---Reviewer-comments-+-Revision-2.html
 * '/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/code/Marcos/final ENT results of Marcos code.Rmd':  Permission was given by Marcos for us to change his code and use it for the ENT study.  
-* Statistics uploaded as an html file: "final_ENT_results_of_Marcos_code1.html" and code uploaded as "final_ENT_results_of_Marcos_code1.rmd".  We found that a Poisson model worked the best for the ENT study.  
-* `sjPlot` was a super helpful package in creating these images.
+* Statistics uploaded as an html file: "final_ENT_results_of_Marcos_code1.html" and code uploaded as "final_ENT_results_of_Marcos_code1.rmd".  We found that a Poisson model worked the best for the ENT study.
+* I did like to create one formula and then use that for every model so it stayed the same.  Calling a summary of the model gives the p-values.  The tab_model create a table of coefficients that can be copied and pasted to Excel.  The `easystats` library was especially helpful here.  
+```
+formula <- as.formula(paste("days ~ insurance + Age + academic_affiliation + AAO_regions + title + gender + central + specialty + (1 | name)"))
 
+poisson <- glmer(formula = formula,
+  data = df3,
+  family = poisson(link = "log"),
+  nAGQ = 0,
+  verbose = 0L)
+
+summary(poisson)
+tab_model(poisson, transform = "exp") #Easiest to copy and paste to word.  
+performance(poisson)
+```
+  
+* `sjPlot` was a super helpful package in creating these images.
 * Figures for the Data
 ![Screenshot 2023-07-23 at 8 38 51 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/25006ad3-493c-44aa-b53a-66a4b0158d89)
+
+
 ![line_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/9f4f5387-9ff1-45f6-a7b4-dd8475a073b1)
+Ideally, I want to put a trend line on this but I can't figure out how to do so.  Code for the line plot:
+```
+df3 <- df3 %>%
+  mutate(insurance = fct_relevel(insurance, "Blue Cross/Blue Shield", "Medicaid"))
+
+line_plot <- ggplot(df3, aes(x = insurance, y = days)) +
+  geom_point() +
+  geom_line(aes(group = npi), color = "gray80") +
+  ggtitle("Overall Comparison of waiting times") +
+  ylab("Waiting Times in Days (Log scale)") +
+  scale_y_log10() +
+  theme_minimal() +
+  theme(axis.title.x = element_blank()); line_plot
+
+ggsave(filename = "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/line_plot.jpeg", plot = line_plot, dpi = 300)
+```
 
 Poisson model estimates:
 ![model_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/21831d16-3fa7-4770-95fa-6df3b78eb570)
+
+Code to create the plot of estimates using `sjPlot` and `broom`:
+```
+# Load the necessary packages
+library(ggplot2)
+library(broom)
+
+# Use broom's tidy function to create a data frame of the coefficients
+coefficients_df <- tidy(poisson)
+coefficients_df <- coefficients_df[!(coefficients_df$term %in% c("(Intercept)", "sd__(Intercept)")), ]
+coefficients_df$estimate <- exp(coefficients_df$estimate)
+
+# Plot the model
+p <- plot_model(poisson, 
+                type = "est", 
+                transform = "exp", 
+                show.values = TRUE,
+                vline.color = "blue",
+                value.offset = 0.45,  # Adjust this value to your liking
+                dot.size = 1,
+                line.size = 0.9,
+                title = "Model Coefficients",
+                axis.title = "Incidence Rate Ratios")
+
+# Customizing with ggplot2
+p + theme_minimal() +
+    theme(text = element_text(size=12),
+          plot.title = element_text(face="bold"),
+          axis.title.x = element_text(vjust = -0.5),
+          axis.title.y = element_text(vjust = 0.5),
+          legend.position = "none") +
+    labs(x="Incidence Rate Ratios",
+         y="Predictors",
+         title="Poisson Regression\n Model Coefficients") +
+    scale_y_discrete(labels = function(x) stringr::str_to_title(stringr::str_remove_all(gsub("_", " ", x), "[[:punct:]]")))# Replace underscore with space in variable names
+
+# Save the plot
+ggsave(filename = "Corbi study/ENT/Figures/model_plot.png", plot = p, width = 8, height = 6, dpi = 300)
+```
 
 Interactions:
 ![insuranceinteractionCentral_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/48ac6815-3539-4cc1-9db9-be86306671c2)
