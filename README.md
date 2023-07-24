@@ -121,7 +121,54 @@ summary(poisson)
 tab_model(poisson, transform = "exp") #Easiest to copy and paste to word.  
 performance(poisson)
 ```
-* We then need to check the assumptions of the Poisson model.  This was very helpful: https://easystats.github.io/see/articles/performance.html#checking-model-assumptions.  
+* We then need to check the assumptions of the Poisson model.
+* Checking the assumptions of a Poisson regression model involves several steps. Here are some key checks you should do:
+1. **Mean equals variance:** The Poisson model assumes the mean of the distribution is equal to its variance. This is known as equidispersion. If the variance is greater than the mean, the data are overdispersed. If the variance is less than the mean, the data are underdispersed. You can check this by comparing the mean and the variance of your outcome variable. If they're not roughly equal, a negative binomial model might be a better choice.
+
+```
+logLik_model <- logLik(poisson)
+residual_deviance <- -2 * logLik_model
+num_observations <- nrow(df3)
+num_fixed_effects <- length(fixef(poisson))
+num_random_effects <- length(unlist(VarCorr(poisson)))
+residual_df <- num_observations - num_fixed_effects - num_random_effects
+
+dispersion_parameter <- residual_deviance / residual_df
+print(dispersion_parameter)
+
+
+check_overdispersion(poisson)
+```
+
+3. **Independence of events:** The Poisson model assumes that the events are independent, meaning that an event does not affect the probability of the next event. This should be considered in the study design phase and is typically assessed by examining whether the data are collected independently.
+
+4. **Linearity of log counts:** The Poisson model assumes a linear relationship between the natural log of the expected count and the predictor variables. This assumption can be checked by plotting the residuals versus the predicted values. There should not be a pattern in the plot. A non-linear pattern might suggest that the log-linear model is not appropriate.
+```
+# Predicted values
+fitted_values <- fitted(poisson)
+
+# Residuals
+residuals <- residuals(poisson, type = "pearson")
+
+# Plot
+plot(fitted_values, residuals, 
+     xlab = "Fitted values", 
+     ylab = "Residuals")
+abline(h = 0, lty = 2)
+```
+
+5. **Non-negative counts:** The outcome variable in a Poisson regression should be non-negative counts. This is an inherent assumption of the model, as it's designed to model count data.
+
+7. **No high multicollinearity:** Although not specific to Poisson regression, multicollinearity can cause issues in the estimation of regression coefficients. Multicollinearity exists when predictor variables are highly correlated. Variance inflation factor (VIF) is a common way to check for multicollinearity.
+```
+# Calculate VIF
+vif(poisson)
+result <- check_collinearity(poisson)
+result
+plot(result)
+```
+
+This was very helpful: https://easystats.github.io/see/articles/performance.html#checking-model-assumptions.  
 ```
 result <- binned_residuals(poisson) #The data is non-parametric so the residuals will not be normally distributed.  
 result
