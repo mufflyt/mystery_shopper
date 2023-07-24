@@ -121,6 +121,25 @@ summary(poisson)
 tab_model(poisson, transform = "exp") #Easiest to copy and paste to word.  
 performance(poisson)
 ```
+* We then need to check the assumptions of the Poisson model.  This was very helpful: https://easystats.github.io/see/articles/performance.html#checking-model-assumptions.  
+```
+result <- binned_residuals(poisson) #The data is non-parametric so the residuals will not be normally distributed.  
+result
+plot(result)
+
+result <- check_collinearity(poisson)
+result
+
+result <- check_outliers(poisson)
+result
+
+check_overdispersion(poisson)
+qqnorm(resid(poisson)) #Q-Q Plot of the residuals
+qqline(resid(poisson)) #Q-Q Plot of the residuals with a line
+check_autocorrelation(poisson)
+check_collinearity(poisson)
+check_singularity(poisson)
+```
   
 * `sjPlot` was a super helpful package in creating these images.
 * Figures for the Data
