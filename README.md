@@ -105,6 +105,7 @@ This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylerm
 
 # Analysis using Marcos' Code
 * Please see Marcos' original code in the directory folder: Test-Marcos-v6---Reviewer-comments-+-Revision-2.html
+* https://youtu.be/j0Om2qO7diQ
 * '/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/code/Marcos/final ENT results of Marcos code.Rmd':  Permission was given by Marcos for us to change his code and use it for the ENT study.  
 * Statistics uploaded as an html file: "final_ENT_results_of_Marcos_code1.html" and code uploaded as "final_ENT_results_of_Marcos_code1.rmd".  We found that a Poisson model worked the best for the ENT study.
 * I did like to create one formula and then use that for every model so it stayed the same.  Calling a summary of the model gives the p-values.  The tab_model create a table of coefficients that can be copied and pasted to Excel.  The `easystats` library was especially helpful here.  
@@ -188,10 +189,10 @@ check_collinearity(poisson)
 check_singularity(poisson)
 ```
   
-* `sjPlot` was a super helpful package in creating these images.
+* `sjPlot` was a super helpful package in creating these images.![image](https://github.com/mufflyt/mystery_shopper/assets/44621942/cea0e7ca-7328-49be-9f1a-5df83c687c78)
+
 * Figures for the Data
 ![Screenshot 2023-07-23 at 8 38 51 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/25006ad3-493c-44aa-b53a-66a4b0158d89)
-
 
 ![line_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/9f4f5387-9ff1-45f6-a7b4-dd8475a073b1)
 Ideally, I want to put a trend line on this but I can't figure out how to do so.  Code for the line plot:
