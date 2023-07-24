@@ -1,0 +1,1884 @@
+---
+title: "DRAFT:  Mystery Caller Study for ENT"
+author: "Tyler M. Muffly, MD"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    self_contained: true
+    code_folding: "show"
+    dev: svg
+    df_print: paged
+word_document:
+    toc_depth: '2'
+fontsize: 12pt
+geometry: margin=1in
+header-includes:
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[R]{Muffly et al.}
+- \usepackage{lineno}
+- \linenumbers
+fontfamily: mathpazo
+spacing: double
+always_allow_html: yes
+editor_options:
+  chunk_output_type: console
+---
+
+# Abstract
+Objective: This study aimed to investigate the impact of insurance status on wait times for otolaryngology care, comparing Medicaid-insured patients to commercially insured patients.
+
+Study Design: The study utilized an audit methodology, known as a "mystery caller" study, to assess appointment availability and patient experiences regarding access to care in otolaryngology.
+
+Setting: The study included physicians representing various otolaryngology subspecialties across the United States, excluding military medical practices.
+
+Methods: Physicians were selected from patient-facing directories and stratified by region. Mystery callers, posing as patients with either Medicaid or commercial insurance, made two separate calls to each physician's office to obtain the earliest possible appointment time. The calls were standardized and completed within one week. Data on appointment availability, earliest appointment dates, and additional information were collected using a secure electronic data capture tool.
+
+Results: Out of 612 physicians contacted, 301 physicians accepting new patients were included in the analysis. The median wait time across all subspecialties and insurance types was 34.3 business days. The study found a statistically significant difference in wait times based on insurance type, with Medicaid-insured patients experiencing a 13.8% longer wait time than commercially insured patients. The model-estimated average wait times were 32.4 days for the commercially insured group and 36.8 days for the Medicaid group.
+
+Conclusions: The study revealed that Medicaid-insured patients in otolaryngology care faced longer wait times compared to commercially insured patients. These findings contribute to the existing literature on access to care and highlight the need to address potential disparities in wait times to promote equitable access to otolaryngology services.
+
+# Setup
+```{r, echo=FALSE, include= FALSE}
+cran_pkgs <- c("renv", "pkgbuild", "proto", "lmtest", "rmarkdown", "kableExtra", "foreach", "caret", "ggplot2", "ggpubr", "cowplot", "dplyr", "tidyverse", "knitr", "here", "english", "broom", "data.table", "rmarkdown", "Rcpp", "furrr", "arsenal", "ggExtra", "exploratory", "lmerTest", "sjPlot", "geepack", "emmeans", "table1", "flextable", "officer", "psy", "broom", "caret", "car", "easystats", "e1071", "lme4", "modelsummary", "performance", "randomForest", "randomForestExplainer", "report", "sjPlot", "tidymodels", "tidyr", "officer", "flextable", "pander", "merDeriv", "readr", "broom.mixed", "effects", "stringr", "ggeffects", "gridExtra", "lmerTest", "emmeans", "scales", "GGally", "plm", "ggfortify", "ggpubr", "arsenal", "broom", "cowplot", "data.table", "dplyr", "emmeans", "english", "exploratory", "flextable", "furrr", "geepack", "ggExtra", "ggplot2", "ggpubr", "here", "knitr", "lmerTest", "officer", "psy", "rmarkdown", "sjPlot", "tidyverse", "tidyverse", "writexl")
+
+# Package Install function - Thanks! Guangming
+pkgs_installed <- installed.packages()[, 'Version']
+for (pkg in cran_pkgs) {
+  if (!pkg %in% names(pkgs_installed)) {
+    cat(pkg, "missing, installing...\n")
+    if (pkg %in% cran_pkgs) 
+      install.packages(pkg, dependencies = TRUE)        
+  } else {
+    cat("Already installed:", pkg, pkgs_installed[pkg], '\n')
+  }
+}
+
+# Load packages using a loop
+for (pkg in cran_pkgs) {
+  suppressPackageStartupMessages(library(pkg, character.only = TRUE))
+}
+```
+
+```{r knitr options, include=FALSE, collapse = TRUE, warning = FALSE}
+knitr::opts_chunk$set(
+  message=FALSE, echo=FALSE, include = TRUE, fig.width = 6, fig.height = 4, progress = TRUE, warning = FALSE, collapse = FALSE)
+
+options(scipen=999)
+```
+
+```{r renv, collapse = TRUE, include = FALSE}
+#renv::init()
+renv::settings$snapshot.type("all")
+renv::repair()
+renv::snapshot(update = TRUE, force = TRUE, prompt = FALSE)
+```
+
+## Bespoke functions
+```{r custom_functions, message=FALSE, echo=TRUE, include = FALSE, collapse = TRUE}
+# This function formats a numeric value as a percentage with a specified number of digits.
+# Parameters:
+#   - x: Numeric value to format as a percentage.
+#   - my_digits: Number of digits to display after the decimal point (default is 1).
+# Returns:
+#   Formatted percentage value.
+
+format_pct <- function(x, my_digits = 1) {
+  format(x, digits = my_digits, nsmall = my_digits)
+}
+
+# This function calculates the maximum value(s) and corresponding level(s) of a factor variable.
+# Parameters:
+#   - InVec: Input vector, expected to be a factor variable.
+#   - mult: Logical indicating whether to return multiple maximum values or just the first one (default is FALSE).
+# Returns:
+#   - If mult is FALSE: The level corresponding to the maximum value of the factor variable.
+#   - If mult is TRUE: A character vector containing all the levels with the maximum value.
+
+MaxTable <- function(InVec, mult = FALSE) {
+  if (!is.factor(InVec))
+    InVec <- factor(InVec)
+  A <- tabulate(InVec)
+  if (isTRUE(mult)) {
+    levels(InVec)[A == max(A)]
+  } else {
+    levels(InVec)[which.max(A)]
+  }
+}
+
+# This function calculates the minimum value(s) and corresponding level(s) of a factor variable.
+# Parameters:
+#   - InVec: Input vector, expected to be a factor variable.
+#   - mult: Logical indicating whether to return multiple minimum values or just the first one (default is FALSE).
+# Returns:
+#   - If mult is FALSE: The level corresponding to the minimum value of the factor variable.
+#   - If mult is TRUE: A character vector containing all the levels with the minimum value.
+
+MinTable <- function(InVec, mult = FALSE) {
+  if (!is.factor(InVec))
+    InVec <- factor(InVec)
+  A <- tabulate(InVec)
+  if (isTRUE(mult)) {
+    levels(InVec)[A == min(A)]
+  } else {
+    levels(InVec)[which.min(A)]
+  }
+}
+
+# This function calculates the percentage of the most common value in a categorical variable.
+# Parameters:
+#   - df: Data frame containing the variable of interest.
+#   - variable: Variable for which to calculate the percentage of the most common value.
+# Returns:
+#   - A data frame with the count of each unique value in the variable and the percentage of the most common value.
+
+calcpercentages <- function(df, variable) {
+  variable <- as.character(variable)  # Convert factor to character
+  
+  x <- count(data.frame(variable)) %>%
+    slice_max(n, n = 1)
+  
+  return(x)
+}
+
+# Example usage:
+# calcpercentages(df = df, variable = df$gender)
+
+calculate_proportion <- function(df, variable_name) {
+  tabyl_result <- df %>%
+    count({{ variable_name }}, name = "n") %>%
+    mutate(percent = n/sum(n))
+  
+  most_common <- tabyl_result %>%
+    filter(percent == max(percent)) %>%
+    pull({{ variable_name }})
+  
+  proportion_variable <- max(tabyl_result$percent)
+  proportion_variable <- round(proportion_variable * 100, 1)
+  
+  return(list(proportion = paste0(proportion_variable, "%"), tabyl_result = tabyl_result))
+}
+```
+
+# Read in data
+```{r, include=TRUE, collapse=TRUE}
+df <- readRDS("/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Data/7.4.2023.ENT analysis.rds")
+head(df)
+```
+
+# Quality Check the Data
+### Are there any physicians included more than twice?
+```{r, include = TRUE}
+temp <- df %>%
+  group_by(npi, name) %>%  # Group the data by 'npi' and 'name'
+  summarise(N = n()) %>%  # Calculate the count of observations within each group and create a column named 'N'
+  arrange(desc(N)) %>%  # Arrange the data in descending order based on the 'N' column
+  filter(N > 2)  # Keep only the rows where the count 'N' is greater than 2
+
+kable(temp, caption = "Subjects") %>%  
+  kable_styling(full_width = FALSE)  
+```
+
+### Variables of those physicians included more than twice?
+```{r, include = TRUE}
+#temp2 is a subset of the original data frame df. It filters the rows to include only those where the 'npi' value is present in the unique 'npi' values from temp. It selects specific columns ('npi', 'name', 'Reason for exclusions', 'insurance', 'business_days_until_appointment') and arranges the rows based on the 'npi' column.
+
+temp2 <- df %>% 
+  filter(npi %in% unique(temp$npi)) %>% 
+  dplyr::select(npi, name,`Reason for exclusions`,insurance,
+                business_days_until_appointment) %>% 
+  arrange(npi)
+
+kable(temp2, caption = "Subjects" ) %>% 
+  kable_styling(full_width = F)
+```
+
+# Demographics of the Sample
+```{r, include=TRUE, collapse=TRUE}
+proportion_specialty <- calculate_proportion(df, specialty); proportion_specialty
+```
+
+```{r, include=FALSE}
+median_age <- round(median(df$Age, na.rm = TRUE),1)
+
+# Calculate the 25th and 75th percentiles of the 'Age' variable
+q25 <- quantile(df$Age, probs = 0.25, na.rm = TRUE)
+q75 <- quantile(df$Age, probs = 0.75, na.rm = TRUE)
+
+# Round the values to one decimal place
+q25 <- round(q25, 1)
+q75 <- round(q75, 1)
+
+most_gender <- tolower(MaxTable(df$gender))
+
+number_of_most_common_gender <- df %>% count(gender) %>%
+  slice_max(n, n=1)
+
+# number_of_all_genders <- df %>% count(gender) %>%
+#   summarise(total_count = sum(n)) %>% pull()
+# proportion_gender <- round((number_of_most_common_gender[[2]] / number_of_all_genders) * 100, 1)
+proportion_gender <- calculate_proportion(df, gender)
+
+most_specialty <- MaxTable(df$specialty)
+proportion_specialty <- calculate_proportion(df, specialty)
+
+most_district <- MaxTable(df$ACOG_District)
+proportion_ACOG_District <- calculate_proportion(df, ACOG_District)
+
+most_training <- MaxTable(df$Provider.Credential.Text)
+proportion_most_Provider.Credential.Text <- calculate_proportion(df, Provider.Credential.Text)
+
+most_academic <- tolower(MaxTable(df$academic_affiliation))
+proportion_most_academic <- calculate_proportion(df, academic_affiliation)
+```
+The median age of the dataset was `r median_age`(IQR 25th percentile `r q25[[1]]` to 75th percentile `r q75[[1]]`). The most common gender in the dataset was `r most_gender` (`r proportion_gender$proportion`).  The most common specialty was `r most_specialty` (`r proportion_specialty$proportion`). The most common training was `r most_training` (`r proportion_most_Provider.Credential.Text$proportion`). The academic affiliation status most frequently occurring was `r most_academic` (`r proportion_most_academic$proportion`).
+
+# Visualizing the Data
+Graph each variable
+
+### Business days by insurance
+```{r, include = TRUE}
+ggplot(df, aes(x = business_days_until_appointment))+
+  geom_histogram()+
+  facet_wrap(~insurance)+
+  ggtitle("Distribution of the Business days by insurance")+
+  theme_minimal()
+```
+
+### log(Business days) by insurance with transform
+```{r, include = TRUE}
+ggplot(df, aes(x = business_days_until_appointment))+
+  geom_histogram()+
+  facet_wrap(~insurance)+
+  scale_x_log10()+
+  ggtitle("Distribution of log(Business days) by insurance")+
+  theme_minimal()
+```
+
+## Subspecialty by insurance
+```{r, include = TRUE}
+ggplot(df, aes(x = specialty)) +
+  geom_bar(fill = "gray80") +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = 1) +
+  ggtitle("Distribution of specialty by insurance") +
+  facet_wrap(~ insurance) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Day of the week by insurance
+```{r, include = TRUE}
+ggplot(df, aes(x = dow)) +
+  geom_bar(fill = "gray80") +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = 1) +
+  ggtitle("Distribution of Day of the Week by insurance") +
+  facet_wrap(~insurance) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Central Appointment Line by Insurance
+```{r, include = TRUE}
+ggplot(df,
+       aes(x = central_number_e_g_appointment_center))+
+  geom_bar(fill = "gray80")+
+  geom_text(stat='count', aes(label = after_stat(count)), vjust= 1)+
+  ggtitle("Distribution of Central Appointment Line\n by Insurance")+
+  facet_wrap(~insurance)+
+  theme_minimal()
+```
+
+## Physician Gender by Insurance
+```{r, include = TRUE}
+ggplot(df,
+       aes(x = gender))+
+  geom_bar(fill = "gray80")+
+  geom_text(stat='count', aes(label = after_stat(count)), vjust= 1)+
+  ggtitle("Distribution of Physician Gender by Insurance")+
+  facet_wrap(~insurance)+
+  theme_minimal()
+```
+
+## Physician MD vs. DO by Insurance
+```{r, include = TRUE}
+ggplot(df, aes(x = Provider.Credential.Text)) +
+  geom_bar(fill = "gray80") +
+  geom_text(stat = 'count', aes(label = after_stat(count)), vjust = 1) +
+  ggtitle("Physician MD vs. DO\n by Insurance") +
+  facet_wrap(~ insurance) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Physician Age Category by Insurance
+```{r, include = TRUE}
+ggplot(df,
+       aes(x = age_category))+
+  geom_bar(fill = "gray80")+
+  geom_text(stat='count', aes(label=after_stat(count)), vjust= 1)+
+  ggtitle("Distribution of Physician Age Category by Insurance")+
+  facet_wrap(~insurance)+
+  theme_minimal()+
+  theme(axis.text.x = element_text(angle=90))
+```
+
+# MEDICAID Acceptance
+We seem to have many physicians who don't accept MEDICAID. Should them enter the analysis? It seems that these physicians would not be part of the eligible sample if the goal is to see if individuals who accept both leaves you waiting longer if you are on Medicaid. The research question would be: ** Do providers make patients to wait longer if they are on Medicaid, as compared to Blue Cross? I understand that here the provider must accept both. **
+
+If we include all physicians, then the research question is more like: ** If I have Medicaid, do I wait longer when I try to book an appointment? **
+
+Here we add a variable to the dataset that flag providers who have at least one occurrence of “Physician does not accept MEDICAID”.
+
+### Creation of `df3` dataset
+```{r, include=TRUE, collapse=TRUE}
+# med is a dataframe of 86 npi numbers that do NOT accept Medicaid. The code filters the df data frame to keep only the observations where physicians do not accept MEDICAID, performs some manipulations on the data, and adds a new column "No_Medicaid" indicating the absence of MEDICAID acceptance.  
+
+# med <- df %>%
+#   dplyr::filter(`Reason for exclusions` == "Physician does not accept MEDICAID") %>%
+#   dplyr::select(npi) %>%
+#   group_by(npi) %>%
+#   summarise(N = n()) %>%
+#   dplyr::select(-N) %>%
+#   mutate(No_Medicaid = 1)
+
+  # Left join the 'df' dataframe with the 'med' dataframe to create a flag indicating which physicians do not accept Medicaid.
+  # Create a new column 'No_Medicaid' using the 'mutate' function.
+  # The 'ifelse' statement checks if the 'No_Medicaid' column is NA (physician accepts Medicaid) and assigns 0 (No Medicaid) or 1 (Yes Medicaid) accordingly.
+  # The 'factor' function converts the numeric values to labels "Yes Medicaid" and "No Medicaid".
+df3 <- df %>% 
+  dplyr::rename(ntransf = `Number of Transfers (phone call transferred from one person or answering service to the next)`,
+                reason = `Reason for exclusions`,
+                days = business_days_until_appointment,
+                title = Provider.Credential.Text)
+```
+
+
+# Exclusions
+```{r, include=FALSE}
+#The after_stat() function in ggplot2 is a special function used in the context of statistical transformations within a plot. It allows you to refer to the result of a statistical transformation and perform subsequent operations on that result.
+# 
+# df3a <- after_stat(count) %>%
+#   dplyr::select(-state, -zip_code, -name, -insurance) %>%
+#   distinct(npi, .keep_all = TRUE)
+# 
+# temp <- after_stat(count) %>% 
+#   left_join(after_stat(count) %>% 
+#   group_by(npi) %>%
+#   summarise(sumdays = sum(days, na.rm = T))) %>% 
+#   filter(sumdays == 0)
+# 
+# ####################################################################################
+# tab2 <- arsenal::tableby(formula = ~  .,
+#                    # paste linearphrase output here,
+#                    #`American Congress of Obstetricians and Gynecologists District`
+#                    data=temp, 
+#                      control = mycontrols)
+# 
+# summary(tab2, text=TRUE, title="Characteristics of Subspeciality Physicians Who Scheduled Appointments")
+
+# format(nrow(temp), big.mark = ",")` providers will be removed from the analysis because they did not provide any waiting time (the models automatically remove them). So, in the paper, we probably should remove these providers from the descriptive table. The table below dont have these providers.
+```
+
+There are `r format(nrow(df), big.mark = ",")` providers in the dataset. Many of these providers could not be contacted. In the paper we probably want to report characteristics of contacted providers who have at least one waiting time and are therefore included in the analysis.
+
+**Total** column is at the provider level. Not meaningful with insurance specific variables, like day of the week.
+
+**Insurance Type** columns are at the Insurance Type level. Not meaningful with provider level variables.
+
+**MEDICAID Acceptance** columns are at the provider level. Not meaningful with insurance specific variables.
+
+**In the Analysis** columns are at the provider level. Not meaningful with insurance specific variables. Here, **In the Analysis** means those providers that have data for number of days until appointment, and therefore will be used in the analysis. A comparison between “In the Analsyis” and “Not in the Analysis” may give an idea of bias in the data, that is, what kind of providers were easier to reach and because of that are more represented in the sample than they should.
+
+```{r, include = FALSE}
+df <- readRDS("Corbi study/ENT/Data/7.4.2023.ENT analysis.rds")
+
+janitor::tabyl(df, No_Medicaid)
+
+df4 <- df
+df4.half <- df
+# df4.half <- df4.half %>%
+#   mutate(No_Medicaid = as.numeric(insurance)-1L, .after = ifelse("insurance" %in% names(.), "insurance", last_col()))
+#df4.half <- filter(df4, insurance == "Medicaid")
+
+temp <- df4 %>%
+  left_join(df4 %>%
+              group_by(npi)) #%>%
+              # summarise(sumdays = sum(business_days_until_appointment, na.rm = T))) %>%
+  # mutate(contacted = 1 * (sumdays > 0)) %>%
+  # mutate(contacted = factor(contacted, labels = c("Not in the Analysis", "In the Analysis")))
+
+# Reason for exclusion for non-contacted.
+# Calculate the total number of excluded patients
+total_excluded <- temp %>% 
+  filter(contacted == 0) %>% 
+  filter(`Reason for exclusions` != "Able to contact") %>%
+  summarise(total = n())
+
+# Calculate the number and percentage of excluded patients by reason
+x <- temp %>% 
+  dplyr::filter(contacted == 0) %>% 
+  dplyr::filter(`Reason for exclusions` != "Able to contact") %>%
+  dplyr::select(npi, `Reason for exclusions`, business_days_until_appointment) %>% 
+  dplyr::arrange(npi) %>% 
+  dplyr::group_by(`Reason for exclusions`) %>% 
+  summarise(n = n()) %>% 
+  dplyr::ungroup() %>% 
+  mutate(Percent = round(n / total_excluded$total, 3)*100) %>%
+  mutate(Percent = paste0(round(Percent, 1), "%"))
+
+# Arrange the results in descending order of counts
+x <- dplyr::arrange(x, desc(n)); x
+```
+The total number of excluded people is `r format(total_excluded$total[1], big.mark = ",")`.
+
+```{r, include = TRUE}
+kable(x, caption = "Reason for exclusion for physicians where no appointment was made") %>% 
+  kable_styling(full_width = F)
+```
+
+
+# Table 1
+Demographics of all physicians called
+```{r clean_df_to_clean_1, include=FALSE}
+#This code is from the ~ENT analysis, Table1_demographics branch where it gets cleaned up for a Table 1.  
+
+#Cleaning of the data.  
+
+table1 <- df %>%
+  dplyr::distinct(npi, .keep_all = TRUE) %>%
+  dplyr::select(npi, central_number_e_g_appointment_center, `Number of Transfers (phone call transferred from one person or answering service to the next)`, specialty, insurance, gender, Med_sch, Grd_yr, Provider.Credential.Text, AAO_regions, academic_affiliation, cbsatype10, Age) %>%
+  dplyr::mutate(Med_sch = dplyr::recode(Med_sch, `International Medical Graduate` = "International Medical Graduate", .default = "US Senior")) %>%
+  dplyr::mutate(across(c(central_number_e_g_appointment_center, Med_sch, academic_affiliation, cbsatype10), factor)) %>%
+  dplyr::mutate(across(c(central_number_e_g_appointment_center, insurance, gender, Med_sch, academic_affiliation, cbsatype10), fct_infreq)) %>%
+  dplyr::mutate(Grd_yr = cut(Grd_yr, breaks = c(-Inf, 2000, 2005, 2010, Inf), labels = c("Less than year 2000", "2000 to 2004", "2005 to 2009", "2010 and Greater"), right = FALSE, ordered_result = TRUE, dig.lab = 10)) %>%
+  dplyr::mutate(Provider.Credential.Text = dplyr::recode(Provider.Credential.Text, "MD" = "Allopathic training", "DO" = "Osteopathic training")) %>%
+  dplyr::mutate(cbsatype10 = dplyr::recode(cbsatype10, "Metro" = "Metropolitan area", "Micro" = "Rural area")) %>%
+  dplyr::mutate(central_number_e_g_appointment_center = dplyr::recode(central_number_e_g_appointment_center, "Yes" = "Yes, central scheduling number")) %>%
+  dplyr::mutate(AAO_regions = dplyr::recode(AAO_regions, "Region 1" = "Region 1 (Connecticut, Maine, Massachusetts, New Hampshire, Rhode Island, Vermont)", "Region 2" = "Region 2 (New Jersey, New York)", "Region 3" = "Region 3 (Delaware, District of Columbia, Maryland, Pennsylvania, Virginia, West Virginia)", "Region 4" = "Region 4 (Alabama, Florida, Georgia, Kentucky, Mississippi, North Carolina, South Carolina, Tennessee)", "Region 5" = "Region 5 (Illinois, Indiana, Michigan, Minnesota, Ohio, Wisconsin)", "Region 6" = "Region 6 (Arkansas, Louisiana, New Mexico, Oklahoma, Texas)", "Region 7" = "Region 7 (Iowa, Kansas, Missouri, Nebraska)", "Region 8" = "Region 8 (Colorado, Montana, North Dakota, South Dakota, Utah, Wyoming)", "Region 9" = "Region 9 (Alaska, Oregon, Washington)", "Region 10" = "Region 10 (Arizona, California, Hawaii, Nevada)")) %>%
+  dplyr::mutate(academic_affiliation = dplyr::recode(academic_affiliation, "University" = "Academic Practice")) %>%
+  fill(AAO_regions, academic_affiliation, cbsatype10, .direction = "down") %>%
+  dplyr::rename(`Centeral Scheduling` = central_number_e_g_appointment_center, `Number of Phone Transfers` = `Number of Transfers (phone call transferred from one person or answering service to the next)`, Specialty = specialty, Insurance = insurance, Gender = gender, `Medical School Training` = Med_sch, `Medical School Graduation Year` = Grd_yr, `Medical School Location` = Provider.Credential.Text, `American Academy of Otolaryngology Regions` = AAO_regions, `Academic Affiliation` = academic_affiliation, Rurality = cbsatype10, `Age (years)` = Age) %>%
+  dplyr::select(`Age (years)`, Gender, `Medical School Training`, `Medical School Location`, `Medical School Graduation Year`, Specialty, `Academic Affiliation`, `American Academy of Otolaryngology Regions`, Rurality, `Centeral Scheduling`, `Number of Phone Transfers`, Insurance)
+```
+
+```{r table1_controls, include=FALSE}
+mycontrols  <- tableby.control(test=TRUE, total=TRUE,
+                               numeric.test="kwt", cat.test="chisq",
+                               numeric.stats=c("N", "medianq1q3"),
+                               cat.stats=c("countpct"),
+                               stats.labels=list(medianq1q3 = "Median (Q1, Q3)", N="n"),
+                               digits=1, digits.p=2, digits.pct=1,
+                               cat.simplify = FALSE)
+
+tab1 <- arsenal::tableby(formula = Insurance ~  .,
+                   data = table1, 
+                  control = mycontrols)
+```
+
+
+```{r table1_actual, include=TRUE}
+kable(summary(tab1, text = TRUE, title = "Characteristics of Physicians Called"),
+      format = "markdown")
+```
+
+```{r table1_write, include=FALSE}
+arsenal::write2word(tab1, "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Tables/table1.doc")
+```
+
+```{r my_table, include = TRUE}
+temp.half <-
+  filter(temp, insurance == "Medicaid")  # Filter the 'temp' data for Medicaid insurance
+
+my_table <- table1(
+  x = c(
+    list(Total = df4.half),
+    # Total counts for all observations
+    split(df4.half, df4$specialty),
+    # Counts by specialty
+    split(df4, df4$insurance),
+    # Counts by insurance type
+    split(df4.half, df4.half$No_Medicaid),
+    # Counts by Medicaid acceptance
+    split(temp.half, temp.half$contacted)  # Counts by contact status
+  ),
+  labels = list(
+    variables = list(
+      gender = "Physician Gender",
+      Age = "Physician Age in Years",
+      #specialty = "Specialty",
+      Provider.Credential.Text = "Provider Credential Text",
+      Grd_yr = "Graduation Year",
+      central_number_e_g_appointment_center = "Central Number",
+      `Number of Transfers (phone call transferred from one person or answering service to the next)` = "Number of Transfers",
+      call_date_wday = "Day of the Week",
+      `Reason for exclusions` = "Reason for Exclusions",
+      business_days_until_appointment = "Business Days until Appointment",
+      ACOG_District = "District",
+      state = "State"
+    ),
+    groups = list(
+      "",
+      "Subspecialty",
+      "Insurance Type",
+      "MEDICAID Acceptance",
+      "In the Analysis"
+    )
+  ),
+  groupspan = c(1, 7, 2, 2, 2)
+)
+my_table
+```
+
+
+```{r saving, include=FALSE}
+my_table1 <- as.data.frame(my_table)
+
+# # Create a flextable object from the table
+flex_table <- flextable(my_table1)
+flex_table
+
+# Create a Word document
+doc <- read_docx()
+
+# Add the flextable to the Word document
+doc <- body_add_flextable(doc, flex_table)
+
+# Save the Word document
+path <- "Corbi study/ENT/Tables/in_and_out_of_the_analysis.docx"
+print(doc, target = path)
+```
+
+### In the Analysis versus Not in the Analysis
+Here we compare the providers in the analysis because they have some data available and the ones that are excluded from the analysis. Assuming that the “Total” column is representative, we can have an idea if the analyzed providers are skewed.
+
+Caution - Some variables like “Day of the Week” varies with Insurance type and should not be looked at. For this table we selected only the Insurance Type Medicaid.
+```{r, include = FALSE}
+df3 <-
+  df %>% #left_join(df, med, by = c("npi" = "npi")) %>%
+  #mutate(No_Medicaid = factor(ifelse(is.na(No_Medicaid),0,1),
+  #labels= c("Yes Medicaid","No Medicaid"))) %>%
+  dplyr::rename(
+    ntransf = `Number of Transfers (phone call transferred from one person or answering service to the next)`,
+    reason = `Reason for exclusions`,
+    days = business_days_until_appointment,
+    title = Provider.Credential.Text) %>%
+  dplyr::select(-state)
+
+# df3 <- df3 %>%
+#   left_join(temp %>%
+#               group_by(npi) %>%
+#               summarise(n = n()) %>%
+#               mutate(nodata = 1) %>%
+#               select(-n))
+#
+# df3$nodata[is.na(df3$nodata)]<- 0
+# df3$nodata <- factor(df3$nodata, labels = c("In the Analysis",
+#                                                   "Not in the Analysis"))
+
+label(df3$contacted) <- "Providers in the Anaysis"
+```
+
+
+```{r, include=TRUE, collapse=TRUE}
+####Not sure why we would filter to only "Medicaid"
+in_analysis <- table1(
+  x = c(list(Total = filter(
+    df3, insurance == "Medicaid"
+  )),
+  split(
+    filter(df3, insurance == "Medicaid"),  df3$contacted
+  )),
+  labels = list(
+    variables = list(
+      gender = "Physician Gender",
+      Age = "Physician Age in Years",
+      specialty = "specialty",
+      # provider = "Provider Credential Text",
+      title = "Professional Title",
+      #grad = "Graduation Year",
+      central = "Central Number",
+      ntransf = "Number of Transfers",
+      dow = "Day of the Week",
+      reason = "Reason for Exclusions",
+      days = "Business Days until Appointment",
+      No_Medicaid = "MEDICAID Acceptance"
+    ),
+    groups = list("", "Analysis Status")
+  ),
+  groupspan = c(1, 2)
+); in_analysis
+```
+
+# Wait Time Figures
+Waiting time in Days (Log Scale) for Blue Cross/Blue Shield versus Medicaid.  The code you provided will create a scatter plot with points representing the relationship between the insurance variable (x-axis) and the days variable (y-axis). Additionally, it includes a line plot that connects points with the same npi value.
+
+## Line Plot
+```{r waiting_time, include = TRUE, warning=FALSE}
+df3 <- df3 %>%
+  mutate(insurance = fct_relevel(insurance, "Blue Cross/Blue Shield", "Medicaid"))
+
+line_plot <- ggplot(df3, aes(x = insurance, y = days)) +
+  geom_point() +
+  geom_line(aes(group = npi), color = "gray80") +
+  ggtitle("Overall Comparison of waiting times") +
+  ylab("Waiting Times in Days (Log scale)") +
+  scale_y_log10() +
+  theme_minimal() +
+  theme(axis.title.x = element_blank()); line_plot
+
+ggsave(filename = "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/line_plot.jpeg", plot = line_plot, dpi = 300)
+```
+
+Here we show a scatterplot that compares the Private and Medicaid times. Notice that the graph is in logarithmic scale. Points above the diagonal line are providers for whom the Medicaid waiting time was longer than the private insurance waiting time.
+
+We also see a strong linear association, indicating that providers with longer waiting time for private insurance tend to also have longer waiting times for Medicaid.
+
+## Scatter Plot
+```{r geom_abline, include = TRUE}
+temp <- tidyr::spread(df3 %>%
+                        dplyr::select(npi, insurance, days),
+                      key = insurance,
+                      value = days) %>%
+  filter(!is.na(Medicaid),!is.na(`Blue Cross/Blue Shield`))
+
+scatterplot <- ggplot(temp, aes(x = `Blue Cross/Blue Shield`, y = Medicaid)) +
+  geom_point() +
+  geom_abline(linewidth = 1.1, color = "gray50")+
+  stat_smooth(method = "lm", se = F)+
+  annotate(geom = "text", x= 1.6,y=7, label = "Best fitting line", angle = 28, color = "gray50")+
+  annotate(geom = "text", x= 130, y=160, label = "Y = X", angle = 50, color = "gray50")+
+  ylab("Time in days to appointment\nMedicatid (Log Scale)")+
+  xlab("Time in days to appointment\nBlue Cross Blue Shield (Log Scale)")+
+  scale_x_log10() +
+  scale_y_log10() +
+  theme_minimal(); scatterplot
+
+ggsave(filename = "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Figures/scatterplot.jpeg", plot = scatterplot, dpi = 300, height = 5, width = 7)
+```
+
+# Which Model Should We Use?  
+The models need to be able to deal with NA in the `days` outcome variable (`r sum(is.na(df3$days))`) and also non-parametric data.  
+
+```{r, include = TRUE}
+df3 <- df3 %>%
+  arrange(npi, insurance) %>%
+  rename(central = central_number_e_g_appointment_center)
+```
+
+```{r}
+
+dim(df3)
+sum(is.na(df3$days))
+
+# Step 1: Remove NA values from the "days" column in df3
+df3_filtered <- df3 %>%
+  drop_na(days)
+
+# Step 2: Filter df3$name to include only rows with two instances of the same name
+df3_filtered <- df3_filtered %>%
+  group_by(name) %>%
+  filter(n() == 2) %>%
+  ungroup()
+
+df3_filtered$days <- as.integer(df3_filtered$days)
+
+sum(is.na(df3_filtered$days))
+dim(df3_filtered)
+
+nrow(df3_filtered)
+ncol(df3_filtered)
+```
+
+# Formula with Variables
+```{r}
+formula <- as.formula(paste("days ~ insurance + Age + academic_affiliation + AAO_regions + title + gender + central + specialty + (1 | name)"))
+```
+
+
+# Poisson Model `poisson`
+Given that the "days" variable represents the count of days until a new patient appointment and is a count variable, the Poisson regression model is appropriate for your data. It will model the relationship between the predictor variables and the count of days until a new patient appointment.
+
+$$
+
+\begin{align*}\\
+P(\text{{Days until New Patient Appointment}} = x) = \frac{{e^{-\lambda} \cdot \lambda^x}}{{x!}}\\
+
+
+\\where\\
+
+\log(\lambda) = & \beta_0 + \beta_1 \cdot \text{{Patient Insurance}} \\
+& + \beta_2 \cdot \text{{Physician Age}}\\
+& + \beta_3 \cdot \text{{Physician Academic Affiliation}} \\
+& + \beta_4 \cdot \text{{American Academy of Otolaryngology Board of Governor Regions}}\\ & + \beta_5 \cdot \text{{Physician Medical Training}} \\
+& + \beta_6 \cdot \text{{Physician Gender}} \\
+& + \beta_7 \cdot \text{{Central Appointment Phone Number}} \\
+& + \beta_8 \cdot \text{{Physician Specialty}}
+\end{align*}
+
+
+$$
+
+Summary of the Poisson model called `poisson`
+```{r, include = TRUE}
+# I think that we need to remove the NA and only keep the rows with two name (one for Medicaid and one for Medicare).  
+
+#df3_filtered$days <- as.integer(df3_filtered$days)
+
+poisson <- glmer(formula = formula,
+  #days ~ age + academic_affiliation + grad + AAO_regions + specialty + insurance + gender + (1 | name),
+  data = df3,
+  family = poisson(link = "log"),
+  nAGQ = 0,
+  verbose = 0L)
+
+summary(poisson)
+tab_model(poisson, transform = "exp") #Easiest to copy and paste to word.  
+performance(poisson)
+```
+
+
+```{r, include = TRUE}
+# Load the necessary packages
+library(ggplot2)
+library(broom)
+
+# Use broom's tidy function to create a data frame of the coefficients
+coefficients_df <- tidy(poisson)
+coefficients_df <- coefficients_df[!(coefficients_df$term %in% c("(Intercept)", "sd__(Intercept)")), ]
+coefficients_df$estimate <- exp(coefficients_df$estimate)
+
+# Plot the model
+p <- plot_model(poisson, 
+                type = "est", 
+                transform = "exp", 
+                show.values = TRUE,
+                vline.color = "blue",
+                value.offset = 0.45,  # Adjust this value to your liking
+                dot.size = 1,
+                line.size = 0.9,
+                title = "Model Coefficients",
+                axis.title = "Incidence Rate Ratios")
+
+# Customizing with ggplot2
+p + theme_minimal() +
+    theme(text = element_text(size=12),
+          plot.title = element_text(face="bold"),
+          axis.title.x = element_text(vjust = -0.5),
+          axis.title.y = element_text(vjust = 0.5),
+          legend.position = "none") +
+    labs(x="Incidence Rate Ratios",
+         y="Predictors",
+         title="Poisson Regression\n Model Coefficients") +
+    scale_y_discrete(labels = function(x) stringr::str_to_title(stringr::str_remove_all(gsub("_", " ", x), "[[:punct:]]")))# Replace underscore with space in variable names
+
+# Save the plot
+ggsave(filename = "Corbi study/ENT/Figures/model_plot.png", plot = p, width = 8, height = 6, dpi = 300)
+```
+
+
+## Poisson model assumptions
+Checking the binned residuals but because the data is non-parametric the residuals will not be normally distributed.  Collinearity was tested.  
+```{r, message=FALSE, include = TRUE}
+############################################
+# Model diagnostics
+# Model Assumptions: Discuss the assumptions made by the mixed linear regression model, such as linearity, normality, and homoscedasticity. 
+############################################
+
+#OMG
+# https://easystats.github.io/see/articles/performance.html#checking-model-assumptions
+
+result <- binned_residuals(poisson) #The data is non-parametric so the residuals will not be normally distributed.  
+result
+plot(result)
+
+result <- check_collinearity(poisson)
+result
+
+result <- check_outliers(poisson)
+result
+
+check_overdispersion(poisson)
+qqnorm(resid(poisson)) #Q-Q Plot of the residuals
+qqline(resid(poisson)) #Q-Q Plot of the residuals with a line
+check_autocorrelation(poisson)
+check_collinearity(poisson)
+check_singularity(poisson)
+```
+
+Testing assumptions you can use the logLik function to get the log-likelihood of the model, and calculate the residual deviance as -2 * logLik(model). The residual degrees of freedom can be computed as the number of observations minus the number of parameters estimated (which includes both fixed effects and random effects).
+
+The number of parameters estimated can be calculated as the number of fixed effects plus the number of random effects parameters. The number of fixed effects can be obtained from the length of fixef(model), and the number of random effects parameters can be obtained from the length of VarCorr(model).
+
+If the dispersion parameter is considerably greater than 1, it indicates overdispersion. If it is less than 1, it indicates underdispersion. A value around 1 is considered ideal for Poisson regression.
+```{r, include=TRUE}
+logLik_model <- logLik(poisson)
+residual_deviance <- -2 * logLik_model
+num_observations <- nrow(df3)
+num_fixed_effects <- length(fixef(poisson))
+num_random_effects <- length(unlist(VarCorr(poisson)))
+residual_df <- num_observations - num_fixed_effects - num_random_effects
+
+dispersion_parameter <- residual_deviance / residual_df
+print(dispersion_parameter)
+```
+
+This command will create a residuals plot that can help you check the assumptions of your Poisson regression model. If the plot shows a random scatter, then the assumptions are likely met. If the plot shows a clear pattern or trend, then the assumptions might not be met, and you might need to consider a different modeling approach.
+```{r}
+plot(resid(poisson) ~ fitted(poisson))
+```
+
+## Linearity of logit
+
+The Poisson regression assumes that the log of the expected count is a linear function of the predictors. One way to check this is to plot the observed counts versus the predicted counts and see if the relationship looks linear.
+```{r}
+predicted_values <- predict(poisson, type="response")
+actual_values <- df3$days[!is.na(df3$days)]
+
+plot(predicted_values ~ actual_values)
+```
+
+### Significant Variables with Poisson model
+We will need to check interaction of `insurance` with the other significant variables.  "significant variables in the model estimates" refer to predictors that have a significant effect on the response variable individually, while the "ANOVA" assesses the overall significance of the model and the joint significance of all predictors.
+```{r anova_output1888, include=FALSE}
+anova_output <- car::Anova(poisson, type = 3)
+significant_vars <- rownames(anova_output)[anova_output$`Pr(>Chisq)` < 0.05]
+significant_vars <- significant_vars[significant_vars != "(Intercept)"]; significant_vars
+```
+
+```{r, include = TRUE}
+kable(x = significant_vars, 
+      caption = "Sig", 
+      padding = 0, format = "simple") %>%  
+  kable_styling(stripe_color = "gray!6", full_width = FALSE, position = "left", font_size = 7)  
+```
+
+# Poisson Interactions
+To include interaction terms in a regression model, you can use the : operator or the * operator in the formula. The : operator represents the interaction between two variables, while the * operator represents the interaction and also includes the main effects of the two variables.  This will include interactions between insurance and each of the other significant variables (academic_affiliation, AAO_regions, central, specialty), in addition to the main effects of these variables.
+
+Please note that interpreting interaction effects can be complex, especially in nonlinear models such as Poisson regression. The coefficients for the interaction terms represent the difference in the log rate of days for a one-unit change in insurance, for different levels of the other variables. However, the actual effects on the rate of days can vary depending on the values of the other variables.
+
+```{r plot_effects, include = TRUE, fig.width=8, fig.height=12}
+plot(effects::allEffects(poisson))
+```
+
+```{r, include=FALSE}
+# Customize the plot settings
+custom_theme <- c(canonical.theme(color = FALSE), 
+  list(axis.line = list(col = 'transparent'),  # remove axis lines
+       strip.background = list(col = "black", fill = "grey80"),  # change strip background
+       strip.text = list(col = "black"),  # change strip text color
+       plot.title = list(font = 2, cex = 1.5),  # adjust title appearance
+       axis.text = list(cex = 0.8),  # adjust axis text size
+       par.xlab.text = list(cex = 1.2, font = 2),  # adjust x label appearance
+       par.ylab.text = list(cex = 1.2, font = 2)))  # adjust y label appearance
+
+# Apply the settings to lattice plots
+trellis.par.set(custom_theme)
+
+# Change the levels of the factor
+levels(df3$insurance)[levels(df3$insurance) == "Blue Cross/Blue Shield"] <- "Blue Cross/\nBlue Shield"
+```
+
+## Academic affiliation x insurance
+There is a statistically significant different with the interaction between insurance and academic affiliation.  The interaction term `insuranceMedicaid:academic_affiliationUniversity` is statistically significant (p < 0.005), which suggests that the effect of having Medicaid insurance on the number of days until a new patient appointment (the outcome variable) depends on whether the affiliation is with a university or not.
+
+The estimated coefficient for this interaction term is -0.095328. When we exponentiate -0.095328, we get approximately 0.91. So, for university-affiliated providers, having Medicaid insurance is associated with about a 9% decrease in the expected count of days until a new patient appointment, compared to not having Medicaid insurance. This is a relative comparison and it's conditional on the other variables in the model.
+
+```{r insurance_academic_affiliation1, include = FALSE}
+# Create an effect object
+eff <- Effect(c(term = "insurance", "academic_affiliation"), mod = poisson)
+
+# Plot
+effect_plot <- plot(eff)
+
+png(filename = "Corbi study/ENT/Figures/interaction_insurance_academic_affiliation.png", width = 6, height = 4, units = "in", res = 300)
+print(effect_plot)
+dev.off()
+
+###sjplot way
+# Fit the model with interaction
+poisson_insuranceinteractionacademic <- glmer(days ~ insurance*academic_affiliation + Age + AAO_regions + 
+    title + gender + central + specialty + (1 | name),
+    data = df3,
+    family = poisson(link = "log"),
+    nAGQ = 0,
+    verbose = 0L)
+summary(poisson_insuranceinteractionacademic)
+```
+
+
+```{r insurance_academic_affiliation2, include = TRUE}
+# Create the interaction plot
+p <- sjPlot::plot_model(poisson_insuranceinteractionacademic, type = "int")
+
+# Customize the plot
+p <- p + 
+  theme_minimal() +  # Use a minimal theme
+  theme(
+    text = element_text(size = 14),  # Increase the base font size
+    plot.title = element_text(hjust = 0.5),  # Center the plot title
+    axis.title.x = element_text(vjust = -0.2),  # Adjust the x-axis label position
+    axis.title.y = element_text(vjust = 0.2),  # Adjust the y-axis label position
+    legend.position = "bottom"  # Place the legend at the bottom
+  ) +
+  labs(
+    title = "Interaction between Insurance and Academic Affiliation",
+    x = "Insurance",
+    y = "Business Days until\n New Patient Appointment",
+    color = "Academic Affiliation"
+  ); print(p)
+
+# Save the plot with specific dimensions
+ggplot2::ggsave(filename = "Corbi study/ENT/Figures/insuranceinteractionacademic_plot.png", width = 10, height = 6, bg = "transparent")
+```
+
+## AAO regions x insurance
+The interaction term allows us to understand how the effect of one predictor variable (here, insuranceMedicaid) on the response variable (days) changes at different levels of another predictor variable (AAO_regions).
+
+insuranceMedicaid:AAO_regionsRegion 2: The interaction term is negative and significant (p = 0.000734), suggesting that the effect of having Medicaid insurance on the number of days until appointment is less in AAO region 2 compared to the reference region (Region 1).
+
+insuranceMedicaid:AAO_regionsRegion 7: The interaction term is negative and significant (p = 0.001404), implying that the effect of having Medicaid insurance on the number of days until appointment is less in AAO region 7 compared to the reference region.
+
+insuranceMedicaid:AAO_regionsRegion 10: The interaction term is positive and significant (p = 0.003653), suggesting that the effect of having Medicaid insurance on the number of days until appointment is greater in AAO region 10 compared to the reference region.
+
+```{r, include = FALSE}
+#[1] "insurance"            "academic_affiliation" "AAO_regions"          "central"              "specialty" 
+
+eff <- Effect(c(term = "insurance", "AAO_regions"), mod = poisson)
+
+# Plot
+effect_plot <- plot(eff); effect_plot
+
+png(filename = "Corbi study/ENT/Figures/interaction_insurance_aao_region.png", width = 6, height = 4, units = "in", res = 300)
+print(effect_plot)
+dev.off()
+
+###sjplot way
+# Fit the model with interaction
+poisson_insuranceinteractionAAO_regions<- glmer(days ~ insurance*AAO_regions + academic_affiliation + Age + 
+    title + gender + central + specialty + (1 | name),
+    data = df3,
+    family = poisson(link = "log"),
+    nAGQ = 0,
+    verbose = 0L)
+summary(poisson_insuranceinteractionAAO_regions)
+```
+
+
+```{r, include = TRUE}
+# Create the interaction plot
+p <- sjPlot::plot_model(poisson_insuranceinteractionAAO_regions, type = "int")
+
+# Customize the plot
+p <- p + 
+  theme_minimal() +  # Use a minimal theme
+  theme(
+    text = element_text(size = 14),  # Increase the base font size
+    plot.title = element_text(hjust = 0.5),  # Center the plot title
+    axis.title.x = element_text(vjust = -0.2),  # Adjust the x-axis label position
+    axis.title.y = element_text(vjust = 0.2),  # Adjust the y-axis label position
+    legend.position = "bottom"  # Place the legend at the bottom
+  ) +
+  labs(
+    title = "Interaction between Insurance and AAO Board of Governor Region",
+    x = "Insurance",
+    y = "Business Days until\n New Patient Appointment",
+    color = "Academic Affiliation"
+  )
+print(p)
+
+# Save the plot with specific dimensions
+ggplot2::ggsave(filename = "Corbi study/ENT/Figures/insuranceinteractionAAO_regions_plot.png", width = 10, height = 6, bg = "transparent")
+```
+
+## Central x insurance
+The interaction term insuranceMedicaid:centralYes is negative and statistically significant (p < 0.0001). This implies that the effect of having Medicaid insurance on the number of days until appointment is less when there is a central appointment phone number (centralYes) compared to when there isn't a central appointment phone number.
+
+In other words, the presence of a central appointment phone number appears to mitigate the impact of having Medicaid insurance on the number of days until appointment. However, this interpretation assumes that all other variables in the model are held constant.
+
+As with any statistical analysis, it's important to remember that correlation does not imply causation. While we can identify relationships between variables, these relationships don't necessarily mean that one variable is causing the other to change. Further research might be needed to explore these relationships in more detail.
+```{r, include = FALSE}
+#[1] "insurance"            "academic_affiliation" "AAO_regions"          "central"              "specialty" 
+
+eff <- Effect(c(term = "insurance", "central"), mod = poisson)
+
+# Plot
+effect_plot <- plot(eff); effect_plot
+
+png(filename = "Corbi study/ENT/Figures/interaction_insurance_central.png", width = 6, height = 4, units = "in", res = 300)
+print(effect_plot)
+dev.off()
+
+
+###sjplot way
+# Fit the model with interaction
+poisson_insuranceinteractioncentral<- glmer(days ~ insurance*central + AAO_regions + academic_affiliation + Age + 
+    title + gender  + specialty + (1 | name),
+    data = df3,
+    family = poisson(link = "log"),
+    nAGQ = 0,
+    verbose = 0L)
+
+summary(poisson_insuranceinteractioncentral)
+```
+
+
+```{r, include = TRUE}
+# Create the interaction plot
+p <- sjPlot::plot_model(poisson_insuranceinteractioncentral, type = "int")
+
+# Customize the plot
+p <- p + 
+  theme_minimal() +  # Use a minimal theme
+  theme(
+    text = element_text(size = 14),  # Increase the base font size
+    plot.title = element_text(hjust = 0.5),  # Center the plot title
+    axis.title.x = element_text(vjust = -0.2),  # Adjust the x-axis label position
+    axis.title.y = element_text(vjust = 0.2),  # Adjust the y-axis label position
+    legend.position = "bottom"  # Place the legend at the bottom
+  ) +
+  labs(
+    title = "Interaction between Insurance and Central Appointment Phone Number",
+    x = "Insurance",
+    y = "Business Days until\n New Patient Appointment",
+    color = "Central Appointment Phone Number"
+  )
+print(p)
+
+# Save the plot with specific dimensions
+ggplot2::ggsave(filename = "Corbi study/ENT/Figures/insuranceinteractionCentral_plot.png", width = 10, height = 6, bg = "transparent")
+```
+
+## Specialty x insurance
+This model contains multiple interaction terms between the `insuranceMedicaid` and each level of the `specialty` variable. Each interaction term allows us to understand how the effect of having Medicaid insurance on the response variable (`days`) changes at different levels of the `specialty` variable.
+
+1. `insuranceMedicaid:specialtyGeneral Otolaryngology`: This interaction term is not statistically significant (p = 0.471061), which suggests that there is no significant difference in the number of days until appointment for Medicaid patients in the General Otolaryngology specialty compared to those not in this specialty, assuming all other variables in the model are held constant.
+
+2. `insuranceMedicaid:specialtyHead and Neck Surgery`: This interaction term is statistically significant (p = 0.006185) and negative. This suggests that for patients in the Head and Neck Surgery specialty, having Medicaid insurance is associated with fewer days until appointment, compared to those not in this specialty, assuming all other variables in the model are held constant.
+
+Remember that these interpretations are based on the statistical model and the data used, and they don't necessarily imply causation. They should be used as part of a larger investigation into these relationships.
+```{r, include = FALSE}
+#[1] "insurance"            "academic_affiliation" "AAO_regions"          "central"              "specialty" 
+
+eff <- Effect(c(term = "insurance", "specialty"), mod = poisson)
+
+# Plot
+effect_plot <- plot(eff); effect_plot
+
+png(filename = "Corbi study/ENT/Figures/interaction_insurance_specialty.png", width = 6, height = 4, units = "in", res = 300)
+print(effect_plot)
+dev.off()
+
+###sjplot way
+# Fit the model with interaction
+poisson_insuranceinteractionspecialty<- glmer(days ~ insurance*specialty + central + AAO_regions + academic_affiliation + Age + 
+    title + gender + (1 | name),
+    data = df3,
+    family = poisson(link = "log"),
+    nAGQ = 0,
+    verbose = 0L)
+
+summary(poisson_insuranceinteractionspecialty)
+```
+
+
+```{r, include = TRUE}
+# Create the interaction plot
+p <- sjPlot::plot_model(poisson_insuranceinteractionspecialty, type = "int")
+
+# Customize the plot
+p <- p + 
+  theme_minimal() +  # Use a minimal theme
+  theme(
+    text = element_text(size = 14),  # Increase the base font size
+    plot.title = element_text(hjust = 0.5),  # Center the plot title
+    axis.title.x = element_text(vjust = -0.2),  # Adjust the x-axis label position
+    axis.title.y = element_text(vjust = 0.2),  # Adjust the y-axis label position
+    legend.position = "bottom"  # Place the legend at the bottom
+  ) +
+  labs(
+    title = "Interaction between Insurance and Subspecialty",
+    x = "Insurance",
+    y = "Business Days until\n New Patient Appointment",
+    color = "Subspecialty"
+  )
+print(p)
+
+# Save the plot with specific dimensions
+ggplot2::ggsave(filename = "Corbi study/ENT/Figures/insuranceinteractionSubspecialty_plot.png", width = 10, height = 6, bg = "transparent")
+```
+
+# Gamma model `gamma_model`
+Fails to converge without log transformation.  With log transformation we get Error in eval(family$initialize, rho) : 
+  non-positive values not allowed for the 'Gamma' family
+```{r, include = TRUE}
+# Change the levels of the factor
+levels(df3$insurance)[levels(df3$insurance) == "Blue Cross/\nBlue Shield"] <- "Blue Cross/Blue Shield"
+
+df3 <- df3 %>%
+  arrange(npi, insurance) #%>%
+  #rename(central = central_number_e_g_appointment_center)
+
+# By default, the glmer function uses maximum likelihood estimation, which automatically excludes any observations with missing values from the analysis.
+
+# Fit the gamma GLMM with the random effect of physician
+gamma_model <- lme4::glmer(formula = formula,
+  data = df3,
+  family = Gamma(link = "log"),
+  nAGQ = 0,
+  verbose = 0L)
+
+tab_model(gamma_model)
+performance(gamma_model)
+```
+
+## Gamma model assumptions
+```{r}
+qqnorm(resid(gamma_model)) #Q-Q Plot of the residuals
+qqline(resid(gamma_model)) #Q-Q Plot of the residuals with a line
+#check_heteroscedasticity(gamma_model) #Only works for Gaussian models
+#check_heteroscedasticity(mixed.lmer) %>% plot()
+check_autocorrelation(gamma_model)
+#check_collinearity(gamma_model) #Can't work because not poisson or binomial
+check_singularity(gamma_model)
+
+result <- binned_residuals(gamma_model); result
+plot(result)
+
+result <- check_distribution(gamma_model); result
+plot(result)
+
+#Check for Normal Distributed Random Effects
+result <- check_normality(gamma_model, effects = "random")
+plot(result)
+```
+
+```{r}
+formula
+
+# Fit the gamma model using glmer from lme4 on the imputed data
+gamma_model <- glmer(formula = days ~ age + academic_affiliation + grad + AAO_regions + specialty + insurance + gender + (1 | name),
+                     data = df3,
+                     family = Gamma(link = "log"),
+                     nAGQ = 0,
+                     verbose = 0L)
+```
+
+
+# Linear mixed regression model `mixed.lmer`
+$$
+\begin{align*}
+\textit{Business Days Until a New Patient Visit} = &\beta_0 + \beta_1 \, \text{Physician Age} \\
+& + \beta_2 \, \text{Physician Gender} + \beta_3 \, \text{Physician Subspecialty} \\
+& + \beta_4 \, \text{Physician Medical School Training} + \beta_5 \, \text{Physician Academic Affiliation} \\
+& + \beta_6 \, \text{Physician American Academy of Otolaryngology Head and Neck Surgery Region}\\
+& + \beta_7 \, \text{Number of Phone Transfers} + \beta_8 \,\text{Patient Insurance } + (1|\text{ Physician Name})\\
+& + u_{0i} + \epsilon_{ij}\\
+\end{align*}
+$$
+mixed.lmer <- lmerTest::lmer(formula = days ~ insurance + Age + academic_affiliation + AAO_regions + title + gender + central + specialty + (1 | name),
+  data = df3,
+  verbose = 0L)
+  
+The parameter \(\beta_0\) represents the intercept term in the linear regression equation. It denotes the expected value of the response variable (in this case, the log of the (\(Business\ Days\ Until\ a\ New\ Patient\ Visit)\) when all other predictor variables in the model are set to zero or their reference levels. In other words, \(\beta_0\) represents the average or baseline value of the response variable when all predictors are absent or have no effect. \(\beta_1\), \(\beta_2\), \(\beta_3\), \(\beta_4\), \(\beta_5\), \(\beta_6\), \(\beta_7\), and \(\beta_8\) are the regression coefficients associated with the respective predictor variables.
+
+The term (\(1|Physician\ Name)\) represents the random effect component in the linear mixed model. It indicates that there is random variation in the intercept (or baseline level) of the response variable across different levels of the "Physician Name" variable. This random effect allows for individual-level variability and accounts for potential heterogeneity among individuals in terms of their baseline values. In other words, it acknowledges that individuals with different years of leadership position experience may have different intercepts or starting points for the response variable. The notation "(\(1|Physician\ Name)\)" specifies that the random effect is associated with the grouping variable ( \(Physician\ Name)\).
+
+\(u_{0i}\) represents the random effect, capturing the individual-level variability and accounting for potential heterogeneity among individuals in terms of the intercept.
+
+\(\epsilon_{ij}\) is the error term, representing the random variation not accounted for by the fixed and random effects.
+
+```{r mixed.lmer, include=FALSE}
+df3 <- df3 %>%
+  arrange(npi, insurance) 
+
+mixed.lmer <- lmerTest::lmer(formula = formula,
+  data = df3,
+  verbose = 0L)
+
+tab_model(mixed.lmer)
+performance(mixed.lmer)
+```
+
+## mixed.lmer model assumptions
+```{r}
+############################################
+# Model diagnostics
+# Model Assumptions: Discuss the assumptions made by the mixed linear regression model, such as linearity, normality, and homoscedasticity. 
+############################################
+check_normality(mixed.lmer)          
+qq_plot <- check_normality(mixed.lmer) %>% plot(type = "qq"); qq_plot
+ggsave(filename = "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/mixed.lmer.qq_plot.tiff", plot = qq_plot, width = 6, height = 4, dpi = 300)
+qqnorm(resid(mixed.lmer)) #Q-Q Plot of the residuals
+qqline(resid(mixed.lmer)) #Q-Q Plot of the residuals with a line
+check_heteroscedasticity(mixed.lmer) 
+check_heteroscedasticity(mixed.lmer) %>% plot()
+check_autocorrelation(mixed.lmer)
+check_collinearity(mixed.lmer)
+check_singularity(mixed.lmer)
+model_performance(mixed.lmer, metrics = "all")
+```
+
+```{r anova_output, include = TRUE}
+anova_output <- car::Anova(mixed.lmer); anova_output
+
+#Filters out the list of variables with p<0.05
+significant_vars <- rownames(anova_output)[anova_output$`Pr(>Chisq)` < 0.05]
+significant_vars <- significant_vars[significant_vars != "(Intercept)"]
+print(significant_vars)
+```
+
+We can show the effect in a graph. Notice that these are model adjusted means, that is, it is not just average waiting time, but the average waiting time controlled for the other variable in the model.
+```{r estimated_marginal_means_insurance2, include = TRUE}
+edata <- emmeans(mixed.lmer, ~ insurance, type = "response", rg.limit = 67200) %>% 
+  as.data.frame(); edata
+
+estimated_marginal_means_insurance <- ggplot(edata, aes(x = insurance, y = emmean))+
+  geom_point(size = 2, stroke = 2)+
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.1)+
+  ggtitle("Estimated Marginal Means - Insurance Type")+
+  ylab("Estimated Marginal Means for Waiting Time in Days\n Mean ± 95% CI")+
+  theme_minimal(); estimated_marginal_means_insurance 
+
+ggsave("/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/Marg_plot.png", estimated_marginal_means_insurance , width = 8, height = 6, dpi = 300)
+```
+
+The estimated marginal means (average response) for the insurance variable are as follows:
+
+* Blue Cross/Blue Shield: The estimated average waiting time (rate) is `r round(edata$emmean[1], 2)` days. The standard error (SE) associated with this estimate is `r round(edata$SE[1], 2)`. The degrees of freedom (df) are infinite. The 95% confidence interval for the average waiting time ranges from `r round(edata$lower.CL[1], 2)` to `r round(edata$upper.CL[1], 2)` days.
+
+* Medicaid: The estimated average waiting time (rate) is `r round(edata$emmean[2],2)` days. The standard error (SE) associated with this estimate is `r round(edata$SE[2],2)`. The degrees of freedom (df) are infinite. The 95% confidence interval for the average waiting time ranges from `r round(edata$lower.CL[2], 2)` to `r round(edata$upper.CL[2],2)` days.
+
+Look at each set of statistically significant variables.  
+```{r, include=TRUE}
+car::Anova(mixed.lmer)
+```
+
+```{r function_estimated_marginal_means2, include=FALSE}
+generate_marginal_means_plot <- function(model, variable) {
+  edata <- emmeans(model, variable, type = "response", rg.limit = 67200) %>%
+    as.data.frame()
+
+  # Convert variable name to title case and remove underscores
+  x_label <- str_replace_all(variable, "_", " ")
+  x_label <- str_to_title(x_label)
+
+  estimated_marginal_means <- ggplot(edata, aes(x = reorder(.data[[variable]], -emmean), y = emmean, fill = .data[[variable]])) +
+    geom_point(size = 2, stroke = 2) +
+    geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.1) +
+    ggtitle(paste("Estimated Marginal Means -", x_label, "Type")) +
+    ylab("Estimated Marginal Means for Waiting Time in Days\n Mean ± 95% CI") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    scale_fill_brewer(palette = "Set1") +
+    guides(fill = FALSE)
+
+  output_path <- "Corbi study/ENT/Figures/"
+  filename <- paste("Marg_plot_", variable, ".png", sep = "")
+
+  ggsave(file.path(output_path, filename), estimated_marginal_means, width = 8, height = 6, dpi = 300)
+
+  print(edata)
+  print(estimated_marginal_means)
+}
+```
+
+
+```{r generate_marginal_means_plot999, include=TRUE}
+generate_marginal_means_plot(mixed.lmer, "academic_affiliation")
+
+generate_marginal_means_plot(mixed.lmer, "AAO_regions")
+#emmeans(poisson, pairwise~ "AAO_regions", type = "response", adjust = "bon", rg.limit = 67200)
+
+generate_marginal_means_plot(mixed.lmer, "specialty")
+#emmeans(poisson, pairwise~ "specialty", type = "response", adjust = "bon", rg.limit = 67200)
+
+generate_marginal_means_plot(mixed.lmer, "insurance")
+
+generate_marginal_means_plot(mixed.lmer, "central")
+```
+
+
+Subspecialty is significant as we see in the ANOVA table. Estimates with confidence interval of the number of days of waiting time. We also look at pairwise differences.  Here we use Bonferroni adjustment for multiple
+```{r emmeans_mixed.lmer, include = FALSE}
+emmeans(mixed.lmer, pairwise~ "specialty", type = "response", adjust = "bon", rg.limit = 67200)
+```
+
+# Generalized Linear Mixed-Effects model
+```{r glmm_model, include=TRUE}
+# Specify the GLMM formula with appropriate family and link
+# When I use just days ~ then the model does not converge
+# Fit the GLMM model using glmer.nb from MASS
+glmm_model <- lme4::glmer(formula = formula, 
+                    nAGQ = 10L, 
+                    data = df3, 
+                    verbose = 0L, 
+                    family = poisson(link = "log"))
+
+tab_model(glmm_model)
+performance(glmm_model)
+```
+
+## GLMM Mixed-Effects model assumptions
+```{r glmm, include = TRUE}
+############################################
+# Model diagnostics
+# Model Assumptions: Discuss the assumptions made by the mixed linear regression model, such as linearity, normality, and homoscedasticity. 
+############################################
+
+#OMG
+# https://easystats.github.io/see/articles/performance.html#checking-model-assumptions
+
+result <- binned_residuals(glmm_model)
+result
+plot(result)
+
+result <- check_collinearity(glmm_model)
+result
+plot(result)
+
+check_overdispersion(glmm_model)
+qqnorm(resid(glmm_model)) #Q-Q Plot of the residuals
+qqline(resid(glmm_model)) #Q-Q Plot of the residuals with a line
+check_autocorrelation(glmm_model)
+check_collinearity(glmm_model)
+check_singularity(glmm_model)
+```
+
+<!-- # Normal model -->
+<!-- ```{r, include=FALSE} -->
+<!-- m1 <- lmer(formula = formula, -->
+<!--   #days ~ Age + academic_affiliation + grad + AAO_regions + title + specialty + insurance + central + gender + dow + (1 | name) -->
+<!--            data = df3) -->
+
+<!-- tab_model(m1) -->
+<!-- ``` -->
+
+<!-- ```{r, include=FALSE} -->
+<!-- m1b<- lmer(log(days) ~ Age + academic_affiliation + grad + AAO_regions + title + specialty + insurance + central + gender + -->
+<!--     dow + (1 | name), -->
+<!--                data = df3 -->
+<!--           ) -->
+
+<!-- m1c <- lmer(days ~ -->
+<!--           specialty  + (1|name), -->
+<!--                data = df3 -->
+<!--           ) -->
+<!-- ``` -->
+
+
+<!-- ```{r, include=TRUE} -->
+<!-- ggplot(residuals(m1) %>%  as.data.frame(), aes(x = .))+ -->
+<!--   geom_histogram()+ -->
+<!--   ggtitle("Ditribution of Model Residuals")+ -->
+<!--   theme_minimal() -->
+<!-- ``` -->
+
+
+# Model Both Insurances
+Here we will look at all providers for whom waiting time data is available AND who also accepts Medicaid. These are 354 such providers, adding up to 562 data points.
+```{r, include=FALSE}
+df4 <- filter(df3, No_Medicaid == "Yes the physician accepts Medicaid",
+                 #nodata == "In the Analysis")
+              `contacted_>_0_business_days_to_appt`== "In the Analysis")
+
+ggplot(df4, aes(x = insurance, y = days))+
+  geom_point()+
+  geom_line(aes(group = npi), color = "gray80")+
+  ggtitle("Overall Comparison of waiting times")+
+  ylab("Waiting Times in Days (Log scale)")+
+  scale_y_log10()+
+  theme_minimal()+
+  theme(
+    axis.title.x = element_blank()
+  )
+```
+
+
+```{r, include=FALSE}
+temp <- tidyr::spread(df4 %>%
+                        dplyr::select(npi,insurance,days),
+                      key = insurance, value = days) %>%
+  dplyr::filter(!is.na(Medicaid)) %>%
+  dplyr::filter(!is.na(`Blue Cross/Blue Shield`))
+
+ggplot(temp, aes(x = `Blue Cross/Blue Shield`, y = Medicaid))+
+  geom_point()+
+  geom_abline()+
+  scale_x_log10()+
+  scale_y_log10()+
+  theme_minimal()
+```
+
+
+# `glmm_model` Moderation effect
+Does subspecialty affect the difference in waiting times between private and Medicaid? The ANOVA tabler below shows that yes, we have evidence for the interaction.
+```{r, include = FALSE}
+df4 <- df %>%
+  rename(days = business_days_until_appointment)
+df4$it <- relevel(df4$insurance, ref = "Medicaid")
+class(df4)
+df4_matrix <- as.matrix(df4)
+class(df4_matrix)
+df4_list <- as.list(data.frame(df4_matrix))
+
+# lmmodel2 <-
+#   glmer(days ~ specialty * it +
+#           Age + academic_affiliation + grad + AAO_regions + title + gender + (1 | name),
+#                data = df4_list,
+#                family = poisson, #Count data
+#                nAGQ = 1)
+df4$it <- relevel(df4$insurance, ref = "Medicaid")
+
+#df4$it <- relevel(df4$insurance, ref = "Medicaid")
+```
+
+### Interactions
+We will need to check interaction of `insurance` with the other significant variables.  
+```{r anova_output1999, include=FALSE}
+anova_output <- car::Anova(glmm_model, type = 3)
+significant_vars <- rownames(anova_output)[anova_output$`Pr(>Chisq)` < 0.05]
+significant_vars <- significant_vars[significant_vars != "(Intercept)"]; significant_vars
+```
+
+<!-- ### Run the model with the significant variables * insurance then check ANOVA -->
+<!-- ```{r interaction_models, include=FALSE} -->
+<!-- # Create an empty list to store the interaction models -->
+<!-- interaction_models <- list() -->
+
+<!-- # Create an empty list to store the interaction terms -->
+<!-- interaction_terms <- list() -->
+
+<!-- # Loop over each variable in significant_vars -->
+<!-- for (var in significant_vars) { -->
+<!--   # Create the formula with the interaction term -->
+<!--   formula <- as.formula(paste("log(days) ~ insurance *", var, "+ Age + academic_affiliation + grad + AAO_regions + title + gender + central + specialty + (1 | name)")) -->
+
+<!--   # Fit the interaction model -->
+<!--   interaction_model <- lme4::lmer(formula, data = df3, REML = FALSE) -->
+
+<!--   # Store the interaction model in the list -->
+<!--   interaction_models[[var]] <- interaction_model -->
+
+<!--   # Perform ANOVA on the interaction model -->
+<!--   anova_output <- car::Anova(interaction_model, type = 3) -->
+
+<!--   # Filter and store the interaction terms -->
+<!--   interaction_terms[[var]] <- anova_output[grepl(":", rownames(anova_output)), ] -->
+<!-- } -->
+
+<!-- # Print the interaction terms for each model -->
+<!-- for (var in significant_vars) { -->
+<!--   print(interaction_terms[[var]]) -->
+<!-- } -->
+<!-- ``` -->
+
+<!-- ### Create a tibble of interaction terms and their ANOVA p-values -->
+<!-- ```{r interaction_tibble, include=TRUE} -->
+<!-- # Create an empty tibble to store the interaction terms -->
+<!-- interaction_tibble <- tibble( -->
+<!--   interaction_term = character(), -->
+<!--   p_value = character()  # Changed to character type -->
+<!-- ) -->
+
+<!-- # Loop over each variable in significant_vars -->
+<!-- for (var in significant_vars) { -->
+<!--   # Extract the interaction term and its corresponding p-value -->
+<!--   interaction_term <- rownames(interaction_terms[[var]]) -->
+<!--   p_value <- interaction_terms[[var]][, "Pr(>Chisq)"] -->
+
+<!--   # Round p-value to two digits and convert to character type -->
+<!--   p_value <- as.character(round(p_value, digits = 2)) -->
+
+<!--   # Add the data to the interaction tibble -->
+<!--   interaction_tibble <- interaction_tibble %>% -->
+<!--     add_row(interaction_term = interaction_term, p_value = p_value, .before = 0) -->
+<!-- } -->
+
+<!-- # Arrange the rows in ascending order by p-value -->
+<!-- interaction_tibble <- interaction_tibble %>% -->
+<!--   arrange(p_value) -->
+<!-- ``` -->
+
+<!-- Significant interactions between wait time and other variables -->
+<!-- ```{r signficant_vars, include=TRUE} -->
+<!-- kable(x = interaction_tibble,  -->
+<!--       caption = "Wait Time and Other Variable Interactions",  -->
+<!--       padding = 0, format = "simple") %>%   -->
+<!--   kable_styling(stripe_color = "gray!6", full_width = FALSE, position = "left", font_size = 7)   -->
+<!-- ``` -->
+
+<!-- ```{r set_levels} -->
+<!-- # formula <- as.formula(paste("log(days) ~ insurance *", var, "+ Age + academic_affiliation + grad + AAO_regions + title + gender + (1 | name)")) -->
+<!-- # df3$central <- df3 %>%  -->
+<!-- #   rename(central = central) -->
+
+<!-- # Convert "central" to a factor with specified levels -->
+<!-- df3$central <- factor(df3$central, levels = c("Yes", "No")) -->
+<!-- df3$insurance <- factor(df3$insurance, levels = c("Blue Cross/Blue Shield", "Medicaid")) -->
+<!-- # df3$gender <- factor(df3$gender, levels = c("Male", "Female")) -->
+<!-- # df3$No_Medicaid <- factor(df3$No_Medicaid, levels = c("Yes the physician accepts Medicaid", "No the physician does not accept Medicaid")) -->
+<!-- # df3$ntransf <- factor(df3$ntransf, levels = c("No transfers", "1 transfer", "2 transfers", "3 or more transfers")) -->
+<!-- # df3$title <- factor(df3$title, levels = c("MD", "DO")) -->
+<!-- # df3$AAO_regions <- factor(df3$AAO_regions, levels = c("Region 1", "Region 2", "Region 3", "Region 4", "Region 5", "Region 6", "Region 7", "Region 8", "Region 9", "Region 10")) -->
+<!-- # df3$ACOG_District <- factor(df3$ACOG_District, levels = c("District I", "District II", "District III", "District IV", "District V", "District VI", "District VII", "District VIII", "District IX", "District X")) -->
+<!-- ``` -->
+
+<!-- ### CENTRAL scheduling interaction with insurance  -->
+<!-- ```{r central_scheduling_interaction, include = FALSE} -->
+<!-- # Continue setting levels for other factor variables as needed -->
+<!--   formula <- as.formula(paste("log(days) ~ insurance * central + Age + academic_affiliation + grad + AAO_regions + title + gender + specialty + (1 | name)")) -->
+
+<!--   # Fit the interaction model -->
+<!--   interaction_model <- lme4::lmer(formula, data = df3, REML = FALSE) -->
+
+<!-- edata <- emmeans(interaction_model, ~ insurance | central, -->
+<!--                  type = "response", rg.limit = 67200) %>% as.data.frame() -->
+
+<!-- #edata$ss = edata for the SubSpecialties.  We do have subspecialties here too so let's run with it.   -->
+<!-- edata$central <-  factor(edata$central, -->
+<!--                    levels = c("Yes", "Yes","No","No"), -->
+<!--                    labels = c("Yes, central appointment scheduling", "Yes, central appointment scheduling", "No, central appointment scheduling", "No, central appointment scheduling")) -->
+
+<!-- # edata$ss <- factor(edata$specialty, -->
+<!-- #                    levels = c("Gen Oto","Head and Neck","Laryngology","Neurotology", "Peds", "Rhinology"), -->
+<!-- #                    labels = c("General Otolaryngology", -->
+<!-- #                               "Head and Neck Surgery", -->
+<!-- #                               "Laryngology", -->
+<!-- #                               "Neurotology", -->
+<!-- #                               "Pediatric Otolaryngology", -->
+<!-- #                               "Rhinology")) -->
+<!-- edata$insurance <- factor(edata$insurance, labels = c("Medicaid","Blue Cross/Blue Shield")) -->
+
+<!-- # edata$central2 <- factor(str_wrap(edata$central, width = 20), -->
+<!-- #                     levels = c("Yes, central appointment scheduling", -->
+<!-- #                               "No, central appointment scheduling")) -->
+<!-- ``` -->
+
+<!-- Usually the graph above should be good enough, but people always want to conduct statistical tests. -->
+<!-- ```{r emmeans, include=FALSE} -->
+<!-- emmeans(interaction_model, pairwise~ insurance | central, -->
+<!--                  type = "response", rg.limit = 67200) %>% confint() -->
+<!-- ``` -->
+
+<!-- Here we provide p-values for the ratios -->
+<!-- ```{r emmeans_contrasts1, include=FALSE} -->
+<!-- emmeans(interaction_model, pairwise~ insurance | central, -->
+<!--                  type = "response", rg.limit = 67200)$contrasts -->
+<!-- ``` -->
+
+<!-- ```{r central_plot_significant, include = TRUE} -->
+<!-- central_plot_significant <- ggplot(edata, aes(x = central, y = response)) + -->
+<!--   geom_point(aes(color = insurance), size = 2, stroke = 2, position = position_dodge(width = 0.2)) + -->
+<!--   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL, color = insurance), width = 0.2, position = position_dodge(width = 0.2)) + -->
+<!--   scale_x_discrete(labels = c("Yes, central appointment\n scheduling", "No, central appointent\n scheduling")) + -->
+<!--   scale_color_manual(values = c("black", "gray50")) + -->
+<!--   annotate(label = "*", x= c(2),y=15, geom = "text", size = 6)+ -->
+<!--   ylab("Estimated Marginal Means for Waiting Time in Days\n Mean ± 95% CI") + -->
+<!--   theme_minimal() + -->
+<!--   theme( -->
+<!--     axis.title.x = element_blank(), -->
+<!--     axis.text.x = element_text(face = "bold", size = 10, angle = 45, hjust = 1), -->
+<!--     legend.position = "bottom", -->
+<!--     legend.title = element_blank() -->
+<!--   ); central_plot_significant -->
+<!-- ``` -->
+
+<!-- ```{r ggsave_central_plot_significant, include=FALSE} -->
+<!-- ggsave(filename = "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/central_plot_significant.jpeg", -->
+<!--        plot = central_plot_significant, -->
+<!--        dpi = 300, -->
+<!--        width = 6, -->
+<!--        height = 4) -->
+<!-- ``` -->
+
+<!-- ### Academic Affiliation interaction with insurance -->
+<!-- ```{r academic_affiliation, include=FALSE} -->
+<!-- # Continue setting levels for other factor variables as needed -->
+<!--   formula <- as.formula(paste("log(days) ~ insurance * academic_affiliation + Age + specialty + grad + AAO_regions + title + gender + (1 | name)")) -->
+
+<!--   # Fit the interaction model -->
+<!--   interaction_model <- lme4::lmer(formula, data = df3, REML = FALSE) -->
+
+<!-- edata <- emmeans(interaction_model, ~ insurance | academic_affiliation, -->
+<!--                  type = "response", rg.limit = 67200) %>% as.data.frame() -->
+
+<!-- #edata$ss = edata for the SubSpecialties.  We do have subspecialties here too so let's run with it.   -->
+<!-- edata$academic_affiliation <-  factor(edata$academic_affiliation, -->
+<!--                    levels = c("Private Practice", "University"), -->
+<!--                    labels = c("Private Practice", "University")) -->
+
+<!-- edata$insurance <- factor(edata$insurance, labels = c("Medicaid","Blue Cross/Blue Shield")) -->
+<!-- ``` -->
+
+<!-- ```{r emmeans_academic_affiliation, include=FALSE} -->
+<!-- emmeans(interaction_model, pairwise~ insurance | academic_affiliation, -->
+<!--                  type = "response", rg.limit = 67200) %>% confint() -->
+<!-- ``` -->
+
+<!-- Here we provide p-values for the ratios -->
+<!-- ```{r emmeans_contrasts, include=FALSE} -->
+<!-- emmeans(interaction_model, pairwise~ insurance | academic_affiliation, -->
+<!--                  type = "response", rg.limit = 67200)$contrasts -->
+<!-- ``` -->
+
+<!-- ```{r emmeans_academic_affiliation_graph, include=TRUE} -->
+<!-- academic_affiliation_plot_significant <- ggplot(edata, aes(x = academic_affiliation, y = response)) + -->
+<!--   geom_point(aes(color = insurance), size = 2, stroke = 2, position = position_dodge(width = 0.2)) + -->
+<!--   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL, color = insurance), width = 0.2, position = position_dodge(width = 0.2)) + -->
+<!--   scale_x_discrete(labels = c("Private practice", "Academic practice")) + -->
+<!--   scale_color_manual(values = c("black", "gray50")) + -->
+<!--   annotate(label = "*", x= c(1),y=15, geom = "text", size = 6)+ -->
+<!--   ylab("Estimated Marginal Means for Waiting Time in Days\n Mean ± 95% CI") + -->
+<!--   theme_minimal() + -->
+<!--   theme( -->
+<!--     axis.title.x = element_blank(), -->
+<!--     axis.text.x = element_text(face = "bold", size = 10, angle = 45, hjust = 1), -->
+<!--     legend.position = "bottom", -->
+<!--     legend.title = element_blank() -->
+<!--   ); academic_affiliation_plot_significant -->
+<!-- ``` -->
+
+<!-- ```{r ggsave_academic_affiliation, include=FALSE} -->
+<!-- ggsave(filename = "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/academic_affiliation_plot_significant.jpeg", -->
+<!--        plot = academic_affiliation_plot_significant, -->
+<!--        dpi = 300, -->
+<!--        width = 6, -->
+<!--        height = 4) -->
+<!-- ``` -->
+
+
+<!-- ### Specialty Interaction with insurance -->
+<!-- ```{r specialty_affiliation, include=TRUE} -->
+<!-- # Continue setting levels for other factor variables as needed -->
+<!--   formula <- as.formula(paste("log(days) ~ insurance * specialty + academic_affiliation + Age + academic_affiliation + grad + AAO_regions + title + gender + (1 | name)")) -->
+
+<!--   # Fit the interaction model -->
+<!--   interaction_model <- lme4::lmer(formula, data = df3, REML = FALSE) -->
+
+<!-- edata <- emmeans(interaction_model, ~ insurance | specialty, -->
+<!--                  type = "response", rg.limit = 67200) %>% as.data.frame() -->
+
+<!-- #edata$ss = edata for the SubSpecialties.  We do have subspecialties here too so let's run with it.   -->
+<!-- edata$specialty <-  factor(edata$specialty) -->
+
+<!-- edata$insurance <- factor(edata$insurance, labels = c("Medicaid","Blue Cross/Blue Shield")) -->
+<!-- ``` -->
+
+<!-- ```{r emmeans_academic_affiliation1, include=FALSE} -->
+<!-- emmeans(interaction_model, pairwise~ insurance | specialty, -->
+<!--                  type = "response", rg.limit = 67200) %>% confint() -->
+<!-- ``` -->
+
+<!-- Here we provide p-values for the ratios -->
+<!-- ```{r emmeans_contrasts3, include=FALSE} -->
+<!-- emmeans(interaction_model, pairwise~ insurance | specialty, -->
+<!--                  type = "response", rg.limit = 67200)$contrasts -->
+<!-- ``` -->
+
+<!-- ```{r emmeans_academic_affiliation_graph2, include=TRUE} -->
+<!-- specialty_plot_significant <- ggplot(edata, aes(x = specialty, y = response)) + -->
+<!--   geom_point(aes(color = insurance), size = 2, stroke = 2, position = position_dodge(width = 0.2)) + -->
+<!--   geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL, color = insurance), width = 0.2, position = position_dodge(width = 0.2)) + -->
+<!--   #scale_x_discrete(labels = c("Private practice", "Academic practice")) + -->
+<!--   scale_color_manual(values = c("black", "gray50")) + -->
+<!--   annotate(label = "*", x= c(5),y=15, geom = "text", size = 6)+ -->
+<!--   ylab("Estimated Marginal Means for Waiting Time in Days\n Mean ± 95% CI") + -->
+<!--   theme_minimal() + -->
+<!--   theme( -->
+<!--     axis.title.x = element_blank(), -->
+<!--     axis.text.x = element_text(face = "bold", size = 10, angle = 45, hjust = 1), -->
+<!--     legend.position = "bottom", -->
+<!--     legend.title = element_blank() -->
+<!--   ); specialty_plot_significant -->
+<!-- ``` -->
+
+<!-- ```{r ggsave_academic_affiliation3, include=FALSE} -->
+<!-- ggsave(filename = "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/specialty_plot_significant.jpeg", -->
+<!--        plot = specialty_plot_significant, -->
+<!--        dpi = 300, -->
+<!--        width = 6, -->
+<!--        height = 4) -->
+<!-- ``` -->
+
+### Overdispersion
+```{r overdisp_fun, include=FALSE}
+# mixed.lmer <- lmerTest::lmer(
+#   days ~ Age + academic_affiliation + grad + AAO_regions + title + specialty + insurance + central + gender + (1 | name),
+#   data = df3,
+#   #family = poisson,
+#   # Specifies the family distribution as Poisson for count data
+#   #nAGQ = 0,  # Specifies the number of adaptive Gaussian quadrature (AGQ) points
+#   verbose = 0L)
+
+overdisp_fun <- function(model) {
+    rdf <- df.residual(model)
+    rp <- residuals(model,type="pearson")
+    Pearson.chisq <- sum(rp^2)
+    prat <- Pearson.chisq/rdf
+    pval <- pchisq(Pearson.chisq, df=rdf, lower.tail=FALSE)
+    c(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p=pval)
+}
+```
+
+
+```{r, include=TRUE}
+overdisp_fun(glmm_model)
+```
+
+
+<!-- # Scatter Plot Graph  -->
+<!-- The graph represents the appointment wait time for two insurance types: Medicaid and Blue Cross Blue Shield. -->
+
+<!-- The x-axis represents the business days for Blue Cross Blue Shield appointments on a logarithmic scale. -->
+<!-- The y-axis represents the business days for Medicaid appointments on a logarithmic scale. -->
+<!-- The data points on the graph are represented by black dots, where each dot corresponds to an appointment. The diagonal dashed line represents the line of equality where the wait time for both insurance types would be the same. -->
+
+<!-- The graph is divided into quadrants based on the line of equality. The points above the line indicate longer wait times for Medicaid appointments compared to Blue Cross Blue Shield appointments, while the points below the line indicate shorter wait times for Medicaid appointments. -->
+
+<!-- The color of the dots represents the insurance type: blue for Medicaid and red for Blue Cross Blue Shield. The legend provides a color guide for the insurance types. -->
+
+<!-- The graph provides a visual comparison of the appointment wait times between Medicaid and Blue Cross Blue Shield, allowing for an assessment of any differences in wait times between the two insurance types. -->
+
+<!-- # Scatter Plot -->
+<!-- ```{r} -->
+<!-- #https://github.com/cararthompson/30DayChartChallenge/blob/main/scripts/2.2_animals.R -->
+
+<!-- library(ggplot2) -->
+
+<!-- ## Create colour scheme and theme ---- -->
+<!-- penguin_hues <- c("#192029", "#8a5d24") -->
+
+<!-- insurance_data <- data.frame( -->
+<!--   Blue_Cross_Blue_Shield = temp$`Blue Cross/Blue Shield`, -->
+<!--   Medicaid = temp$Medicaid, -->
+<!--   insurance = ifelse(temp$`Blue Cross/Blue Shield` > temp$Medicaid, "Blue Cross/Blue Shield", "Medicaid") -->
+<!-- ) -->
+
+<!-- scatter <- ggplot(insurance_data, aes(x = Medicaid, y = Blue_Cross_Blue_Shield, color = insurance)) + -->
+<!--   geom_point(alpha = 0.7) + -->
+<!--   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray") +  -->
+<!--   scale_x_log10() + -->
+<!--   scale_y_log10() + -->
+<!--   theme_minimal() + -->
+<!--   geom_text(x = 100, y = 100, label = "Y = X", hjust = 1, vjust = 1, color = "gray") + -->
+<!--   labs(y = "Business Days for Blue Cross Blue Shield (Log Scale)", -->
+<!--        x = "Business Days for Medicaid (Log Scale)") + -->
+<!--   ggtitle("New Patient Appointment wait time for\n Medicaid and Blue Cross Blue Shield") + -->
+<!--   scale_colour_manual(values = c(penguin_hues[c(1, 2)]), -->
+<!--                       labels = c("Blue Cross/Blue Shield", "Medicaid"))+ -->
+<!--   annotate(geom = "text", x= 140,y=170, label = "Y = X", angle = 45, color = "gray50")+ -->
+<!--   guides(color = guide_legend(title = "Insurance Type")); scatter -->
+
+<!-- # Save the scatter plot as a PNG file -->
+<!-- ggsave("/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/Scatter_plot.png", scatter, width = 8, height = 6, dpi = 300) -->
+<!-- ``` -->
+
+<!-- # Add Marginal Plots to Scatter Plot -->
+<!-- The benefit of a marginal plot in this context is to provide additional information about the distribution of the variables in the scatter plot.  The marginal plot adds two additional plots on the side margins of the scatter plot: a density plot on the y-axis margin and a density plot on the x-axis margin. -->
+
+<!-- By including the marginal plots, you can visualize the distribution of the individual variables (Medicaid wait times and Blue Cross/Blue Shield wait times) in addition to their relationship in the scatter plot. This allows for a more comprehensive understanding of the data and can reveal insights such as the density of data points at different wait time intervals and any potential skewness or patterns in the data. -->
+<!-- ```{r marginal plot2, include=TRUE, eval = FALSE} -->
+<!-- # Create a marginal density plot using ggMarginal -->
+<!-- marg <- ggMarginal(scatter, type = "densigram", groupColour = T, groupFill = T, alpha = 0.4); marg -->
+
+<!-- # Save the marginal plot as a PNG file -->
+<!-- ggsave("/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Figures/Marg_plot.png", marg, width = 8, height = 6, dpi = 300) -->
+<!-- ``` -->
+
+<!-- # GLM -->
+<!-- ```{r} -->
+<!-- # Load the data from the .rds file in Downloads folder -->
+<!-- data <- readRDS("/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/Data/7.4.2023.ENT analysis.rds") -->
+
+
+<!-- # Now, 'data' contains the contents of the .rds file, and you can work with it as needed. -->
+<!-- # For example, you can check the structure of the data using the 'str()' function: -->
+<!-- str(data) -->
+
+<!-- #make sure dependent variable is int -->
+<!-- data$business_days_until_appointment <- as.integer(data$business_days_until_appointment) -->
+
+
+<!-- #Installing required package for glmer -->
+<!-- #install.packages("lme4") -->
+
+<!-- #Once the package is installed, you can load it into your R session using the 'library' function: -->
+<!-- library(lme4) -->
+
+<!-- # Fit the Poisson regression model with the random effect of physician -->
+<!-- poisson_model <- glmer( -->
+<!--   business_days_until_appointment ~ age + academic_affiliation + grad + AAO_regions + specialty + insurance + gender + (1 | name), -->
+<!--   data = data, -->
+<!--   family = poisson(), -->
+<!--   nAGQ = 0, -->
+<!--   verbose = 0L -->
+<!-- ) -->
+
+<!-- # View the summary of the model -->
+<!-- summary(poisson_model) -->
+
+
+<!-- # Fit the gamma GLMM with the random effect of physician -->
+<!-- gamma_model <- glmer( -->
+<!--   business_days_until_appointment ~ age + academic_affiliation + grad + AAO_regions + specialty + insurance + gender + (1 | name), -->
+<!--   data = data, -->
+<!--   family = Gamma(link = "log"), -->
+<!--   nAGQ = 0, -->
+<!--   verbose = 0L -->
+<!-- ) -->
+<!-- # View the summary of the model -->
+<!-- summary(gamma_model) -->
+
+
+<!-- ``` -->
+
+```{r}
+Poisson <- poisson
+Gamma <- gamma_model
+Mixed_linear_regression <- mixed.lmer
+Mixed_effects_GLMM <- glmm_model
+```
+
+```{r}
+summary(Poisson)
+summary(Gamma)
+summary(Mixed_linear_regression)
+summary(Mixed_effects_GLMM) #DID NOT CONVERGE
+```
+
+
+```{r}
+performance(Poisson)
+performance(Gamma)
+performance(Mixed_linear_regression)
+#performance(Mixed_effects_GLMM)
+```
+
+# Model Comparison
+```{r model_comparisons1, include=TRUE}
+comparisons <- compare_performance(c(Poisson,   #Poisson
+                                   Gamma,  #Gamma
+                                   Mixed_linear_regression),   #Linear mixed model fit
+                                   #Mixed_effects_GLMM),  #GLMM did not fucking converge
+                                   rank = TRUE,
+                                   metrics = "all",
+                                   verbose = TRUE)
+
+comparisons
+```
+
+```{r kable_model_comparison, include=TRUE}
+kable(x = comparisons, 
+      caption = "Model Comparisons", 
+      padding = 0, format = "simple") %>%  
+  kable_styling(stripe_color = "gray!6", full_width = FALSE, position = "left", font_size = 7)
+```
+
+
+```{r model_comparisons2, include=TRUE}
+plot(comparisons)
+```
+
