@@ -103,6 +103,24 @@ This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylerm
 
 ![Screen Shot 2023-07-06 at 9 19 23 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/6253a743-1c7c-4a18-843f-66931a10f92a)
 
+# Analysis using Marcos' Code
+* Please see Marcos' original code in the directory folder: Test-Marcos-v6---Reviewer-comments-+-Revision-2.html
+* '/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/code/Marcos/final ENT results of Marcos code.Rmd':  Permission was given by Marcos for us to change his code and use it for the ENT study.  
+* Statistics uploaded as an html file: "final_ENT_results_of_Marcos_code1.html" and code uploaded as "final_ENT_results_of_Marcos_code1.rmd".  We found that a Poisson model worked the best for the ENT study.  
+* `sjPlot` was a super helpful package in creating these images.
+
+* Figures for the Data
+![Screenshot 2023-07-23 at 8 38 51 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/25006ad3-493c-44aa-b53a-66a4b0158d89)
+![line_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/9f4f5387-9ff1-45f6-a7b4-dd8475a073b1)
+
+Poisson model estimates:
+![model_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/21831d16-3fa7-4770-95fa-6df3b78eb570)
+
+Interactions:
+![insuranceinteractionCentral_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/48ac6815-3539-4cc1-9db9-be86306671c2)
+![insuranceinteractionAAO_regions_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/d5399306-1f1a-4fab-8837-2a2805efc976)
+
+
 ## Meeting for the callers and team
 ```r
 Hi Team, 
@@ -136,12 +154,6 @@ https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery c
 
 https://youtu.be/miW_03ZqqEE
 ```
-
-# Analysis using Marcos' Code
-* Please see Marcos' original code in the directory folder: Test-Marcos-v6---Reviewer-comments-+-Revision-2.html
-* '/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/code/Marcos/final ENT results of Marcos code.Rmd':  Permission was given by Marcos for us to change his code and use it for the ENT study.  
-
-
 ## Nightly e-mail to the team
 ```r
 Dear All,
