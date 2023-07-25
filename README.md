@@ -256,8 +256,39 @@ ggsave(filename = "Corbi study/ENT/Figures/model_plot.png", plot = p, width = 8,
 
 Interactions:
 ![insuranceinteractionCentral_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/48ac6815-3539-4cc1-9db9-be86306671c2)
-![insuranceinteractionAAO_regions_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/d5399306-1f1a-4fab-8837-2a2805efc976)
 
+* These `emmeans` figures are easier to read IMHO:
+![insuranceinteractionsubspecialty_comparison_plot](https://github.com/mufflyt/mystery_shopper/assets/44621942/9dcae555-2fad-4fd4-8dbf-bd848a0de2ab)
+
+Code to create figures:
+```
+edata <- emmeans(poisson, ~ insurance | specialty, 
+                 type = "response") %>% 
+  as.data.frame()
+
+ggplot(edata, aes(x = specialty, y = rate))+
+  geom_point(aes(color = insurance), size = 2, stroke = 2,
+                 position = position_dodge(width=0.2))+
+  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL, 
+                    color = insurance), width = 0.2,
+                position = position_dodge(width=0.2))+
+  ylim(15,75)+
+  ggtitle("Estimated Marginal Means - Insurance Type")+
+  ylab("Estimated Marginal Means for Waiting Time in Days\n Mean ± 95% CI")+
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 8, color = "black"), legend.position = "bottom")+
+  scale_x_discrete(labels = function(x) gsub(" ", "\n", x))
+
+# Save the plot with specific dimensions
+ggplot2::ggsave(filename = "Corbi study/ENT/Figures/insuranceinteractionsubspecialty_comparison_plot.png", width = 10, height = 6, bg = "transparent")
+```
+
+Usually the graph above should be good enough, but people always want to conduct statistical tests.  This looks at the statistically significant difference of interactions in a number form:
+```
+emmeans::emmeans(object = poisson, 
+                 specs = pairwise~ insurance | specialty, 
+                 type = "response")
+```
 
 ## Meeting for the callers and team
 ```r
