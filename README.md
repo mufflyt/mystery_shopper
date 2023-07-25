@@ -289,6 +289,81 @@ emmeans::emmeans(object = poisson,
                  specs = pairwise~ insurance | specialty, 
                  type = "response")
 ```
+```
+> emmeans::emmeans(object = poisson, specs = pairwise~ insurance | specialty, 
++                  type = "response")
+$emmeans
+specialty = Facial Plastic and Reconstructive Surgery:
+ insurance              rate   SE  df asymp.LCL asymp.UCL
+ Blue Cross/Blue Shield 26.5 4.16 Inf      19.5      36.1
+ Medicaid               28.1 4.40 Inf      20.7      38.2
+
+specialty = General Otolaryngology:
+ insurance              rate   SE  df asymp.LCL asymp.UCL
+ Blue Cross/Blue Shield 27.2 4.22 Inf      20.1      36.9
+ Medicaid               28.9 4.47 Inf      21.3      39.1
+
+specialty = Head and Neck Surgery:
+ insurance              rate   SE  df asymp.LCL asymp.UCL
+ Blue Cross/Blue Shield 24.8 4.15 Inf      17.9      34.5
+ Medicaid               26.3 4.39 Inf      19.0      36.5
+
+specialty = Laryngology:
+ insurance              rate   SE  df asymp.LCL asymp.UCL
+ Blue Cross/Blue Shield 30.8 4.90 Inf      22.5      42.0
+ Medicaid               32.6 5.18 Inf      23.8      44.5
+
+specialty = Neurotology:
+ insurance              rate   SE  df asymp.LCL asymp.UCL
+ Blue Cross/Blue Shield 40.1 6.66 Inf      29.0      55.6
+ Medicaid               42.5 7.05 Inf      30.7      58.8
+
+specialty = Pediatric Otolaryngology:
+ insurance              rate   SE  df asymp.LCL asymp.UCL
+ Blue Cross/Blue Shield 48.5 7.50 Inf      35.9      65.7
+ Medicaid               51.4 7.94 Inf      38.0      69.6
+
+specialty = Rhinology:
+ insurance              rate   SE  df asymp.LCL asymp.UCL
+ Blue Cross/Blue Shield 23.6 3.86 Inf      17.2      32.6
+ Medicaid               25.0 4.09 Inf      18.2      34.5
+
+Results are averaged over the levels of: academic_affiliation, AAO_regions, title, gender, central 
+Confidence level used: 0.95 
+Intervals are back-transformed from the log scale 
+
+$contrasts
+specialty = Facial Plastic and Reconstructive Surgery:
+ contrast                            ratio     SE  df null z.ratio p.value
+ (Blue Cross/Blue Shield) / Medicaid 0.944 0.0155 Inf    1  -3.491  0.0005
+
+specialty = General Otolaryngology:
+ contrast                            ratio     SE  df null z.ratio p.value
+ (Blue Cross/Blue Shield) / Medicaid 0.944 0.0155 Inf    1  -3.491  0.0005
+
+specialty = Head and Neck Surgery:
+ contrast                            ratio     SE  df null z.ratio p.value
+ (Blue Cross/Blue Shield) / Medicaid 0.944 0.0155 Inf    1  -3.491  0.0005
+
+specialty = Laryngology:
+ contrast                            ratio     SE  df null z.ratio p.value
+ (Blue Cross/Blue Shield) / Medicaid 0.944 0.0155 Inf    1  -3.491  0.0005
+
+specialty = Neurotology:
+ contrast                            ratio     SE  df null z.ratio p.value
+ (Blue Cross/Blue Shield) / Medicaid 0.944 0.0155 Inf    1  -3.491  0.0005
+
+specialty = Pediatric Otolaryngology:
+ contrast                            ratio     SE  df null z.ratio p.value
+ (Blue Cross/Blue Shield) / Medicaid 0.944 0.0155 Inf    1  -3.491  0.0005
+
+specialty = Rhinology:
+ contrast                            ratio     SE  df null z.ratio p.value
+ (Blue Cross/Blue Shield) / Medicaid 0.944 0.0155 Inf    1  -3.491  0.0005
+
+Results are averaged over the levels of: academic_affiliation, AAO_regions, title, gender, central 
+Tests are performed on the log scale 
+```
 
 ## Meeting for the callers and team
 ```r
