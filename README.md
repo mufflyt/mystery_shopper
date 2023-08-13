@@ -1,9 +1,6 @@
 # Appointment Wait Times: A Mystery Caller Study
 
-## For next time:
-* Add the VA to the list of closed hospital systems under exclusions.  Add a "Retired" and a "Moved" option to the exclusions.  
-Screen the telephone numbers before sending to the group.  Do a lit review about is this a legit approach?  Phase 1 determine the accuracy: "Hi is this the office of Dr. Muffly?"  Phase 2 is the calls to accurate studies.  
-* Apparently, redcap can take two entries per physician and insurance combo.  See below the duplicates for Dr. Girod Medicaid with two entries.  
+## For next time: 
 * To callers:  Do NOT close the entry until you get a green light for a file complete.  Do NOT ignore the pop-up notices.  Print off the excel document and have them cross off calls are done and highlight when need to return.  
 
 ## Protocol submission
