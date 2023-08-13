@@ -90,6 +90,9 @@ See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
 This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/For_each_caller" directory and splits the data into eight parts. Each split is saved as a separate XLSX file in the same directory.  The split() function is used to split the data frame into 8 parts based on row numbers. The cut() function is used to create a factor variable that assigns each row to one of the 8 groups. The names() function is then used to get the names of each group.  The for-loop iterates through each group, creates a file name for each group based on the group name, date, and row number. The write.xlsx() function is used to save each split data frame as a separate XLSX file in the output directory.  The output files will have names like "Sophie_2023-05-06_153_rows_1_to_19.xlsx", where "Sophie" is the name of the split, "2023-05-06" is the current date, "153" is the number of rows in the split, and "1_to_19" are the row IDs of the first and last rows in the split.
 ![Screen Shot 2023-05-08 at 8 29 42 PM](https://user-images.githubusercontent.com/44621942/236978744-1dfa24b5-ad26-4ace-8c05-220aa2197f9e.jpg)
 
+## Phase 1 e-mail
+
+
 ## Redcap Survey
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
 * [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
@@ -379,6 +382,30 @@ Thank you,
 
 Michaele Francesco Corbisiero
 (626) 646-9087
+```
+
+## End of Phase 1 email
+```r
+Hi Dr. Muffly,
+
+Please find links to the completed phase 1 data attached. 
+
+(1) Mayu Screening Call List.xlsx
+(2) Ellie Screening Call List.xlsx
+(3) Natalya Screening Call List.xlsx
+(4) Nelly Screening Call List.xlsx
+(5) Yasmine Screening Call List.xlsx
+(6) Wyanet Screening Call List.xlsx
+
+I reviewed each of the entries and sorted through the full ACOG calling list to either exclude or include each physician. I have attached an "ACOG Calling List with Exclusions" in which I highlighted the physicians to be excluded. I also went through and deleted these exclusions to create an "ACOG Calling List Final". It looks like after exclusions we have 623 physicians remaining (excluded ~180).
+
+Best,
+
+Hannah Kyllo
+University of Colorado School of Medicine
+MD Candidate, Class of 2024
+623-249-9220 Mobile
+hannah.kyllo@cuanschutz.edu
 ```
 
 ## Start calling instructions
