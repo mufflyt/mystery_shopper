@@ -103,10 +103,10 @@ This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylerm
 ![Screen Shot 2023-07-06 at 9 19 23 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/6253a743-1c7c-4a18-843f-66931a10f92a)
 
 * Handout for lab assistants: [lab_assistant_Myster Caller Protocol.pdf](https://github.com/mufflyt/mystery_shopper/files/12331058/lab_assistant_Myster.Caller.Protocol.pdf)
-![Screenshot](https://github.com/mufflyt/mystery_shopper/assets/44621942/c7c97880-c628-43fd-9092-2159b3660818){ width=50% }
+![Screenshot](https://github.com/mufflyt/mystery_shopper/assets/44621942/c7c97880-c628-43fd-9092-2159b3660818)
 
 * Clinical vignette for lab assistants: [lab_assistant_OBGYN Mystery Caller Script.pdf](https://github.com/mufflyt/mystery_shopper/files/12331065/lab_assistant_OBGYN.Mystery.Caller.Script.pdf)
-![Screenshot 2023-08-13 at 8 27 01 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/d3f1a536-aff1-43e1-889c-65533d907c48){ width=50% }
+![Screenshot 2023-08-13 at 8 27 01 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/d3f1a536-aff1-43e1-889c-65533d907c48)
 
 # Analysis using Marcos' Code
 * Please see Marcos' original code in the directory folder: Test-Marcos-v6---Reviewer-comments-+-Revision-2.html
