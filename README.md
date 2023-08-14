@@ -410,6 +410,26 @@ MD Candidate, Class of 2024
 hannah.kyllo@cuanschutz.edu
 ```
 
+## Start of Phase 2
+```r
+Hi team!
+
+Tomorrow, Monday August 14, we will begin calling clinics for our OB/GYN mystery caller study. Each of you has been assigned ~178 calls to make. Please find a link to an excel spreadsheet with your individualized calling assignments below. 
+
+Phone Call Assignment: (6) sophie_whitehead_2023-08-13_13-28-59_177_rows_7_to_1239.xlsx
+REDCap Login: https://redcap.ucdenver.edu/
+
+Please see the attached Mystery Caller Protocol for step-by-step instructions on how to make your calls and record your data in REDCap. We did review most of this during our meeting last Thursday, however a few pieces of information are new, based on your excellent questions during the meeting, so please review the protocol document prior to starting your calls. I have also attached a link to a video below in which Dr. Muffly talks through the basics of making your calls and recording your data (similar to our discussion on Thursday). Although this video was made for a prior study, the principles are the same, and it can serve as an additional tool to refresh your memory on how to perform these tasks.
+
+Instructions Video: https://www.youtube.com/watch?v=Y_5VjxPKJF0&ab_channel=TylerMuffly
+
+As a reminder, you will have until Friday, August 18 at 5 PM to complete your calls. Whatever you do, please do NOT schedule actual appointments during these calls. Please reach out to me if you have any questions at all, no matter how small. I am here to help and support you!
+
+Best,
+
+Hannah Kyllo
+```
+
 ## Start calling instructions
 Send e-mail with all the excel files created by: 'Splitting_dataframe_to_send_to_callers.R'.  
 ```r
