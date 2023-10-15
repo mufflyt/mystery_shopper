@@ -69,6 +69,26 @@ See `scrape.R` for enthealth.org from AAO-HNS.
 
 See `Orthopedics_physician_directory_scrape.Rmd`.  The data for this project was sourced from the [American Academy Of Orthopaedic Surgeons](https://www7.aaos.org/member/directory/search.aspx?directory=public&_ga=2.25343037.1215811434.1696392931-892052855.1696392931.) website. For the ortho study, I used `Orthopedics_physician_directory_scrape.Rmd` to scrape the patient-facing directory of orthopedic surgeons.  Because the directory is dynamically loaded, I need to use `Rselenium` to create a headless browser to scrape the data.  Installing `Rselenium` for Mac was a pain.  For a Firefox browser:
 * Install geckodriver (https://github.com/mozilla/geckodriver/releases.  These are the supported versions: 0.25.0,0.26.0,0.27.0,0.28.0,0.29.0,0.29.1,0.30.0,0.31.0,0.32.0,0.32.1,0.32.2,0.33.0.
+* Uninstall the Current Firefox Version:
+
+Open the "Applications" folder on your Mac.
+Locate the "Firefox" application and drag it to the trash to uninstall it.
+Empty the trash to complete the uninstallation.
+Download Firefox 0.33.0:
+
+Visit the Mozilla Firefox archive page to find the version you need: https://ftp.mozilla.org/pub/firefox/releases/
+Navigate to the "0.33.0" directory.
+Choose the appropriate installer for your macOS version (usually a .dmg or .tar.gz file).
+Download the installer to your computer.
+Install Firefox 0.33.0:
+
+Open the downloaded Firefox installer file.
+Follow the on-screen instructions to install Firefox 0.33.0 on your Mac.
+Verify the Installation:
+
+After the installation is complete, open Firefox.
+Check the Firefox version by going to "Help" > "About Firefox" in the Firefox menu. It should display "0.33.0."
+
 * Install the development version of RSelenium with `devtools::install_github("ropensci/RSelenium")`
 * Check to see if any ports are in use `ps aux | grep webdriver`.  After terminating the processes, you can re-run the `ps` command to confirm that the WebDriver processes are no longer running.
 * Check if the port 4567 is open.  `lsof -i :4567`
