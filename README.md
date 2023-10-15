@@ -1,12 +1,12 @@
 # Appointment Wait Times: A Mystery Caller Study
 
 ## For next time: 
-* To callers:  Do NOT close the entry until you get a green light for a file complete.  Do NOT ignore the pop-up notices.  Print off the excel document and have them cross off calls are done and highlight when need to return.  
+* To callers:  Do NOT close the entry until you get a green light for a file to complete.  Do NOT ignore the pop-up notices.  Please print off the excel document and have them cross off calls and highlight when they need to return.  
 
 ## Protocol submission
 * [FINAL full grant application 7.4.2015.docx](https://github.com/mufflyt/mystery_shopper/files/11963172/FINAL.full.grant.application.7.4.2015.docx)
 * [COMIRB application-tmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963205/COMIRB.application-tmm.pdf)
-* There is a word version of the COMIRB application in the directory called "COMIRB Protocol-template.doc".
+* There is a Word version of the COMIRB application in the directory called "COMIRB Protocol-template.doc".
 * [COMIRB application-for-protocol-review.pdf](https://github.com/mufflyt/mystery_shopper/files/11987004/COMIRB.application-for-protocol-review.pdf) Further ethical reasoning about the mystery caller process.  
 * STROBE Checklist: [STROBE-checklist-v4-combined-PlosMedicine.pdf](https://github.com/mufflyt/mystery_shopper/files/11963484/STROBE-checklist-v4-combined-PlosMedicine.pdf)
 * Great ethics reference:  [2013-Secret-shoppers-and-conflicts-of-in.pdf](https://github.com/mufflyt/mystery_shopper/files/11963538/2013-Secret-shoppers-and-conflicts-of-in.pdf)
@@ -14,16 +14,16 @@
 ## SPARO Approval (Sponsored Programs and Research Office)
 * Denver Health approval was given.  
 [COMIRB application-for-protocol-review.pdf](https://github.com/mufflyt/mystery_shopper/files/11774684/COMIRB.application-for-protocol-review.pdf)
-* See uploaded github file:  `COMIRB Protocol-template.doc`
+* See uploaded GitHub file:  `COMIRB Protocol-template.doc`
 
 ## Inclusion and Exclusion Criteria
-* Inclusion criteria: ENT physician with generalist and subspecialty training listed on enthealth.org find a physician list.  
-* Exclusion criteria: No phone number, outside the USA, unable to reach after 2 phone calls, on hold for 5 minutes or greater
+* Inclusion criteria: ENT physician with generalist and subspecialty training listed on enthealth.org "find a physician" web site.  
+* Exclusion criteria: No phone number outside the USA, unable to reach after two phone calls, on hold for 5 minutes or greater
 
 ### Publications
 * [Muffly FPMRS article.pdf](https://github.com/mufflyt/mystery_shopper/files/11963277/Muffly.FPMRS.article.pdf)
 * [Muffly_OBGYN_subspecialist_study.pdf](https://github.com/mufflyt/mystery_shopper/files/11963320/Muffly_OBGYN_subspecialist_study.pdf)
-* [submitted_FQHC Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963346/submitted_FQHC.Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf)
+* [FQHC Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963346/submitted_FQHC.Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf)
 
 ## Articles of interest
 * [IUD mystery caller study.pdf](https://github.com/mufflyt/mystery_shopper/files/11973808/IUD.mystery.caller.study.pdf)
@@ -46,38 +46,55 @@
 * [STATE STANDARDS FOR  ACCESS TO CARE IN  MEDICAID MANAGED CARE.pdf](https://github.com/mufflyt/mystery_shopper/files/11987092/STATE.STANDARDS.FOR.ACCESS.TO.CARE.IN.MEDICAID.MANAGED.CARE.pdf)
 
 ### Ethics of a Mystery Caller Study
-* One ethical issue is informed consent. Participants have a right to know the purpose of the study, the potential risks and benefits, and what will be expected of them. With a mystery caller study, participants may not be aware that they are being observed or that their interactions are part of a research project. This lack of informed consent raises questions about autonomy and the participants' ability to make an informed decision about their participation. It is important to carefully weigh the potential benefits of the study against the potential harm caused by deception and ensure that participants' rights are protected.
+* One ethical issue is informed consent. Participants have a right to know the purpose of the study, the potential risks and benefits, and what will be expected of them. With a mystery caller study, participants may not be aware that they are being observed or that their interactions are part of a research project. This lack of informed consent raises questions about autonomy and the participant's ability to make an informed decision about their participation. It is important to carefully weigh the potential benefits of the study against the potential harm caused by deception and ensure that participants' rights are protected.
 
-* Another ethical concern is potential harm or distress caused by deception. Deceptive practices can lead to feelings of mistrust, confusion, and discomfort among participants when they discover they were not provided with accurate information. In a mystery caller study, individuals may feel violated or manipulated when they find out their conversations were recorded and analyzed without their knowledge. Researchers have a responsibility to minimize harm and ensure that participants' well-being is prioritized. Clear guidelines for handling and debriefing participants after the study should be in place to address any negative emotional or psychological effects that may arise from the deception.
+* Another ethical concern is the potential harm or distress caused by deception. Deceptive practices can lead to feelings of mistrust, confusion, and discomfort among participants when they discover they were not provided with accurate information. In a mystery caller study, individuals may feel violated or manipulated when they find out their conversations were recorded and analyzed without their knowledge. Researchers have a responsibility to minimize harm and ensure that participants' well-being is prioritized. Clear guidelines for handling and debriefing participants after the study should be in place to address any negative emotional or psychological effects that may arise from the deception.
 
 * To minimize and remedy the risks associated with deception in a mystery caller study, researchers can consider the following measures:
 
-1. Informed Consent: While complete transparency may compromise the study's objectives, it is essential to provide participants with informed consent to the extent possible. Researchers can disclose the general nature of the study without revealing specific details that may compromise the integrity of the research. Participants should understand that they may receive mystery calls or be part of a study involving observational research. This disclosure helps ensure that participants have a basic understanding of their involvement and can make an informed decision about participating.
+1. Informed Consent: While complete transparency may compromise the study's objectives, it is essential to provide participants with informed consent to the extent possible. Researchers can disclose the general nature of the study without revealing specific details that may compromise the integrity of the research. Participants should understand that they may receive mystery calls or be part of a study involving observational research. This disclosure helps ensure that participants understand their involvement and can make an informed decision about participating.
 
-2. Debriefing: After the study is complete, researchers should conduct a thorough debriefing session with participants. This is an opportunity to explain the true purpose of the study, clarify any misconceptions, and address any concerns or emotional reactions that participants may have. During the debriefing, participants should be given the option to withdraw their data if they feel uncomfortable with their participation. Here is a copy of an example debriefing letter: `Muffly-Corbisiero Debriefing Letter.doc`, see directory.  
+2. Debriefing: After the study is complete, researchers should conduct a thorough debriefing session with participants. This is an opportunity to explain the study's true purpose, clarify any misconceptions, and address any concerns or emotional reactions that participants may have. During the debriefing, participants should be allowed to withdraw their data if they feel uncomfortable with their participation. Here is a copy of an example debriefing letter: `Muffly-Corbisiero Debriefing Letter.doc`, see directory.  
 
 3. Ethical Review: Researchers should seek ethical review and approval from relevant institutional review boards (IRBs) or ethics committees. These bodies can provide guidance on the study design, participant consent, and the potential risks and benefits of deception. 
 
 4. Minimize Harm: Researchers should take precautions to minimize potential harm caused by deception. This includes ensuring that the study design and procedures are carefully planned and implemented to mitigate any negative impacts on participants.
 
-5. Data Anonymization: To protect participants' privacy, all collected data should be properly anonymized and securely stored. Researchers should ensure that any identifiable information is removed or encrypted, reducing the risk of unintended disclosure or breaches of confidentiality.
+5. Data Anonymization: All collected data should be properly anonymized and securely stored to protect participants' privacy. Researchers should ensure that any identifiable information is removed or encrypted, reducing the risk of unintended disclosure or breaches of confidentiality.
 
 ## Phase 1 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
 
-### Code to evaluate enthealth.org list of physicians
+### Code to evaluate the web site list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
 ![Screen Shot 2023-05-08 at 8 27 35 PM](https://user-images.githubusercontent.com/44621942/236978474-12f9969f-1dee-46e6-a739-4dc7d39c5949.jpg)
+
+See `Orthopedics_physician_directory_scrape.Rmd`.  The data for this project was sourced from the [American Academy Of Orthopaedic Surgeons](https://www7.aaos.org/member/directory/search.aspx?directory=public&_ga=2.25343037.1215811434.1696392931-892052855.1696392931.) website. For the ortho study, I used `Orthopedics_physician_directory_scrape.Rmd` to scrape the patient-facing directory of orthopedic surgeons.  Because the directory is dynamically loaded, I need to use `Rselenium` to create a headless browser to scrape the data.  Installing `Rselenium` was a pain.  
+
+```r
+rs_driver_object <- rsDriver(browser = 'firefox',
+                             geckover = "latest",
+                             port = 4447L,
+                             verbose = FALSE)
+remDr <- rs_driver_object$client
+remDr$open() #Opens a browser
+remDr$navigate('https://www7.aaos.org/member/directory/search.aspx?directory=public&_ga=2.25343037.1215811434.1696392931-892052855.1696392931.') # Navigates to the webpage
+aaos_page <- read_html('https://www7.aaos.org/member/directory/search.aspx?directory=public&_ga=2.25343037.1215811434.1696392931-892052855.1696392931.') #Read html with rvest
+state_select_tag <- aaos_page |> html_elements("#ctl00_mainContentPlaceHolder_DdlStateSpecialty") # Find the state dropdown.  Click the selected state
+state_names <- state_select_tag |>  # Identify the state dropdown element using its HTML attributes (e.g., id)
+  html_elements("option") |> 
+  html_text2()
+```
 
 ### Code to evaluate ACOG list of physicians for generalists
 See `~scrape_obgyn_profile_experimental.R` for searching via zip codes.  The zip codes are built using the file `scrape_postal_code.R`.
 ![Screen Shot 2023-06-16 at 1 35 04 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/f7c6b827-e860-4081-8b21-cb4775cb9dd0)
 
 ### Code to clean up the scrape and get it ready for redcap
-See `Clean data from scrape and ready it for redcap.R`.  Can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
+See `Clean data from scrape and ready it for redcap.R`.  You can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
 
 ## Searching for NPI numbers
-`npi_search_working.R` is the file uploaded to github.com.  This code performs a search on the National Plan and Provider Enumeration System (NPPES) database for National Provider Identifier (NPI) numbers for a list of healthcare providers in the Otolaryngology (ENT) field. It reads in a dataset of Otolaryngology providers, filters out non-U.S. providers, removes special characters, and creates a list of first and last names to search for NPI numbers.  The code then performs a search for each name pair using the npi_search function from the npi package, and stores the results in a list. It flattens the search results and removes duplicates to get only distinct NPI numbers. Then it joins the search results with the original dataset of provider names, keeping only matching NPI numbers, and filters to select only Otolaryngology providers. It cleans up and selects relevant columns, and writes the final result to a CSV file.
+`npi_search_working.R` is the file uploaded to github.com.  This code performs a search on the National Plan and Provider Enumeration System (NPPES) database for National Provider Identifier (NPI) numbers for a list of healthcare providers in the Otolaryngology (ENT) field. It reads in a dataset of Otolaryngology providers, filters out non-U.S. providers, removes special characters, and creates a list of first and last names to search for NPI numbers.  The code then searches for each name pair using the npi_search function from the npi package and stores the results in a list. It flattens the search results and removes duplicates to get only distinct NPI numbers. Then, it joins the search results with the original dataset of provider names, keeping only matching NPI numbers and filters to select only Otolaryngology providers. It cleans up, selects relevant columns, and writes the final result to a CSV file.  We may need to still do some hand searching at this point to get the names and NPI numbers.  
   
 ### Matching Names to NPI numbers
 'npi_api.R' and 'npi_search_working.R' are both viable options that get about 70% matches of the names to NPI numbers.  
