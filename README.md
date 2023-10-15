@@ -38,7 +38,6 @@
 * [Auditing Access to Specialty Care for Children with Public Insurance.pdf](https://github.com/mufflyt/mystery_shopper/files/11987090/Auditing.Access.to.Specialty.Care.for.Children.with.Public.Insurance.pdf)
 * [2014 Merritt Hawkins Survey.pdf](https://github.com/mufflyt/mystery_shopper/files/11987091/2014.Merritt.Hawkins.Survey.pdf)
 
-
 ## Nice references for the materials and methods
 * [NEJM appendix Bisgaier supplemental.pdf](https://github.com/mufflyt/mystery_shopper/files/11987083/NEJM.appendix.Bisgaier.supplemental.pdf)
 * [medicaid access metaanalysis.pdf](https://github.com/mufflyt/mystery_shopper/files/11987086/medicaid.access.metaanalysis.pdf)
@@ -68,9 +67,42 @@
 See `scrape.R` for enthealth.org from AAO-HNS.  
 ![Screen Shot 2023-05-08 at 8 27 35 PM](https://user-images.githubusercontent.com/44621942/236978474-12f9969f-1dee-46e6-a739-4dc7d39c5949.jpg)
 
-See `Orthopedics_physician_directory_scrape.Rmd`.  The data for this project was sourced from the [American Academy Of Orthopaedic Surgeons](https://www7.aaos.org/member/directory/search.aspx?directory=public&_ga=2.25343037.1215811434.1696392931-892052855.1696392931.) website. For the ortho study, I used `Orthopedics_physician_directory_scrape.Rmd` to scrape the patient-facing directory of orthopedic surgeons.  Because the directory is dynamically loaded, I need to use `Rselenium` to create a headless browser to scrape the data.  Installing `Rselenium` was a pain.  
+See `Orthopedics_physician_directory_scrape.Rmd`.  The data for this project was sourced from the [American Academy Of Orthopaedic Surgeons](https://www7.aaos.org/member/directory/search.aspx?directory=public&_ga=2.25343037.1215811434.1696392931-892052855.1696392931.) website. For the ortho study, I used `Orthopedics_physician_directory_scrape.Rmd` to scrape the patient-facing directory of orthopedic surgeons.  Because the directory is dynamically loaded, I need to use `Rselenium` to create a headless browser to scrape the data.  Installing `Rselenium` for Mac was a pain.  For a Firefox browser:
+* Install geckodriver (https://github.com/mozilla/geckodriver/releases.  These are the supported versions: 0.25.0,0.26.0,0.27.0,0.28.0,0.29.0,0.29.1,0.30.0,0.31.0,0.32.0,0.32.1,0.32.2,0.33.0.
+* Install the development version of RSelenium with `devtools::install_github("ropensci/RSelenium")`
+* Check to see if any ports are in use `ps aux | grep webdriver`.  After terminating the processes, you can re-run the `ps` command to confirm that the WebDriver processes are no longer running.
+* Check if the port 4567 is open.  `lsof -i :4567`
+* Install Java using homebrew:
+```r
+brew update
+brew upgrade
+brew install openjdk@11
+brew install --cask chromedriver
+brew install geckodriver
+ps aux | grep webdriver
+ps
+lsof -i :4567
+
+```
 
 ```r
+remotes::install_github("ropensci/wdman")
+devtools::install_github("ropensci/RSelenium")
+#remotes::install_github("johndharrison/Rselenium")
+#remotes::install_github("johndharrison/wdman")
+library(RSelenium)
+library(rvest)
+library(wdman)
+library(netstat)
+library(tidyverse)
+
+# Check Available ChromeDriver Versions
+library(wdman)
+wdman::install(browser = "chrome", version = "desired_version")
+
+```
+
+
 rs_driver_object <- rsDriver(browser = 'firefox',
                              geckover = "latest",
                              port = 4447L,
