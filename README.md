@@ -74,8 +74,6 @@ See `Orthopedics_physician_directory_scrape.Rmd`.  The data for this project was
 Open the "Applications" folder on your Mac.
   Locate the "Firefox" application and drag it to the trash to uninstall it.
   Empty the trash to complete the uninstallation.
-  Download Firefox 0.33.0:
-
 Visit the Mozilla Firefox archive page to find the version you need: https://ftp.mozilla.org/pub/firefox/releases/
 Navigate to the "113.0" directory: https://ftp.mozilla.org/pub/firefox/releases/113.0.1/mac/en-US/
 Choose the appropriate installer for your macOS version (usually a .dmg or .tar.gz file).
@@ -126,7 +124,7 @@ wdman::install(browser = "chrome", version = "desired_version")
 
 ```
 
-
+```r
 rs_driver_object <- rsDriver(browser = 'firefox',
                              geckover = "latest",
                              port = 4447L,
