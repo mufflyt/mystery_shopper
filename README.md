@@ -72,9 +72,9 @@ See `Orthopedics_physician_directory_scrape.Rmd`.  The data for this project was
 * Uninstall the Current Firefox Version:
 
 Open the "Applications" folder on your Mac.
-Locate the "Firefox" application and drag it to the trash to uninstall it.
-Empty the trash to complete the uninstallation.
-Download Firefox 0.33.0:
+  Locate the "Firefox" application and drag it to the trash to uninstall it.
+  Empty the trash to complete the uninstallation.
+  Download Firefox 0.33.0:
 
 Visit the Mozilla Firefox archive page to find the version you need: https://ftp.mozilla.org/pub/firefox/releases/
 Navigate to the "0.33.0" directory.
@@ -97,8 +97,17 @@ Check the Firefox version by going to "Help" > "About Firefox" in the Firefox me
 brew update
 brew upgrade
 brew install openjdk@11
+pip3 install --upgrade pip
+pip3 install selenium
 brew install --cask chromedriver
 brew install geckodriver
+
+cd /usr/local/bin
+pwd
+sudo mv "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/aha/geckodriver" /usr/local/bin/
+sudo mv my_script /usr/local/bin/
+ls /usr/local/bin
+
 ps aux | grep webdriver
 ps
 lsof -i :4567
