@@ -77,17 +77,11 @@ Open the "Applications" folder on your Mac.
   Download Firefox 0.33.0:
 
 Visit the Mozilla Firefox archive page to find the version you need: https://ftp.mozilla.org/pub/firefox/releases/
-Navigate to the "0.33.0" directory.
+Navigate to the "113.0" directory: https://ftp.mozilla.org/pub/firefox/releases/113.0.1/mac/en-US/
 Choose the appropriate installer for your macOS version (usually a .dmg or .tar.gz file).
 Download the installer to your computer.
-Install Firefox 0.33.0:
-
-Open the downloaded Firefox installer file.
-Follow the on-screen instructions to install Firefox 0.33.0 on your Mac.
-Verify the Installation:
-
-After the installation is complete, open Firefox.
-Check the Firefox version by going to "Help" > "About Firefox" in the Firefox menu. It should display "0.33.0."
+Install firefox version: 113.0.  Make sure that it does not update beyond 113.0.  
+Click on "Preferences." In the left sidebar, click on "General." Scroll down to the "Firefox Updates" section. Disable Automatic Updates: In the "Firefox Updates" section, you'll see a dropdown menu next to "Firefox updates." By default, it's set to "Automatically install updates (recommended)." Change this option to "Check for updates, but let you choose to install them."
 
 * Install the development version of RSelenium with `devtools::install_github("ropensci/RSelenium")`
 * Check to see if any ports are in use `ps aux | grep webdriver`.  After terminating the processes, you can re-run the `ps` command to confirm that the WebDriver processes are no longer running.
@@ -102,16 +96,17 @@ pip3 install selenium
 brew install --cask chromedriver
 brew install geckodriver
 
+sudo chmod +x /usr/local/bin/geckodriver
 cd /usr/local/bin
 pwd
 sudo mv "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/aha/geckodriver" /usr/local/bin/
 sudo mv my_script /usr/local/bin/
 ls /usr/local/bin
+xattr -d com.apple.quarantine geckodriver
 
 ps aux | grep webdriver
 ps
 lsof -i :4567
-
 ```
 
 ```r
