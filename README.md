@@ -84,7 +84,7 @@ Click on "Preferences." In the left sidebar, click on "General." Scroll down to 
 * Install the development version of RSelenium with `devtools::install_github("ropensci/RSelenium")`
 * Check to see if any ports are in use `ps aux | grep webdriver`.  After terminating the processes, you can re-run the `ps` command to confirm that the WebDriver processes are no longer running.
 * Check if the port 4567 is open.  `lsof -i :4567`
-* Install Java using homebrew:
+* Install all programs related to Selenium using homebrew:
 ```r
 brew update
 brew upgrade
@@ -122,7 +122,9 @@ library(tidyverse)
 
 # Check Available ChromeDriver Versions
 library(wdman)
-wdman::install(browser = "chrome", version = "desired_version")
+#version requested doesnt match versions available = 100.0.4896.20,100.0.4896.60,104.0.5112.20,104.0.5112.29,107.0.5304.62,108.0.5359.22,108.0.5359.71,112.0.5615.28,112.0.5615.49,113.0.5672.24,113.0.5672.63,114.0.5735.16,114.0.5735.90,85.0.4183.83,85.0.4183.87,86.0.4240.22,87.0.4280.20,91.0.4472.101,92.0.4515.43,94.0.4606.61,95.0.4638.17,96.0.4664.45,97.0.4692.20,98.0.4758.102,98.0.4758.80,99.0.4844.17,99.0.4844.35
+
+wdman::chrome(browser = "chrome", version = "desired_version")
 
 ```
 
