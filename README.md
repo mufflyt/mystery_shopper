@@ -78,7 +78,7 @@ Visit the Mozilla Firefox archive page to find the version you need: https://ftp
 Navigate to the "113.0" directory: https://ftp.mozilla.org/pub/firefox/releases/113.0.1/mac/en-US/
 Choose the appropriate installer for your macOS version (usually a .dmg or .tar.gz file).
 Download the installer to your computer.
-Install firefox version: 113.0.  Make sure that it does not update beyond 113.0.  
+Install firefox version: 117.0.  Make sure that it does not update beyond the current version 117.0.  
 Click on "Preferences." In the left sidebar, click on "General." Scroll down to the "Firefox Updates" section. Disable Automatic Updates: In the "Firefox Updates" section, you'll see a dropdown menu next to "Firefox updates." By default, it's set to "Automatically install updates (recommended)." Change this option to "Check for updates, but let you choose to install them."
 
 * Install the development version of RSelenium with `devtools::install_github("ropensci/RSelenium")`
@@ -102,6 +102,7 @@ sudo mv "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/a
 sudo mv my_script /usr/local/bin/
 ls /usr/local/bin
 xattr -d com.apple.quarantine geckodriver
+geckodriver --version
 
 ps aux | grep webdriver
 ps
