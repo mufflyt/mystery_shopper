@@ -151,6 +151,8 @@ See `Clean data from scrape and ready it for redcap.R`.  You can also see explor
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
 
 ## Searching for NPI numbers
+This code performs a search on the National Plan and Provider Enumeration System (NPPES) database for National Provider Identifier (NPI) numbers for a list of healthcare providers in the Otolaryngology (ENT) field. It reads in a dataset of Otolaryngology providers, filters out non-U.S. providers, removes special characters, and creates a list of first and last names to search for NPI numbers.  The code then searches for each name pair using the npi_search function from the npi package and stores the results in a list. It flattens the search results and removes duplicates to get only distinct NPI numbers. Then, it joins the search results with the original dataset of provider names, keeping only matching NPI numbers and filters to select only Otolaryngology providers. It cleans up, selects relevant columns, and writes the final result to a CSV file.  We may still need to do some hand-searching at this point to get the names and NPI numbers.  
+
 `npi_search_working.R` is the file uploaded to github.com.  In the ortho study we used `ortho_npi_search_working.R`.  This takes the data from the patient-facing directory `for_npi_search_from_exploratory_all_raw_subseted_state_results.xlsx` and sends it to the NPPES API.  ![Screenshot 2023-10-22 at 4 51 46 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2c376e69-fa36-4847-9a95-0cc17a6b5152)  In the function we set the providers to be individuals in the USA.  The output from the NPPES API is saved as `ortho/data/csv/cleaned_ortho_npi_data_flattened.csv`.  We merge the original patient-facing dataframe with the NPI search results dataframe so we can use them together.  We also get some summary statistics showing we automatically could ***NOT*** get the NPI for 4,587 people or 83.8% of the sample.  
 ```r
 > sum(result$npi == "NO MATCH FOUND")
@@ -164,8 +166,47 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
 ```
 ![Screenshot 2023-10-22 at 5 03 27 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/53e40746-9fb1-4e05-bfc4-491b6ddf74a5)
 
-This code performs a search on the National Plan and Provider Enumeration System (NPPES) database for National Provider Identifier (NPI) numbers for a list of healthcare providers in the Otolaryngology (ENT) field. It reads in a dataset of Otolaryngology providers, filters out non-U.S. providers, removes special characters, and creates a list of first and last names to search for NPI numbers.  The code then searches for each name pair using the npi_search function from the npi package and stores the results in a list. It flattens the search results and removes duplicates to get only distinct NPI numbers. Then, it joins the search results with the original dataset of provider names, keeping only matching NPI numbers and filters to select only Otolaryngology providers. It cleans up, selects relevant columns, and writes the final result to a CSV file.  We may still need to do some hand-searching at this point to get the names and NPI numbers.  
+## Sample the Data
+```r
+# Group by AAO_regions and specialty before sample.  
+  group_by(AAO_regions, specialty_primary) %>%
   
+  # Sampling step here.  More than 10 samples by region and by specialty starts to get problematic after more than 10.  
+  sample_rows(9, seed = 1978) %>%
+  
+  # Use humaniformat to clean the names so that matches can be made between dataframes based on names.  
+  mutate(first = humaniformat::first_name(full_name)) %>%
+  separate(full_name, into = c("full_name_1", "full_name_2"), sep = "\\s*\\,\\s*", remove = FALSE, convert = TRUE) %>%
+  mutate(last = humaniformat::last_name(full_name_1)) %>%
+  
+  # Create the line of text with name, phone number, specialty, and insurance type.  
+  mutate(calculation_1 = "Dr") %>%
+  unite(united_column, calculation_1, last, sep = " ", remove = FALSE, na.rm = FALSE) %>%
+  
+  # Unite all parts of the name, specialty, etc.  
+  unite(redcap_data, specialty_primary, united_column, phone_number, full_name, sep = ",  ", remove = FALSE, na.rm = FALSE) %>%
+  ungroup() %>%
+  
+  # Amazing.  Creates a numbered row column.  
+  mutate(id = 1:n()) %>%
+  
+  # Doubles amount of rows by stacking a copy of the rows on top of the dataframe. In this code, the . refers to the input data frame (df), and the duplicated data frame is created by binding it with itself using bind_rows(., .).
+  bind_rows(., .) %>%
+  
+  # Add the two different insurances: BCBS and Medicaid for each person.  
+  mutate(Insurance = rep(c("Blue Cross/Blue Shield", "Medicaid"), length.out = nrow(.))) %>%
+  
+  # Each physician has two duplicate rows with the same id number.  
+  arrange(id) %>%
+  select(-id) %>%
+  
+  # Unique row number for each row.  
+  mutate(id = 1:n()) %>%
+  
+  # Unite all the information to upload to redcap: https://redcap.ucdenver.edu/redcap_v13.1.18/ProjectSetup/index.php?pid=28103. 
+  unite(united_column, id, redcap_data, Insurance, sep = ", ", remove = FALSE, na.rm = FALSE)
+```
+
 ### Matching Names to NPI numbers
 'npi_api.R' and 'npi_search_working.R' are both viable options that get about 70% matches of the names to NPI numbers.  
   
