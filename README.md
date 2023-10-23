@@ -166,6 +166,14 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
 ```
 ![Screenshot 2023-10-22 at 5 03 27 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/53e40746-9fb1-4e05-bfc4-491b6ddf74a5)
 
+## Power Analysis
+<img width="234" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
+`Figure_1_Equation.Rmd`.  
+* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
+
+![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
+![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
+
 ## Sample the Data
 ```r
 # Group by AAO_regions and specialty before sample.  
@@ -898,15 +906,6 @@ https://redcap.ucdenver.edu/redcap_v9.5.23/index.php?pid=17708
 
 The study was written using the STROBE checklist:
 https://www.strobe-statement.org/index.php?id=available-checklists
-
-# Statistics
-### Power Analysis
-<img width="234" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
-`Figure_1_Equation.Rmd`.  
-* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
-
-![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
-![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
 
 ### Linear mixed regression model
 We will need to evaluate the data using a mixed linear regression model.  This is because the data is nested with two calls to the same provider.  Therefore we need to control for calling the same provider twice.  This can be done using the `lmer`, `lmerTest`, and `performance` packages for R.  
