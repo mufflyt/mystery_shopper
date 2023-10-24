@@ -226,6 +226,9 @@ This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylerm
 ## Phase 1 e-mail
 https://olucdenver-my.sharepoint.com/personal/hannah_kyllo_cuanschutz_edu/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fhannah%5Fkyllo%5Fcuanschutz%5Fedu%2FDocuments%2FMystery%20Caller%20Study&ga=1
 
+Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_csti_3ZON9QeuWHoFmRjI/edit?usp=sharing) has the data from "phase1_needs to be called" dataframe.  This is after the data has a NPI number and been grouped by US Census Bureau Division and 'practice_specialty'.  The data then gets sampled.  I uploaded the 509 rows to Google Sheets to have the group confirm phone numbers.   
+![Screenshot 2023-10-23 at 8 55 28 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/8bca6923-b36e-4757-a462-8eb098c07e09)
+
 ## Redcap Survey
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
 * [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
