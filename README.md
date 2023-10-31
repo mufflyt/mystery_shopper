@@ -61,6 +61,9 @@
 
 5. Data Anonymization: All collected data should be properly anonymized and securely stored to protect participants' privacy. Researchers should ensure that any identifiable information is removed or encrypted, reducing the risk of unintended disclosure or breaches of confidentiality.
 
+## RedCAP
+https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
+
 ## Phase 1 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
 
 ### Code to evaluate the web site list of physicians
