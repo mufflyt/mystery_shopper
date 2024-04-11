@@ -110,6 +110,7 @@ geckodriver --version
 ps aux | grep webdriver
 ps
 lsof -i :4567
+kill <PID> #kills any prior process that should not be running
 ```
 
 ```r
