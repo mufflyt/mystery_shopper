@@ -94,6 +94,7 @@ brew upgrade
 brew install openjdk@11
 pip3 install --upgrade pip
 pip3 install selenium
+brew install selenium-server
 brew services start selenium-server
 brew install --cask chromedriver
 brew install geckodriver
