@@ -132,6 +132,8 @@ wdman::chrome(browser = "chrome", version = "desired_version")
 ```
 
 ```r
+# Close the remote driver
+remDr$close()
 rs_driver_object <- rsDriver(browser = 'firefox',
                              geckover = "latest",
                              port = 4447L,
@@ -144,6 +146,12 @@ state_select_tag <- aaos_page |> html_elements("#ctl00_mainContentPlaceHolder_Dd
 state_names <- state_select_tag |>  # Identify the state dropdown element using its HTML attributes (e.g., id)
   html_elements("option") |> 
   html_text2()
+```
+
+Make sure that you close out the remote driver.  
+```r
+# Close the remote driver
+remDr$close()
 ```
 
 ### Code to evaluate ACOG list of physicians for generalists
