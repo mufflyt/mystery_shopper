@@ -162,6 +162,22 @@ remDr$close()
 See `~scrape_obgyn_profile_experimental.R` for searching via zip codes.  The zip codes are built using the file `scrape_postal_code.R`.
 ![Screen Shot 2023-06-16 at 1 35 04 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/f7c6b827-e860-4081-8b21-cb4775cb9dd0)
 
+## Power Analysis
+<img width="150" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
+`Figure_1_Equation.Rmd`.  
+* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
+
+![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
+![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
+
+```r
+# OBGYNS in the ACOG patient-facing database from exploratory:  calling_list_acog_scraper_1
+result <- 733 / (1 + 733 * (0.05^2))
+round(result, digits=0)
+# 259 OBGYNs
+paste0("The required number of OBGYNs to call based on our a priori power analysis was: ", round(result, digits=0), " unique OBGYNS.")
+```
+
 ### Code to clean up the scrape and get it ready for redcap
 See `Clean data from scrape and ready it for redcap.R`.  You can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
@@ -182,14 +198,6 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
 ```
 ![Screenshot 2023-10-22 at 5 03 27 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/53e40746-9fb1-4e05-bfc4-491b6ddf74a5)
 
-## Power Analysis
-<img width="234" alt="Equations" src="https://github.com/mufflyt/mystery_shopper/assets/44621942/dbd6673e-399b-49da-97dc-f0b6eb80184e">
-`Figure_1_Equation.Rmd`.  
-* Reference:  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8391881/ AND http://www.psycholosphere.com/Determining%20sample%20size%20by%20Glen%20Israel.pdf
-
-![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
-![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
-
 ## Assigns a scenario an equal number of times to ensure equal distribution among the rows
 ```r
 # This code repeats each scenario an equal number of times to ensure equal distribution among the rows, shuffles them, and then adds them to the "scenarios" column in your data frame
@@ -198,7 +206,7 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
   mutate(scenarios = recode(scenarios, "alpha" = "Recurrent/Treatment resistant Vaginitis", "beta" = "Pyelonephritis", "gamma" = "+ pregnancy test after a tubal ligation", "omega" = "6 cm tubo-ovarian abscess", type_convert = TRUE))
 ```
 
-## Sample the Data
+## Sample the Data to have the same number of people per ACOG District, etc.  
 ```r
 # Group by AAO_regions and specialty before sample.  
   group_by(AAO_regions, specialty_primary) %>%
@@ -264,7 +272,7 @@ Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_cst
 * [MysteryCallerDataEntryForm_Pes.pdf](https://github.com/mufflyt/mystery_shopper/files/11963391/MysteryCallerDataEntryForm_Pes.pdf)
 * [PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv](https://github.com/mufflyt/mystery_shopper/files/11963387/PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv)
 
-# Phase 2 - Call the validated phone numbers to get the wait time to new patient appointment 
+# Phase 2 - Call the validated phone numbers to get the wait time for new patient appointment 
 * https://www.youtube.com/playlist?list=PLMUhma2xrRQ7IAe4HvKfzgeV52rgpifK-
 * Figure 1: ![image](https://github.com/mufflyt/mystery_shopper/assets/44621942/d9eadab7-cf4c-415f-b2ea-8078317a368c) and Word document can be found in the directory.  
 
