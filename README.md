@@ -67,7 +67,7 @@
 ## RedCAP
 https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
 
-## Phase 1 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
+## Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
 
 ### Code to evaluate the web site list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
