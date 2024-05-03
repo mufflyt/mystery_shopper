@@ -190,6 +190,14 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
 ![Screen Shot 2023-06-16 at 9 53 26 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/eb907e0d-0c54-4ecf-924f-588698770931)
 ![Screen Shot 2023-06-16 at 9 53 56 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/3e6b8bc6-d505-4b00-9313-e800c3810c45)
 
+## Assigns a scenario an equal number of times to ensure equal distribution among the rows
+```r
+# This code repeats each scenario an equal number of times to ensure equal distribution among the rows, shuffles them, and then adds them to the "scenarios" column in your data frame
+  mutate(scenarios = sample(rep(c("alpha", "beta", "gamma", "omega"), length.out = nrow(.)))) 
+
+  mutate(scenarios = recode(scenarios, "alpha" = "Recurrent/Treatment resistant Vaginitis", "beta" = "Pyelonephritis", "gamma" = "+ pregnancy test after a tubal ligation", "omega" = "6 cm tubo-ovarian abscess", type_convert = TRUE))
+```
+
 ## Sample the Data
 ```r
 # Group by AAO_regions and specialty before sample.  
