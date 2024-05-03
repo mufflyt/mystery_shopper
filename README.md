@@ -23,7 +23,10 @@
 ### Publications
 * [Muffly FPMRS article.pdf](https://github.com/mufflyt/mystery_shopper/files/11963277/Muffly.FPMRS.article.pdf)
 * [Muffly_OBGYN_subspecialist_study.pdf](https://github.com/mufflyt/mystery_shopper/files/11963320/Muffly_OBGYN_subspecialist_study.pdf)
-* [FQHC Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf](https://github.com/mufflyt/mystery_shopper/files/11963346/submitted_FQHC.Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf)
+* [Access to Urogynecologic Care in Federally Qualified Health Centers: A Mystery Caller Study](https://github.com/mufflyt/mystery_shopper/files/11963346/submitted_FQHC.Manuscript_2023June17ANMCJune19NSJune20YHSBtmm.pdf)
+* [Insurance Status and Access to Otolaryngology Care  National Mystery](https://github.com/mufflyt/mystery_shopper/files/15195916/Otolaryngol.--head.neck.surg.-.2024.-.Corbisiero.-.Insurance.Status.and.Access.to.Otolaryngology.Care.National.Mystery.pdf)
+* [American Indian and Alaskan Native Access to Obstetrics and Gynecology Subspecialists: Findings From a National Mystery Caller Study in the United States](https://github.com/mufflyt/mystery_shopper/files/15195933/cureus-0015-00000051403.pdf)
+
 
 ## Articles of interest
 * [IUD mystery caller study.pdf](https://github.com/mufflyt/mystery_shopper/files/11973808/IUD.mystery.caller.study.pdf)
