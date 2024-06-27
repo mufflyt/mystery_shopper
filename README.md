@@ -66,7 +66,7 @@
 
 ## RedCAP
 https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
-Fancy data dictionary to upload to REDCap with 
+Fancy data dictionary to upload to REDCap with fancy date validation so people do not put in the wrong year for upcoming appointments.  There is a file in the repository called: "FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv".    
 ![Screenshot 2024-06-27 at 3 48 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2feba484-83e4-4b60-901e-02c92613ebd5)
 
 
