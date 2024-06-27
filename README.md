@@ -1,4 +1,4 @@
-# Appointment Wait Times: A Mystery Caller Study
+[FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv](https://github.com/user-attachments/files/16021584/FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv)# Appointment Wait Times: A Mystery Caller Study
 
 ## For next time: 
 * To callers:  Do NOT close the entry until you get a green light for a file to complete.  Do NOT ignore the pop-up notices.  Please print off the excel document and have them cross off calls and highlight when they need to return.  
@@ -66,6 +66,9 @@
 
 ## RedCAP
 https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
+Fancy data dictionary to upload to REDCap with 
+![Screenshot 2024-06-27 at 3 48 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2feba484-83e4-4b60-901e-02c92613ebd5)
+
 
 ## Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
 
