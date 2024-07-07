@@ -47,25 +47,9 @@
 * [Mystery shopping in health service  evaluation.pdf](https://github.com/mufflyt/mystery_shopper/files/11987089/Mystery.shopping.in.health.service.evaluation.pdf)
 * [STATE STANDARDS FOR  ACCESS TO CARE IN  MEDICAID MANAGED CARE.pdf](https://github.com/mufflyt/mystery_shopper/files/11987092/STATE.STANDARDS.FOR.ACCESS.TO.CARE.IN.MEDICAID.MANAGED.CARE.pdf)
 
-### Ethics of a Mystery Caller Study
-* One ethical issue is informed consent. Participants have a right to know the purpose of the study, the potential risks and benefits, and what will be expected of them. With a mystery caller study, participants may not be aware that they are being observed or that their interactions are part of a research project. This lack of informed consent raises questions about autonomy and the participant's ability to make an informed decision about their participation. It is important to carefully weigh the potential benefits of the study against the potential harm caused by deception and ensure that participants' rights are protected.
-
-* Another ethical concern is the potential harm or distress caused by deception. Deceptive practices can lead to feelings of mistrust, confusion, and discomfort among participants when they discover they were not provided with accurate information. In a mystery caller study, individuals may feel violated or manipulated when they find out their conversations were recorded and analyzed without their knowledge. Researchers have a responsibility to minimize harm and ensure that participants' well-being is prioritized. Clear guidelines for handling and debriefing participants after the study should be in place to address any negative emotional or psychological effects that may arise from the deception.
-
-* To minimize and remedy the risks associated with deception in a mystery caller study, researchers can consider the following measures:
-
-1. Informed Consent: While complete transparency may compromise the study's objectives, it is essential to provide participants with informed consent to the extent possible. Researchers can disclose the general nature of the study without revealing specific details that may compromise the integrity of the research. Participants should understand that they may receive mystery calls or be part of a study involving observational research. This disclosure helps ensure that participants understand their involvement and can make an informed decision about participating.
-
-2. Debriefing: After the study is complete, researchers should conduct a thorough debriefing session with participants. This is an opportunity to explain the study's true purpose, clarify any misconceptions, and address any concerns or emotional reactions that participants may have. During the debriefing, participants should be allowed to withdraw their data if they feel uncomfortable with their participation. Here is a copy of an example debriefing letter: `Muffly-Corbisiero Debriefing Letter.doc`, see directory.  
-
-3. Ethical Review: Researchers should seek ethical review and approval from relevant institutional review boards (IRBs) or ethics committees. These bodies can provide guidance on the study design, participant consent, and the potential risks and benefits of deception. 
-
-4. Minimize Harm: Researchers should take precautions to minimize potential harm caused by deception. This includes ensuring that the study design and procedures are carefully planned and implemented to mitigate any negative impacts on participants.
-
-5. Data Anonymization: All collected data should be properly anonymized and securely stored to protect participants' privacy. Researchers should ensure that any identifiable information is removed or encrypted, reducing the risk of unintended disclosure or breaches of confidentiality.
-
 ## RedCAP
 Upload this data dictionary:  [FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv](https://github.com/user-attachments/files/16021584/FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv)
+Melanie Mandell also had really nice branching logic in her data dictionary.  
 
 https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
 Fancy data dictionary to upload to REDCap with fancy date validation so people do not put in the wrong year for upcoming appointments.  There is a file in the repository called: "FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv".    
@@ -269,6 +253,10 @@ Ortho Study Phase 1 Google Sheets: https://docs.google.com/spreadsheets/d/1-Cv-Q
 
 Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_csti_3ZON9QeuWHoFmRjI/edit?usp=sharing) has the data from "phase1_needs to be called" dataframe.  This is after the data has a NPI number and been grouped by US Census Bureau Division and 'practice_specialty'.  The data then gets sampled.  I uploaded the 509 rows to Google Sheets to have the group confirm phone numbers.   
 ![Screenshot 2023-10-23 at 8 55 28 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/8bca6923-b36e-4757-a462-8eb098c07e09)
+
+[] Healthgrades.com search the final Phase 1 list for physician ages
+[] Check the number of included and exlcuded for phase 1 to make sure the power analysis still works.  
+[] Move redcap to production
 
 ## Redcap Survey
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
@@ -1183,6 +1171,7 @@ pacman::p_load(here,
 ```
 
 In summary, this code leverages the zoomerjoin package to join two data frames based on the similarity of their name_goba columns using the Jaccard method, with specific parameters to control the sensitivity of the matching process.
+
 # Name matching between npi numbers and website names scraped by Lo by hand.  (fuzzy string matching)
 
 This did not work that well.  
@@ -1253,6 +1242,24 @@ join_out <- zoomerjoin::jaccard_left_join(
 join_out_dtbl = data.table::as.data.table(join_out)
 join_out_dtbl
 ```
+
+
+### Ethics of a Mystery Caller Study
+* One ethical issue is informed consent. Participants have a right to know the purpose of the study, the potential risks and benefits, and what will be expected of them. With a mystery caller study, participants may not be aware that they are being observed or that their interactions are part of a research project. This lack of informed consent raises questions about autonomy and the participant's ability to make an informed decision about their participation. It is important to carefully weigh the potential benefits of the study against the potential harm caused by deception and ensure that participants' rights are protected.
+
+* Another ethical concern is the potential harm or distress caused by deception. Deceptive practices can lead to feelings of mistrust, confusion, and discomfort among participants when they discover they were not provided with accurate information. In a mystery caller study, individuals may feel violated or manipulated when they find out their conversations were recorded and analyzed without their knowledge. Researchers have a responsibility to minimize harm and ensure that participants' well-being is prioritized. Clear guidelines for handling and debriefing participants after the study should be in place to address any negative emotional or psychological effects that may arise from the deception.
+
+* To minimize and remedy the risks associated with deception in a mystery caller study, researchers can consider the following measures:
+
+1. Informed Consent: While complete transparency may compromise the study's objectives, it is essential to provide participants with informed consent to the extent possible. Researchers can disclose the general nature of the study without revealing specific details that may compromise the integrity of the research. Participants should understand that they may receive mystery calls or be part of a study involving observational research. This disclosure helps ensure that participants understand their involvement and can make an informed decision about participating.
+
+2. Debriefing: After the study is complete, researchers should conduct a thorough debriefing session with participants. This is an opportunity to explain the study's true purpose, clarify any misconceptions, and address any concerns or emotional reactions that participants may have. During the debriefing, participants should be allowed to withdraw their data if they feel uncomfortable with their participation. Here is a copy of an example debriefing letter: `Muffly-Corbisiero Debriefing Letter.doc`, see directory.  
+
+3. Ethical Review: Researchers should seek ethical review and approval from relevant institutional review boards (IRBs) or ethics committees. These bodies can provide guidance on the study design, participant consent, and the potential risks and benefits of deception. 
+
+4. Minimize Harm: Researchers should take precautions to minimize potential harm caused by deception. This includes ensuring that the study design and procedures are carefully planned and implemented to mitigate any negative impacts on participants.
+
+5. Data Anonymization: All collected data should be properly anonymized and securely stored to protect participants' privacy. Researchers should ensure that any identifiable information is removed or encrypted, reducing the risk of unintended disclosure or breaches of confidentiality.
 
 # Closing Time
 * Move REDCap to "analysis/cleanup phase."
