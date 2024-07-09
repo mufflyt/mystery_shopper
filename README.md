@@ -1476,6 +1476,11 @@ write_csv(merged_data, output_merged_file)
 cat("Merged data saved to:", output_merged_file, "\n")
 ```
 
+# After getting search_and_process_npi functions then you need to do some hand searching using Mechanical Turk
+![Screenshot 2024-07-08 at 7 57 36 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/03545fcc-6570-48d0-afd8-066c2ad3d94d)
+
+
+
 ### Ethics of a Mystery Caller Study
 * One ethical issue is informed consent. Participants have a right to know the purpose of the study, the potential risks and benefits, and what will be expected of them. With a mystery caller study, participants may not be aware that they are being observed or that their interactions are part of a research project. This lack of informed consent raises questions about autonomy and the participant's ability to make an informed decision about their participation. It is important to carefully weigh the potential benefits of the study against the potential harm caused by deception and ensure that participants' rights are protected.
 
