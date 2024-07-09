@@ -1243,6 +1243,238 @@ join_out_dtbl = data.table::as.data.table(join_out)
 join_out_dtbl
 ```
 
+# search_and_process_npi function
+```r
+# Lo Palmere
+
+# This R script defines a function `search_and_process_npi` that conducts a National Provider Identifier (NPI) search based on first and last names extracted from input data. Here's how it works:
+# 
+# 1. **Setup and Input Handling**: The function begins by checking whether the input `data` is a data frame or a file path. If it's a file path, it reads the CSV file into a data frame using `readr::read_csv`.
+# 
+# 2. **Name Extraction and Initialization**: It extracts first names (`first_names`), last names (`last_names`), and identifiers (`ids`) from the input data.
+# 
+# 3. **NPI Search Function**: For each name in the input data, it calls `search_npi` function to search for corresponding NPIs. It uses the `npi` package to perform the search, handling potential errors and returning results formatted into a consistent structure.
+# 
+# 4. **Result Handling and Saving**: Results from each search iteration are saved either individually or in chunks (defined by `save_chunk_size`) as CSV files in a specified directory (`dest_dir`). It also maintains a combined result dataset (`combined_results`) throughout the process.
+# 
+# 5. **Final Output**: After processing all names, it combines all individual search results into a final data frame (`merged_data`). This merged data includes the original input data with appended NPI search results, saved as a CSV file (`merged_data_with_npi_results.csv`).
+# 
+# 6. **Logging and Reporting**: The function logs various steps such as start time, progress of search iterations, unsuccessful matches, and overall duration of execution.
+# 
+# This script is designed to efficiently search and integrate NPI data for healthcare providers based on specified criteria, leveraging tidyverse and other R packages for data manipulation and error handling.
+
+library(tidyverse)
+library(readr)
+library(dplyr)
+library(progress)
+library(purrr)
+library(data.table)
+
+# Define the search_and_process_npi function
+search_and_process_npi <- function(data,
+                                   enumeration_type = "ind",
+                                   limit = 2L,
+                                   country_code = "US",
+                                   filter_credentials = c("MD", "DO"),
+                                   save_chunk_size = 1,
+                                   use_first_name_alias = TRUE,
+                                   dest_dir = NULL) {  # Specify the directory to save chunks
+  
+  cat("Starting search_and_process_npi...\n")
+  
+  # Start time
+  start_time <- Sys.time()
+  
+  # Check if 'data' is a data frame or a file path
+  if (is.character(data)) {
+    input_file <- data
+    cat("Reading input file:", input_file, "\n")
+    data <- readr::read_csv(input_file)
+  } else if (!is.data.frame(data)) {
+    stop("Input 'data' must be a data frame or a valid file path.")
+  }
+  cat("Input data is a data frame.\n")
+  
+  # Add a unique identifier to each row
+  data$id <- seq_len(nrow(data))
+  
+  # Extract first and last names from the data frame
+  first_names <- data$first
+  last_names <- data$last
+  ids <- data$id
+  
+  # Define the list of taxonomies to filter
+  vc <- c("Obstetrics & Gynecology", "Complex Family Planning", "Student in an Organized Health Care Education/Training Program", 
+          "Critical Care Medicine", "Urogynecology and Reconstructive Pelvic Surgery", "Gynecologic Oncology", "Gynecology", 
+          "Hospice and Palliative Medicine", "Maternal & Fetal Medicine", "Obesity Medicine", "Obstetrics", "Reproductive Endocrinology")
+  bc <- vc
+  
+  # Function to search NPI based on first and last names
+  search_npi <- function(first_name, last_name, id) {
+    cat("Searching NPI for:", first_name, last_name, "\n")
+    tryCatch(
+      {
+        # NPI search object
+        npi_obj <- npi::npi_search(first_name = first_name, 
+                                   last_name = last_name, 
+                                   use_first_name_alias = use_first_name_alias)
+        
+        # Check if npi_obj is an npi_results object
+        if (!inherits(npi_obj, "npi_results")) {
+          stop("NPI search did not return an npi_results object.")
+        }
+        
+        # Retrieve basic and taxonomy data from npi objects
+        t <- npi::npi_flatten(npi_obj, cols = c("basic", "taxonomies"))
+        
+        # Subset results with taxonomy that matches taxonomies in the lists
+        t <- t %>% 
+          dplyr::filter(taxonomies_desc %in% vc | taxonomies_desc %in% bc) %>%
+          dplyr::mutate(date = as.character(Sys.time()), id = id)  # Add the date and id columns here
+        
+        return(t)
+      },
+      error = function(e) {
+        cat("ERROR:", conditionMessage(e), "\n")
+        return(data.frame(id = id))  # Return a data frame with id for error cases
+      }
+    )
+  }
+  
+  # Create an empty list to receive the data
+  out <- list()
+  
+  # Initialize progress bar
+  total_names <- nrow(data)
+  pb <- progress::progress_bar$new(total = total_names)
+  
+  # Function to save results to file
+  save_results <- function(result, file_prefix, directory) {
+    if (nrow(result) == 0) {
+      cat("No valid results to save.\n")
+      return(NULL)
+    }
+    timestamp <- format(Sys.time(), "%Y%m%d%H%M%S")
+    file_name <- file.path(directory, paste0(file_prefix, "_chunk_", timestamp, ".csv"))
+    write.csv(result, file_name, row.names = FALSE)
+    cat("Saved chunk results to:", file_name, "\n")
+    return(file_name)  # Return file path
+  }
+  
+  # Initialize counters for chunk saving
+  chunk_count <- 0
+  combined_results <- data.frame()  # Initialize an empty data frame to hold combined results
+  
+  # Initialize column names and types for consistency
+  column_names <- NULL
+  column_types <- NULL
+  
+  # Search NPI for each name in the input data
+  for (i in seq_along(first_names)) {
+    pb$tick()
+    result <- search_npi(first_names[i], last_names[i], ids[i])
+    
+    # Ensure consistency in column names and types
+    if (is.null(column_names)) {
+      column_names <- names(result)
+      column_types <- sapply(result, class)
+    } else {
+      # Add missing columns with NA values
+      missing_cols <- setdiff(column_names, names(result))
+      result[missing_cols] <- NA
+      # Reorder columns to match the first result
+      result <- result[, column_names]
+      # Convert column types to match the first result
+      for (col in names(result)) {
+        result[[col]] <- as(result[[col]], column_types[col])
+      }
+    }
+    
+    # Increment chunk count and save results if chunk size is reached
+    chunk_count <- chunk_count + 1
+    if (chunk_count %% save_chunk_size == 0) {
+      file_path <- save_results(result, "npi_search_results", dest_dir)
+      if (!is.null(file_path) && file.exists(file_path)) {
+        chunk_data <- readr::read_csv(file_path, col_types = cols())
+        if (nrow(chunk_data) > 0) {
+          combined_results <- rbind(combined_results, chunk_data)
+        }
+      }
+    }
+    
+    out[[i]] <- result
+  }
+  
+  # Filter out empty results
+  out <- purrr::discard(out, function(x) nrow(x) == 0)
+  
+  # Combine multiple data frames into a single data frame using data.table::rbindlist()
+  if (length(out) > 0) {
+    result <- data.table::rbindlist(out, fill = TRUE)
+    
+    # Save final results if they haven't been saved already in chunks
+    if (chunk_count %% save_chunk_size != 0) {
+      file_path <- save_results(result, "npi_search_results", dest_dir)
+      if (!is.null(file_path) && file.exists(file_path)) {
+        chunk_data <- readr::read_csv(file_path, col_types = cols())
+        if (nrow(chunk_data) > 0) {
+          combined_results <- rbind(combined_results, chunk_data)
+        }
+      }
+    }
+    
+    # Calculate and print number of unsuccessful matches
+    unsuccessful <- sum(sapply(out, function(x) nrow(x) == 0))
+    cat("Number of observations without NPI match:", unsuccessful, "\n")
+  } else {
+    cat("No valid NPI search results found.\n")
+  }
+  
+  # End time and duration
+  end_time <- Sys.time()
+  duration <- end_time - start_time
+  cat("The function ran for", round(duration / 60L, 1L), "minutes.\n")
+  
+  # Write updated data frame with results next to input file
+  if (!is.null(dest_dir)) {
+    output_file <- file.path(dest_dir, "npi_search_results.csv")
+    write.csv(combined_results, output_file, row.names = FALSE)
+    cat("Saved combined results to:", output_file, "\n")
+  }
+  
+  return(combined_results)
+}
+
+# Usage example
+# Define file paths
+input_file_path <- "academic_hand_search/data/cleaned_List of providers - Sheet1.csv"
+dest_dir <- "academic_hand_search/data/search_and_process_results"
+
+# Read input data and add unique identifier
+input_data <- read_csv(input_file_path)
+input_data$id <- seq_len(nrow(input_data))
+write_csv(input_data, input_file_path)  # Save the input data with the id column
+
+# Perform NPI search and save results next to input file
+output_result <- search_and_process_npi(data = input_data,  # Use file path
+                                        dest_dir = dest_dir,
+                                        save_chunk_size = 1, #MUST BE SET TO 1
+                                        limit = 10L)
+
+cat("NPI search and processing completed.\n")
+
+# Read the NPI search results
+npi_results <- read_csv(file.path(dest_dir, "npi_search_results.csv"))
+
+# Merge the input data with the NPI search results
+merged_data <- merge(input_data, npi_results, by = "id", all.x = TRUE)
+
+# Save the merged data
+output_merged_file <- file.path(dest_dir, "merged_data_with_npi_results.csv")
+write_csv(merged_data, output_merged_file)
+
+cat("Merged data saved to:", output_merged_file, "\n")
+```
 
 ### Ethics of a Mystery Caller Study
 * One ethical issue is informed consent. Participants have a right to know the purpose of the study, the potential risks and benefits, and what will be expected of them. With a mystery caller study, participants may not be aware that they are being observed or that their interactions are part of a research project. This lack of informed consent raises questions about autonomy and the participant's ability to make an informed decision about their participation. It is important to carefully weigh the potential benefits of the study against the potential harm caused by deception and ensure that participants' rights are protected.
