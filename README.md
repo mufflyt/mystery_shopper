@@ -244,7 +244,7 @@ See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
 This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/For_each_caller" directory and splits the data into eight parts. Each split is saved as a separate XLSX file in the same directory.  The split() function is used to split the data frame into 8 parts based on row numbers. The cut() function is used to create a factor variable that assigns each row to one of the 8 groups. The names() function is then used to get the names of each group.  The for-loop iterates through each group, creates a file name for each group based on the group name, date, and row number. The write.xlsx() function is used to save each split data frame as a separate XLSX file in the output directory.  The output files will have names like "Sophie_2023-05-06_153_rows_1_to_19.xlsx", where "Sophie" is the name of the split, "2023-05-06" is the current date, "153" is the number of rows in the split, and "1_to_19" are the row IDs of the first and last rows in the split.
 ![Screen Shot 2023-05-08 at 8 29 42 PM](https://user-images.githubusercontent.com/44621942/236978744-1dfa24b5-ad26-4ace-8c05-220aa2197f9e.jpg)
 
-## Phase 1 e-mail
+## Phase 1
 [Screening Call List.xlsx](https://github.com/mufflyt/mystery_shopper/files/15196039/Screening.Call.List.xlsx)
 
 https://olucdenver-my.sharepoint.com/personal/hannah_kyllo_cuanschutz_edu/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fhannah%5Fkyllo%5Fcuanschutz%5Fedu%2FDocuments%2FMystery%20Caller%20Study&ga=1
@@ -254,9 +254,28 @@ Ortho Study Phase 1 Google Sheets: https://docs.google.com/spreadsheets/d/1-Cv-Q
 Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_csti_3ZON9QeuWHoFmRjI/edit?usp=sharing) has the data from "phase1_needs to be called" dataframe.  This is after the data has a NPI number and been grouped by US Census Bureau Division and 'practice_specialty'.  The data then gets sampled.  I uploaded the 509 rows to Google Sheets to have the group confirm phone numbers.   
 ![Screenshot 2023-10-23 at 8 55 28 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/8bca6923-b36e-4757-a462-8eb098c07e09)
 
+[] For Phase 1 stress that people should make notes correcting the phone number and adding in how to get through the phone tree (e.g. "press 4 to make appointments")
 [] Healthgrades.com search the final Phase 1 list for physician ages
 [] Check the number of included and exlcuded for phase 1 to make sure the power analysis still works.  
 [] Move redcap to production
+
+## Phase 1 e-mail
+
+"Dear All,
+
+We need to start the study with a very important step to confirm the phone numbers of the physicians that we are going to call.  It takes a lot of work and time to keep a directory of physicians up to date and so many academic societies do not do so.  We have found anywhere between 15 to 40% of phone numbers are incorrect.  Reasons they are incorrect goes to the physician retiring, moving, etc.  There will be several options in a drop down menu that will let you chose if you could or could not reach the person.  
+
+* Should I try to find the correct phone number for the physician?  YES, please google the correct phone number and add that to the notes section.  
+* What if I reach the physician's cell phone?  No big deal just explain how you found the number from the society directory and ask for the office phone number.
+* What if I have to go through a phone tree?  Please put the correct buttons to press.
+* For those who were taking new patients but not for several months out, how should I proceed?  Include.
+* For those who said another provider in the practice could see the new patients, but not the one listed, should I mark those differently?  Do NOT take another provider as the appointment must be with the selected provider. 
+
+The "Notes" section is incredibly helpful.  Add comments where you can.  Please reach out if you have any concerns.  
+
+Thanks,
+Muffly"
+
 
 ## Redcap Survey
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
@@ -579,7 +598,7 @@ MD Candidate, Class of 2024
 hannah.kyllo@cuanschutz.edu
 ```
 
-## Start of Phase 2
+## Start of Phase 2 e-mail
 ```r
 Hi team!
 
@@ -616,6 +635,7 @@ https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery c
 
 https://youtu.be/miW_03ZqqEE
 ```
+
 ## Nightly e-mail to the team
 ```r
 Dear All,
