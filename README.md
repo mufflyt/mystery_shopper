@@ -273,6 +273,16 @@ We need to start the study with a very important step to confirm the phone numbe
 
 ![Screenshot 2024-07-10 at 4 30 36 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/ef40bdb3-5b1b-4823-8a82-73a58ea5837d)
 
+# Phase 1 email
+"Hi all,
+
+I am reaching out again with another reminder that calls are due this Friday at 5:00 pm MST. Thank you to those of you who have reached out to let me know that you have finished your calls. 
+
+As of right now, we have 311 physicians that will be included in the study. In order to have an adequate sample size for phase two, we will need at minimum 400 physicians. There is nothing you all need to do differently to help meet this goal, I just wanted to give you all a heads up. 
+
+As always, please let me know if you have any questions or concerns."
+
+
 The "Notes" section is incredibly helpful.  Add comments where you can.  Please reach out if you have any concerns.  
 
 Thanks,
