@@ -259,6 +259,7 @@ Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_cst
 
 The best way to confirm that the physician is included is to say "I'm calling from Dr. Johnson's office and we are confirming our referrals.  Does Dr. X still take new patients?"
 
+[] For Phase 1 make sure that you do 2.5 number the power analysis required calls because these databases are so out of date.  
 [] For Phase 1 stress that people should make notes correcting the phone number and adding in how to get through the phone tree (e.g. "press 4 to make appointments")
 [] Healthgrades.com search the final Phase 1 list for physician ages
 [] Check the number of included and exlcuded for phase 1 to make sure the power analysis still works.  
