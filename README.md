@@ -240,7 +240,8 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
 
 ### Matching Names to NPI numbers
 'npi_api.R' and 'npi_search_working.R' are both viable options that get about 70% matches of the names to NPI numbers.  
-  
+  [name_matching.pptx](https://github.com/user-attachments/files/16186101/name_matching.pptx)
+
 ## Split list up to x number of callers
 See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
 This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/For_each_caller" directory and splits the data into eight parts. Each split is saved as a separate XLSX file in the same directory.  The split() function is used to split the data frame into 8 parts based on row numbers. The cut() function is used to create a factor variable that assigns each row to one of the 8 groups. The names() function is then used to get the names of each group.  The for-loop iterates through each group, creates a file name for each group based on the group name, date, and row number. The write.xlsx() function is used to save each split data frame as a separate XLSX file in the output directory.  The output files will have names like "Sophie_2023-05-06_153_rows_1_to_19.xlsx", where "Sophie" is the name of the split, "2023-05-06" is the current date, "153" is the number of rows in the split, and "1_to_19" are the row IDs of the first and last rows in the split.
