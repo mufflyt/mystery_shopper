@@ -1195,92 +1195,9 @@ GoogleDocs and Endnote do not play well together.  Therefore we used Endnote for
 [YMOB14983_proof.pdf](https://github.com/mufflyt/mystery_shopper/files/11987057/YMOB14983_proof.pdf)
 
 # Name Matching
+![Slide1](https://github.com/user-attachments/assets/8e14fd72-0a10-4842-9539-f96aa2edb291)
 
 Per conversation with Lampros.  Due to the fact that we have to find matches between the names I think that it might be wise rather than a join to use approximate string matching by setting a threshold.   Installed rust and then zoomerjoin (https://github.com/beniaminogreen/zoomerjoin) from github.  
-```r
-if(!require(pacman)) install.packages("pacman");
-pacman::p_load(here,
-               data.table,
-               parallel,
-               glue,
-               lubridate,
-               # fuzzyjoin,
-               zoomerjoin,
-               install = TRUE)
-```
-
-In summary, this code leverages the zoomerjoin package to join two data frames based on the similarity of their name_goba columns using the Jaccard method, with specific parameters to control the sensitivity of the matching process.
-
-# Name matching between npi numbers and website names scraped by Lo by hand.  (fuzzy string matching)
-
-This did not work that well.  
-```r 
-if(!require(pacman)) install.packages("pacman");
-pacman::p_load(here,
-               data.table,
-               parallel,
-               glue,
-               lubridate,
-               # fuzzyjoin,
-               zoomerjoin,
-               install = TRUE)
-
-# Reading in the data
-providers <- readr::read_csv("academic_hand_search/data/cleaned_List of providers - Sheet1.csv")
-output_result <- readr::read_csv("academic_hand_search/results_of_search_and_process_npi.csv") %>%
-  dplyr::rename("first" = "basic_first_name") %>%
-  dplyr::rename("last" = "basic_last_name") %>%
-  dplyr::distinct(npi, .keep_all = TRUE)
-
-npi_result <- output_result
-
-# Clean up potential whitespace and case issues
-providers$first <- tolower(trimws(providers$first))
-providers$last <- tolower(trimws(providers$last))
-npi_result$first <- tolower(trimws(npi_result$first))
-npi_result$last <- tolower(trimws(npi_result$last))
-
-# Cleaning the data called "providers" dataframe
-# the number of unique ID's of the 'goba' data.frame
-length(unique(providers$first))
-
-# We'll keep specific columns from the 'goba' data.frame
-cols_provider_keep = c('provider_name', 'first', 'last')
-providers_subs = providers[, cols_provider_keep]
-
-# adjust the names of the goba columns
-colnames(providers_subs) = glue::glue("{colnames(providers_subs)}_providers")
-
-# we'll convert to lower case the 'provider_name' column
-providers_subs$provider_name <- tolower(providers_subs$provider_name_providers)
-
-providers_subs <- providers_subs %>%
-  select(provider_name, first_providers, last_providers)
-
-# Cleaning the data called "providers" dataframe
-# we'll create a new column for the 'df_keep_recent' data.frame using the 'pfname' and 'plname' columns named as 'provider_name'  and we'll convert to lower case
-
-npi_result$provider_name <- glue("{npi_result$first} {npi_result$last}")
-
-npi_result <- npi_result %>%
-  select(provider_name, npi, first, last)
-
-
-#### MATCHING!
-set.seed(1978)
-join_out <- zoomerjoin::jaccard_left_join(
-  a = providers_subs,
-  b = npi_result,
-  by = "provider_name",
-  n_gram_width = 8,
-  n_bands = 2000,      # Increase number of bands
-  band_width = 14,    # Adjust band width
-  threshold = 0.9,    # Adjust threshold as needed
-  progress = FALSE); join_out
-
-join_out_dtbl = data.table::as.data.table(join_out)
-join_out_dtbl
-```
 
 # search_and_process_npi function
 ```r
