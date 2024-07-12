@@ -254,6 +254,8 @@ Ortho Study Phase 1 Google Sheets: https://docs.google.com/spreadsheets/d/1-Cv-Q
 Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_csti_3ZON9QeuWHoFmRjI/edit?usp=sharing) has the data from "phase1_needs to be called" dataframe.  This is after the data has a NPI number and been grouped by US Census Bureau Division and 'practice_specialty'.  The data then gets sampled.  I uploaded the 509 rows to Google Sheets to have the group confirm phone numbers.   
 ![Screenshot 2023-10-23 at 8 55 28 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/8bca6923-b36e-4757-a462-8eb098c07e09)
 
+The best way to confirm that the physician is included is to say "I'm calling from Dr. Johnson's office and we are confirming our referrals.  Does Dr. X still take new patients?"
+
 [] For Phase 1 stress that people should make notes correcting the phone number and adding in how to get through the phone tree (e.g. "press 4 to make appointments")
 [] Healthgrades.com search the final Phase 1 list for physician ages
 [] Check the number of included and exlcuded for phase 1 to make sure the power analysis still works.  
@@ -263,7 +265,7 @@ Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_cst
 
 "Dear All,
 
-We need to start the study with a very important step to confirm the phone numbers of the physicians that we are going to call.  It takes a lot of work and time to keep a directory of physicians up to date and so many academic societies do not do so.  We have found anywhere between 15 to 40% of phone numbers are incorrect.  Reasons they are incorrect goes to the physician retiring, moving, etc.  There will be several options in a drop down menu that will let you chose if you could or could not reach the person.  
+We need to start the study with a very important step to confirm the phone numbers of the physicians that we are going to call.  It takes a lot of work and time to keep a directory of physicians up to date and so many academic societies do not do so.  We have found anywhere between 15 to 40% of phone numbers are incorrect.  Reasons they are incorrect goes to the physician retiring, moving, etc.  There will be several options in a drop down menu that will let you chose if you could or could not reach the person.  The best way to confirm that the physician is included is to say "I'm calling from Dr. Johnson's office and we are confirming our physician referral contacts.  Does Dr. X still take new patients?"
 
 * Should I try to find the correct phone number for the physician?  YES, please google the correct phone number and add that to the notes section.  
 * What if I reach the physician's cell phone?  No big deal just explain how you found the number from the society directory and ask for the office phone number.
