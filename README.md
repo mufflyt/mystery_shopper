@@ -274,6 +274,7 @@ We need to start the study with a very important step to confirm the phone numbe
 * What if I have to go through a phone tree?  Please put the correct buttons to press.
 * For those who were taking new patients but not for several months out, how should I proceed?  Include.
 * For those who said another provider in the practice could see the new patients, but not the one listed, should I mark those differently?  Do NOT take another provider as the appointment must be with the selected provider.
+* Please transfer data from any excel spreadsheets on your computer to the Google sheet on an hourly basis so we do not worry that calls are not being made.  
 
 ![Screenshot 2024-07-10 at 4 30 36 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/ef40bdb3-5b1b-4823-8a82-73a58ea5837d)
 
