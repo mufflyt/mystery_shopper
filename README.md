@@ -1195,6 +1195,7 @@ GoogleDocs and Endnote do not play well together.  Therefore we used Endnote for
 [YMOB14983_proof.pdf](https://github.com/mufflyt/mystery_shopper/files/11987057/YMOB14983_proof.pdf)
 
 # Name Matching
+
 Per conversation with Lampros.  Due to the fact that we have to find matches between the names I think that it might be wise rather than a join to use approximate string matching by setting a threshold.   Installed rust and then zoomerjoin (https://github.com/beniaminogreen/zoomerjoin) from github.  
 ```r
 if(!require(pacman)) install.packages("pacman");
