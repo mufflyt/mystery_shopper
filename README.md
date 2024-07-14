@@ -241,12 +241,7 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
 ### Matching Names to NPI numbers
 'npi_api.R' and 'npi_search_working.R' are both viable options that get about 70% matches of the names to NPI numbers.  
   [name_matching.pptx](https://github.com/user-attachments/files/16186101/name_matching.pptx)
-
-## Split list up to x number of callers
-See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
-This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/For_each_caller" directory and splits the data into eight parts. Each split is saved as a separate XLSX file in the same directory.  The split() function is used to split the data frame into 8 parts based on row numbers. The cut() function is used to create a factor variable that assigns each row to one of the 8 groups. The names() function is then used to get the names of each group.  The for-loop iterates through each group, creates a file name for each group based on the group name, date, and row number. The write.xlsx() function is used to save each split data frame as a separate XLSX file in the output directory.  The output files will have names like "Sophie_2023-05-06_153_rows_1_to_19.xlsx", where "Sophie" is the name of the split, "2023-05-06" is the current date, "153" is the number of rows in the split, and "1_to_19" are the row IDs of the first and last rows in the split.
-![Screen Shot 2023-05-08 at 8 29 42 PM](https://user-images.githubusercontent.com/44621942/236978744-1dfa24b5-ad26-4ace-8c05-220aa2197f9e.jpg)
-
+  
 ## Phase 1
 [Screening Call List.xlsx](https://github.com/mufflyt/mystery_shopper/files/15196039/Screening.Call.List.xlsx)
 
@@ -303,6 +298,13 @@ Muffly"
 ![Screen Shot 2023-05-12 at 8 48 59 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/24171fb7-e5bc-4171-a60c-b1de789680cd)
 * [MysteryCallerDataEntryForm_Pes.pdf](https://github.com/mufflyt/mystery_shopper/files/11963391/MysteryCallerDataEntryForm_Pes.pdf)
 * [PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv](https://github.com/mufflyt/mystery_shopper/files/11963387/PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv)
+
+# Late Phase 1
+## Split list up to x number of callers
+See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
+This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/For_each_caller" directory and splits the data into eight parts. Each split is saved as a separate XLSX file in the same directory.  The split() function is used to split the data frame into 8 parts based on row numbers. The cut() function is used to create a factor variable that assigns each row to one of the 8 groups. The names() function is then used to get the names of each group.  The for-loop iterates through each group, creates a file name for each group based on the group name, date, and row number. The write.xlsx() function is used to save each split data frame as a separate XLSX file in the output directory.  The output files will have names like "Sophie_2023-05-06_153_rows_1_to_19.xlsx", where "Sophie" is the name of the split, "2023-05-06" is the current date, "153" is the number of rows in the split, and "1_to_19" are the row IDs of the first and last rows in the split.
+![Screen Shot 2023-05-08 at 8 29 42 PM](https://user-images.githubusercontent.com/44621942/236978744-1dfa24b5-ad26-4ace-8c05-220aa2197f9e.jpg)
+
 
 # Phase 2 - Call the validated phone numbers to get the wait time for new patient appointment 
 * https://www.youtube.com/playlist?list=PLMUhma2xrRQ7IAe4HvKfzgeV52rgpifK-
