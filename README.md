@@ -157,7 +157,7 @@ round(result, digits=0)
 # 259 OBGYNs
 paste0("The required number of OBGYNs to call based on our a priori power analysis was: ", round(result, digits=0), " unique OBGYNS.")
 ```
-## RedCAP
+## REDCap
 * https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
 * Upload this data dictionary:  [FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv](https://github.com/user-attachments/files/16021584/FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv)
 * Melanie Mandell also had really nice branching logic in her data dictionary.  
