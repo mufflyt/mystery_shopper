@@ -164,7 +164,14 @@ paste0("The required number of OBGYNs to call based on our a priori power analys
 * Fancy data dictionary to upload to REDCap with fancy date validation so people do not put in the wrong year for upcoming appointments.  There is a file in the repository called: "FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv".    
 ![Screenshot 2024-06-27 at 3 48 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2feba484-83e4-4b60-901e-02c92613ebd5)
 
-### Code to clean up the scrape and get it ready for redcap
+###  Redcap Database Examples
+* [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
+* [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
+![Screen Shot 2023-05-12 at 8 48 59 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/24171fb7-e5bc-4171-a60c-b1de789680cd)
+* [MysteryCallerDataEntryForm_Pes.pdf](https://github.com/mufflyt/mystery_shopper/files/11963391/MysteryCallerDataEntryForm_Pes.pdf)
+* [PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv](https://github.com/mufflyt/mystery_shopper/files/11963387/PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv)
+
+### Code to clean up the scrape and get it ready for REDCap
 See `Clean data from scrape and ready it for redcap.R`.  You can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
 
@@ -223,7 +230,7 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
   # Unique row number for each row.  
   mutate(id = 1:n()) %>%
   
-  # Unite all the information to upload to redcap: https://redcap.ucdenver.edu/redcap_v13.1.18/ProjectSetup/index.php?pid=28103. 
+  # Unite all the information to upload to REDCap: https://redcap.ucdenver.edu/redcap_v13.1.18/ProjectSetup/index.php?pid=28103. 
   unite(united_column, id, redcap_data, Insurance, sep = ", ", remove = FALSE, na.rm = FALSE)
 ```
 
@@ -248,7 +255,7 @@ The best way to confirm that the physician is included is to say "I'm calling fr
 * [] For Phase 1 stress that people should make notes correcting the phone number and adding in how to get through the phone tree (e.g. "press 4 to make appointments")
 * [] Healthgrades.com search the final Phase 1 list for physician ages
 * [] Check the number of included and exlcuded for phase 1 to make sure the power analysis still works.  
-* [] Move redcap to production
+* [] Move REDCap to production
 
 ## Phase 1 e-mail
 ```r
@@ -281,13 +288,6 @@ The "Notes" section is incredibly helpful.  Add comments where you can.  Please 
 Thanks,
 Muffly
 ```
-
-## Redcap Database
-* [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
-* [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
-![Screen Shot 2023-05-12 at 8 48 59 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/24171fb7-e5bc-4171-a60c-b1de789680cd)
-* [MysteryCallerDataEntryForm_Pes.pdf](https://github.com/mufflyt/mystery_shopper/files/11963391/MysteryCallerDataEntryForm_Pes.pdf)
-* [PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv](https://github.com/mufflyt/mystery_shopper/files/11963387/PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv)
 
 # Late Phase 1
 ## Assigns a scenario an equal number of times to ensure equal distribution among the rows
@@ -651,7 +651,7 @@ https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
 https://redcap.ucdenver.edu/surveys/?s=wcIyV5ajVM
 
 
-The redcap login can be found here:  
+The REDCap login can be found here:  
 https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery caller."  Please see the left-handed rail where it says "Add/Edit Records."  Click the green button that says "Add New Record".  Type in the physician's name, and you are ready.  Here is a link to a video about how to do the calling:  
 
 https://youtu.be/miW_03ZqqEE
@@ -777,9 +777,9 @@ CCM who is the right person to pass this on to at AAO-HNS?
 ```
 
 ```r
-Q: Lizzie texted me today asking if there's a way to search for a physician name or number. She has updates for her calls that were done using her excel sheet and need to be uploaded to redcap. 
+Q: Lizzie texted me today asking if there's a way to search for a physician name or number. She has updates for her calls that were done using her excel sheet and need to be uploaded to REDCap. 
 
-A: If anyone has notes they want to put in on their calls and the calls have been completed, they can search for the provider id in the "Choose an Existing Record" field. Please take a look at the redcap screenshot.  The provider id is the first number in the "upload_to_redcap" column of each Excel file given to each caller. I included a highlighted screenshot as well.   
+A: If anyone has notes they want to put in on their calls and the calls have been completed, they can search for the provider id in the "Choose an Existing Record" field. Please take a look at the REDCap screenshot.  The provider id is the first number in the "upload_to_redcap" column of each Excel file given to each caller. I included a highlighted screenshot as well.   
 
 I would like to "lock" the database to any edits within the next 48 hours so we can proceed with the analysis.  Every time we change the data, we have to re-analyze, which gets painful after a while.  Let me know if this timeline works for you, please.  
 
@@ -1002,7 +1002,7 @@ Society Patient-Facing Directory Web Pages
 * https://www.smfm.org/members/search
 * http://voicesforpfd.org
 
-Get at least one person to call for each subspecialty.  Medical students?  All should probably be women or men.  Do an elective with Muffly in December to make the phone calls.  Able to work from home with the redcap database and a telephone.  Scenarios would be: 4 cm simple cyst, infertility, prior CHTN, and SUI.  
+Get at least one person to call for each subspecialty.  Medical students?  All should probably be women or men.  Do an elective with Muffly in December to make the phone calls.  Able to work from home with the REDCap database and a telephone.  Scenarios would be: 4 cm simple cyst, infertility, prior CHTN, and SUI.  
 
 # How to pick physicians to call based off nomogram code
 ```r
