@@ -164,7 +164,7 @@ paste0("The required number of OBGYNs to call based on our a priori power analys
 * Fancy data dictionary to upload to REDCap with fancy date validation so people do not put in the wrong year for upcoming appointments.  There is a file in the repository called: "FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv".    
 ![Screenshot 2024-06-27 at 3 48 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2feba484-83e4-4b60-901e-02c92613ebd5)
 
-###  Redcap Database Examples
+###  REDCap Database Examples
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
 * [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
 ![Screen Shot 2023-05-12 at 8 48 59 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/24171fb7-e5bc-4171-a60c-b1de789680cd)
