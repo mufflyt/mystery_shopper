@@ -290,6 +290,218 @@ Thanks,
 Muffly
 ```
 
+
+## Meeting for the callers and team
+```r
+Hi Team, 
+
+We will be meeting in the next week or so to discuss the study and our anticipated "calling" May 8 - May 12. During our Zoom, we will discuss the study, its aims, methods, and individual responsibilities. It will be roughly 30-45 minutes max. 
+
+Please fill out the When2Meet form within the next 24-48 hours, or let me know if you are unable to still participate. https://www.when2meet.com/?19887642-Rc5OV
+
+In the meantime, I'm happy to answer any questions you may have, so please reach out. 
+
+Thank you, 
+
+Michaele Francesco Corbisiero
+(626) 646-9087
+```
+
+## End of Phase 1 email
+```r
+Hi Dr. Muffly,
+
+Please find links to the completed phase 1 data attached. 
+
+(1) Mayu Screening Call List.xlsx
+(2) Ellie Screening Call List.xlsx
+(3) Natalya Screening Call List.xlsx
+(4) Nelly Screening Call List.xlsx
+(5) Yasmine Screening Call List.xlsx
+(6) Wyanet Screening Call List.xlsx
+
+I reviewed each of the entries and sorted through the full ACOG calling list to either exclude or include each physician. I have attached an "ACOG Calling List with Exclusions" in which I highlighted the physicians to be excluded. I also went through and deleted these exclusions to create an "ACOG Calling List Final". It looks like after exclusions we have 623 physicians remaining (excluded ~180).
+
+Best,
+
+Hannah Kyllo
+University of Colorado School of Medicine
+MD Candidate, Class of 2024
+623-249-9220 Mobile
+hannah.kyllo@cuanschutz.edu
+```
+
+## Start of Phase 2 e-mail
+```r
+Hi team!
+
+Tomorrow, Monday August 14, we will begin calling clinics for our OB/GYN mystery caller study. Each of you has been assigned ~178 calls to make. Please find a link to an excel spreadsheet with your individualized calling assignments below. 
+
+Phone Call Assignment: (6) sophie_whitehead_2023-08-13_13-28-59_177_rows_7_to_1239.xlsx
+REDCap Login: https://redcap.ucdenver.edu/
+
+Please see the attached Mystery Caller Protocol for step-by-step instructions on how to make your calls and record your data in REDCap. We did review most of this during our meeting last Thursday, however a few pieces of information are new, based on your excellent questions during the meeting, so please review the protocol document prior to starting your calls. I have also attached a link to a video below in which Dr. Muffly talks through the basics of making your calls and recording your data (similar to our discussion on Thursday). Although this video was made for a prior study, the principles are the same, and it can serve as an additional tool to refresh your memory on how to perform these tasks.
+
+Instructions Video: https://www.youtube.com/watch?v=Y_5VjxPKJF0&ab_channel=TylerMuffly
+
+As a reminder, you will have until Friday, August 18 at 5 PM to complete your calls. Whatever you do, please do NOT schedule actual appointments during these calls. Please reach out to me if you have any questions at all, no matter how small. I am here to help and support you!
+
+Best,
+
+Hannah Kyllo
+```
+
+## Start calling instructions
+Send e-mail with all the excel files created by: 'Splitting_dataframe_to_send_to_callers.R'.  
+```r
+Hello everyone,
+
+I've attached your calling assignments with your name or e-mail.  There are eight callers, and each of you has 153 calls to make by the end of business on Friday, May 12, 2023.  Whatever you do, please do NOT make actual appointments.  
+
+Please make sure you have signed up for REDcap access:
+https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
+https://redcap.ucdenver.edu/surveys/?s=wcIyV5ajVM
+
+
+The REDCap login can be found here:  
+https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery caller."  Please see the left-handed rail where it says "Add/Edit Records."  Click the green button that says "Add New Record".  Type in the physician's name, and you are ready.  Here is a link to a video about how to do the calling:  
+
+https://youtu.be/miW_03ZqqEE
+```
+
+## Nightly e-mail to the team
+```r
+Dear All,
+
+I appreciate your help today calling the ENT offices.  It was a slow start due to REDCap access issues, with 61 offices called on Monday (May 8).  We apologize for not making sure everyone had access before starting.  Please let us know if your REDCap access remains limited.  
+
+A few simple reminders:
+Please don't make any appointments.  This is out of respect for the ENT practices and actual patients.  
+If you are on hold for five minutes, you can just hang up and mark this in the exclusions.  
+Analyzing the data, the mean time for a new patient appointment is 29.5 days with a standard deviation of 31 days.  
+
+Do not hesitate to reach out if you have any questions or concerns.  
+
+Thanks,
+Muffly
+720-810-9863
+```
+
+## Second day calling e-mail
+```
+Dear All,
+
+A few great questions came up today:
+
+Q:  The office that I just called was for neurotology, and the scheduler informed me that the physician is not seeing patients for dizziness under any circumstances, regardless of insurance. So I was thinking that the result for Medicaid if I were to call again would most likely be the same
+A:I agree. If you could write something like that in the notes section, we can exclude them in an “other” category. 
+
+Q: If we call an office for BCBS for example and an exclusion applies like needing a referral or the number is disconnected, do we need to call that same number again for Medicaid, or do we just put in another data form with the same exclusion?
+A: We should Google search the physician’s name for a second call if the number is disconnected. Then add that to the notes section.
+
+Please do your best to work around the demand for a referral for a theoretical next available date. “Can you give me A ball park figure of when the next appt may be.”  
+
+Thanks,
+Muffly
+```
+
+## Third day e-mailing
+```r
+Dear All,
+
+Great job today!  Today we are up to a total of 428 records.  The mean time for a new patient appointment is 30.4 business days (SD +/- 32.6).  
+
+Today I worked on getting NPI numbers for each physician's name as we can match demographics to NPI numbers more easily.  NPI numbers are like social security numbers for physicians created in 2005 with the start of HIPAA.  Fun fact: NPI numbers never change even if the physician moves, changes their name, etc.  I did a hand search of the otolaryngology names and found unique NPI numbers for 83.7%.  The remainder will require a little more sleuthing.  
+
+Thank you for everyone's hard work.  
+
+Take care, 
+Muffly
+```
+
+## Not Making Our Numbers
+```
+Hi Michaele,
+
+We are not going to reach the target number of calls today.  These three people are far from the required 153 calls and have yet to contact me about needing help: ME, DG, NHG.  No one has met the goal, so it was probably unrealistic.  
+
+What do you want to do?  I see that we have a few options:
+Extend the study timeline: If reaching the target number of calls seems feasible with additional time, consider extending the study period by another week or a specified duration. Communicate the new deadline to all team members, including ME, DG, and NHG. Emphasize that meeting the deadline is crucial for achieving the study goals. Failure to complete the required calls within the extended timeframe may result in certain consequences: no authorship will be given.
+ 
+Prioritize completion of existing pairs: Instead of making calls to new providers, focus on completing the remaining Medicaid and BCBS calls already initiated. By prioritizing the completion of existing pairs, you can ensure that the data collection for these specific cases is thorough and consistent. This approach allows for a more comprehensive analysis of the completed pairs, even if the overall number of calls falls short of the initial target. 
+
+Readjust the sample size and power: If reaching the target number of calls becomes unattainable despite the available options, consider readjusting the sample size and power of the study. Reducing the sample size can help accommodate the limitations in call numbers while still providing meaningful insights. However, it is important to carefully evaluate the impact of smaller sample size on the statistical power and the study's ability to draw valid conclusions.  We would need to talk to a statistician about this.  
+As you well know, flexibility and adaptability are key in research studies, and finding the right balance between achieving study objectives and addressing practical constraints is essential.
+
+Thoughts?
+
+Muffly
+```
+
+## Email of concern that we are not going to finish on time.
+```
+I am writing to inform you of a critical update to our project timeline. We have established a new hard deadline for completing all calls, which is now set for the upcoming ***Monday.
+
+Given the importance of these calls to the successful completion of our project, it is crucial that everyone adheres to this deadline. We understand that unforeseen circumstances may arise, and we appreciate your flexibility and diligence in working towards this goal.
+
+However, if you foresee any difficulty in meeting this deadline, please reach out to me as soon as possible. We will do our best to provide the necessary support and assistance to help you fulfill this task.
+
+Please note, failure to complete your assigned calls by the deadline and/or failure to communicate any potential delays may result in your removal from the project's authorship list, which we all know is an outcome no one wants.
+
+We greatly appreciate your contributions and dedication to this project. We trust in your commitment to meet this new deadline.
+
+Thank you for your understanding and cooperation."
+```
+
+## Review of Week 1 calling results
+```r
+Hello All,
+
+Thanks for your great work this week Michaele. This week, we made 897 call attempts with the goal of reaching 1,224 calls to achieve a sufficient sample size. The attached figures provide further information. Based on my current statistics, there is no notable difference between insurance and business days for scheduling new appointments (p=0.06). It's crucial that we complete the necessary calls to confirm or refute this null hypothesis.  
+
+Tasks remaining for the group:
+* Complete remaining calls.  If you need help, please don't hesitate to reach out.  
+
+Here are some tasks for Muffly/Corbisiero:
+* Table 1 of participant and no contact physicians: Finish hand-searching the NPI numbers, as this helps us get the needed demographics from public databases.
+* Table 1 participant and no contact physicians: Lookup of participant ages on healthgrades.com.
+* Figure 1: Create the scatter plot of wait time for Medicaid on the y-axis and wait time for BCBS on the x-axis using Marcos' code.  
+* Send a letter via the United States postal service to participating office explaining that they received a call from our mystery callers in May 2023.  
+* Move REDCap to "analysis/cleanup phase."
+* Finish manuscript results and write the discussion
+
+Long-term tasks:
+* Submit to an ENT journal.  CCM can make some journal recommendations.  
+
+Thanks,
+Muffly
+```
+
+## E-mail to society about incorrect phone numbers in the patient-facing database
+```r
+Hi Michaele,
+
+In my opinion, the Notes section is the most informative section to read. However, we came across some errors while reviewing the information. For instance, we found listings of retired physicians, doctors who no longer practice at this location, wrong telephone numbers, and even personal physician numbers while taking phone numbers from the patient directory. We can inform AAO-HNS about these incorrect listings so that they can address the issues we found.  When we did the same project with urogyn their society was very thankful for "double checking" their patient-facing database.  
+
+Maybe in the future, we should confirm the phone numbers somehow before having the team start making phone calls so they can be more focused.  
+
+CCM who is the right person to pass this on to at AAO-HNS?  
+```
+
+```r
+Q: Lizzie texted me today asking if there's a way to search for a physician name or number. She has updates for her calls that were done using her excel sheet and need to be uploaded to REDCap. 
+
+A: If anyone has notes they want to put in on their calls and the calls have been completed, they can search for the provider id in the "Choose an Existing Record" field. Please take a look at the REDCap screenshot.  The provider id is the first number in the "upload_to_redcap" column of each Excel file given to each caller. I included a highlighted screenshot as well.   
+
+I would like to "lock" the database to any edits within the next 48 hours so we can proceed with the analysis.  Every time we change the data, we have to re-analyze, which gets painful after a while.  Let me know if this timeline works for you, please.  
+
+Thanks,
+Muffly
+```
+![Screen Shot 2023-05-16 at 10 19 24 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/c4432d19-d955-4b1b-a80b-e0a4f9dd78f1)
+![Screen Shot 2023-05-16 at 10 21 38 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/15e9a2b7-3d81-4639-9320-3b85863f489d)
+
+
 # Late Phase 1
 ## Assigns a scenario an equal number of times to ensure equal distribution among the rows
 ```r
@@ -579,216 +791,6 @@ specialty = Rhinology:
 Results are averaged over the levels of: academic_affiliation, AAO_regions, title, gender, central 
 Tests are performed on the log scale 
 ```
-
-## Meeting for the callers and team
-```r
-Hi Team, 
-
-We will be meeting in the next week or so to discuss the study and our anticipated "calling" May 8 - May 12. During our Zoom, we will discuss the study, its aims, methods, and individual responsibilities. It will be roughly 30-45 minutes max. 
-
-Please fill out the When2Meet form within the next 24-48 hours, or let me know if you are unable to still participate. https://www.when2meet.com/?19887642-Rc5OV
-
-In the meantime, I'm happy to answer any questions you may have, so please reach out. 
-
-Thank you, 
-
-Michaele Francesco Corbisiero
-(626) 646-9087
-```
-
-## End of Phase 1 email
-```r
-Hi Dr. Muffly,
-
-Please find links to the completed phase 1 data attached. 
-
-(1) Mayu Screening Call List.xlsx
-(2) Ellie Screening Call List.xlsx
-(3) Natalya Screening Call List.xlsx
-(4) Nelly Screening Call List.xlsx
-(5) Yasmine Screening Call List.xlsx
-(6) Wyanet Screening Call List.xlsx
-
-I reviewed each of the entries and sorted through the full ACOG calling list to either exclude or include each physician. I have attached an "ACOG Calling List with Exclusions" in which I highlighted the physicians to be excluded. I also went through and deleted these exclusions to create an "ACOG Calling List Final". It looks like after exclusions we have 623 physicians remaining (excluded ~180).
-
-Best,
-
-Hannah Kyllo
-University of Colorado School of Medicine
-MD Candidate, Class of 2024
-623-249-9220 Mobile
-hannah.kyllo@cuanschutz.edu
-```
-
-## Start of Phase 2 e-mail
-```r
-Hi team!
-
-Tomorrow, Monday August 14, we will begin calling clinics for our OB/GYN mystery caller study. Each of you has been assigned ~178 calls to make. Please find a link to an excel spreadsheet with your individualized calling assignments below. 
-
-Phone Call Assignment: (6) sophie_whitehead_2023-08-13_13-28-59_177_rows_7_to_1239.xlsx
-REDCap Login: https://redcap.ucdenver.edu/
-
-Please see the attached Mystery Caller Protocol for step-by-step instructions on how to make your calls and record your data in REDCap. We did review most of this during our meeting last Thursday, however a few pieces of information are new, based on your excellent questions during the meeting, so please review the protocol document prior to starting your calls. I have also attached a link to a video below in which Dr. Muffly talks through the basics of making your calls and recording your data (similar to our discussion on Thursday). Although this video was made for a prior study, the principles are the same, and it can serve as an additional tool to refresh your memory on how to perform these tasks.
-
-Instructions Video: https://www.youtube.com/watch?v=Y_5VjxPKJF0&ab_channel=TylerMuffly
-
-As a reminder, you will have until Friday, August 18 at 5 PM to complete your calls. Whatever you do, please do NOT schedule actual appointments during these calls. Please reach out to me if you have any questions at all, no matter how small. I am here to help and support you!
-
-Best,
-
-Hannah Kyllo
-```
-
-## Start calling instructions
-Send e-mail with all the excel files created by: 'Splitting_dataframe_to_send_to_callers.R'.  
-```r
-Hello everyone,
-
-I've attached your calling assignments with your name or e-mail.  There are eight callers, and each of you has 153 calls to make by the end of business on Friday, May 12, 2023.  Whatever you do, please do NOT make actual appointments.  
-
-Please make sure you have signed up for REDcap access:
-https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
-https://redcap.ucdenver.edu/surveys/?s=wcIyV5ajVM
-
-
-The REDCap login can be found here:  
-https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery caller."  Please see the left-handed rail where it says "Add/Edit Records."  Click the green button that says "Add New Record".  Type in the physician's name, and you are ready.  Here is a link to a video about how to do the calling:  
-
-https://youtu.be/miW_03ZqqEE
-```
-
-## Nightly e-mail to the team
-```r
-Dear All,
-
-I appreciate your help today calling the ENT offices.  It was a slow start due to REDCap access issues, with 61 offices called on Monday (May 8).  We apologize for not making sure everyone had access before starting.  Please let us know if your REDCap access remains limited.  
-
-A few simple reminders:
-Please don't make any appointments.  This is out of respect for the ENT practices and actual patients.  
-If you are on hold for five minutes, you can just hang up and mark this in the exclusions.  
-Analyzing the data, the mean time for a new patient appointment is 29.5 days with a standard deviation of 31 days.  
-
-Do not hesitate to reach out if you have any questions or concerns.  
-
-Thanks,
-Muffly
-720-810-9863
-```
-
-## Second day calling e-mail
-```
-Dear All,
-
-A few great questions came up today:
-
-Q:  The office that I just called was for neurotology, and the scheduler informed me that the physician is not seeing patients for dizziness under any circumstances, regardless of insurance. So I was thinking that the result for Medicaid if I were to call again would most likely be the same
-A:I agree. If you could write something like that in the notes section, we can exclude them in an “other” category. 
-
-Q: If we call an office for BCBS for example and an exclusion applies like needing a referral or the number is disconnected, do we need to call that same number again for Medicaid, or do we just put in another data form with the same exclusion?
-A: We should Google search the physician’s name for a second call if the number is disconnected. Then add that to the notes section.
-
-Please do your best to work around the demand for a referral for a theoretical next available date. “Can you give me A ball park figure of when the next appt may be.”  
-
-Thanks,
-Muffly
-```
-
-## Third day e-mailing
-```r
-Dear All,
-
-Great job today!  Today we are up to a total of 428 records.  The mean time for a new patient appointment is 30.4 business days (SD +/- 32.6).  
-
-Today I worked on getting NPI numbers for each physician's name as we can match demographics to NPI numbers more easily.  NPI numbers are like social security numbers for physicians created in 2005 with the start of HIPAA.  Fun fact: NPI numbers never change even if the physician moves, changes their name, etc.  I did a hand search of the otolaryngology names and found unique NPI numbers for 83.7%.  The remainder will require a little more sleuthing.  
-
-Thank you for everyone's hard work.  
-
-Take care, 
-Muffly
-```
-
-## Not Making Our Numbers
-```
-Hi Michaele,
-
-We are not going to reach the target number of calls today.  These three people are far from the required 153 calls and have yet to contact me about needing help: ME, DG, NHG.  No one has met the goal, so it was probably unrealistic.  
-
-What do you want to do?  I see that we have a few options:
-Extend the study timeline: If reaching the target number of calls seems feasible with additional time, consider extending the study period by another week or a specified duration. Communicate the new deadline to all team members, including ME, DG, and NHG. Emphasize that meeting the deadline is crucial for achieving the study goals. Failure to complete the required calls within the extended timeframe may result in certain consequences: no authorship will be given.
- 
-Prioritize completion of existing pairs: Instead of making calls to new providers, focus on completing the remaining Medicaid and BCBS calls already initiated. By prioritizing the completion of existing pairs, you can ensure that the data collection for these specific cases is thorough and consistent. This approach allows for a more comprehensive analysis of the completed pairs, even if the overall number of calls falls short of the initial target. 
-
-Readjust the sample size and power: If reaching the target number of calls becomes unattainable despite the available options, consider readjusting the sample size and power of the study. Reducing the sample size can help accommodate the limitations in call numbers while still providing meaningful insights. However, it is important to carefully evaluate the impact of smaller sample size on the statistical power and the study's ability to draw valid conclusions.  We would need to talk to a statistician about this.  
-As you well know, flexibility and adaptability are key in research studies, and finding the right balance between achieving study objectives and addressing practical constraints is essential.
-
-Thoughts?
-
-Muffly
-```
-
-## Email of concern that we are not going to finish on time.
-```
-I am writing to inform you of a critical update to our project timeline. We have established a new hard deadline for completing all calls, which is now set for the upcoming ***Monday.
-
-Given the importance of these calls to the successful completion of our project, it is crucial that everyone adheres to this deadline. We understand that unforeseen circumstances may arise, and we appreciate your flexibility and diligence in working towards this goal.
-
-However, if you foresee any difficulty in meeting this deadline, please reach out to me as soon as possible. We will do our best to provide the necessary support and assistance to help you fulfill this task.
-
-Please note, failure to complete your assigned calls by the deadline and/or failure to communicate any potential delays may result in your removal from the project's authorship list, which we all know is an outcome no one wants.
-
-We greatly appreciate your contributions and dedication to this project. We trust in your commitment to meet this new deadline.
-
-Thank you for your understanding and cooperation."
-```
-
-## Review of Week 1 calling results
-```r
-Hello All,
-
-Thanks for your great work this week Michaele. This week, we made 897 call attempts with the goal of reaching 1,224 calls to achieve a sufficient sample size. The attached figures provide further information. Based on my current statistics, there is no notable difference between insurance and business days for scheduling new appointments (p=0.06). It's crucial that we complete the necessary calls to confirm or refute this null hypothesis.  
-
-Tasks remaining for the group:
-* Complete remaining calls.  If you need help, please don't hesitate to reach out.  
-
-Here are some tasks for Muffly/Corbisiero:
-* Table 1 of participant and no contact physicians: Finish hand-searching the NPI numbers, as this helps us get the needed demographics from public databases.
-* Table 1 participant and no contact physicians: Lookup of participant ages on healthgrades.com.
-* Figure 1: Create the scatter plot of wait time for Medicaid on the y-axis and wait time for BCBS on the x-axis using Marcos' code.  
-* Send a letter via the United States postal service to participating office explaining that they received a call from our mystery callers in May 2023.  
-* Move REDCap to "analysis/cleanup phase."
-* Finish manuscript results and write the discussion
-
-Long-term tasks:
-* Submit to an ENT journal.  CCM can make some journal recommendations.  
-
-Thanks,
-Muffly
-```
-
-## E-mail to society about incorrect phone numbers in the patient-facing database
-```r
-Hi Michaele,
-
-In my opinion, the Notes section is the most informative section to read. However, we came across some errors while reviewing the information. For instance, we found listings of retired physicians, doctors who no longer practice at this location, wrong telephone numbers, and even personal physician numbers while taking phone numbers from the patient directory. We can inform AAO-HNS about these incorrect listings so that they can address the issues we found.  When we did the same project with urogyn their society was very thankful for "double checking" their patient-facing database.  
-
-Maybe in the future, we should confirm the phone numbers somehow before having the team start making phone calls so they can be more focused.  
-
-CCM who is the right person to pass this on to at AAO-HNS?  
-```
-
-```r
-Q: Lizzie texted me today asking if there's a way to search for a physician name or number. She has updates for her calls that were done using her excel sheet and need to be uploaded to REDCap. 
-
-A: If anyone has notes they want to put in on their calls and the calls have been completed, they can search for the provider id in the "Choose an Existing Record" field. Please take a look at the REDCap screenshot.  The provider id is the first number in the "upload_to_redcap" column of each Excel file given to each caller. I included a highlighted screenshot as well.   
-
-I would like to "lock" the database to any edits within the next 48 hours so we can proceed with the analysis.  Every time we change the data, we have to re-analyze, which gets painful after a while.  Let me know if this timeline works for you, please.  
-
-Thanks,
-Muffly
-```
-![Screen Shot 2023-05-16 at 10 19 24 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/c4432d19-d955-4b1b-a80b-e0a4f9dd78f1)
-![Screen Shot 2023-05-16 at 10 21 38 AM](https://github.com/mufflyt/mystery_shopper/assets/44621942/15e9a2b7-3d81-4639-9320-3b85863f489d)
 
 ## Cool flow chart for callers to follow from German Birth Control Study
 * We should create something that looks like this.  
