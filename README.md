@@ -172,7 +172,8 @@ paste0("The required number of OBGYNs to call based on our a priori power analys
 * [PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv](https://github.com/mufflyt/mystery_shopper/files/11963387/PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv)
 
 ### Code to clean up the scrape and get it ready for REDCap
-See `Clean data from scrape and ready it for redcap.R`.  You can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
+* [] Pro Tip: Add two id numbers (e.g. `1, 1`) in the column that is uploaded to redcap because redcap requires an id number but that is not searchable.  
+* See `Clean data from scrape and ready it for redcap.R`.  You can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
 ![Screen Shot 2023-05-08 at 9 51 34 PM](https://user-images.githubusercontent.com/44621942/236989533-9d0b6ab5-38e3-45f8-af06-01958d0c28c2.jpg)
 
 ## Searching for NPI numbers using the `npi` package
