@@ -47,16 +47,7 @@
 * [Mystery shopping in health service  evaluation.pdf](https://github.com/mufflyt/mystery_shopper/files/11987089/Mystery.shopping.in.health.service.evaluation.pdf)
 * [STATE STANDARDS FOR  ACCESS TO CARE IN  MEDICAID MANAGED CARE.pdf](https://github.com/mufflyt/mystery_shopper/files/11987092/STATE.STANDARDS.FOR.ACCESS.TO.CARE.IN.MEDICAID.MANAGED.CARE.pdf)
 
-## RedCAP
-Upload this data dictionary:  [FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv](https://github.com/user-attachments/files/16021584/FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv)
-Melanie Mandell also had really nice branching logic in her data dictionary.  
-
-https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
-Fancy data dictionary to upload to REDCap with fancy date validation so people do not put in the wrong year for upcoming appointments.  There is a file in the repository called: "FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv".    
-![Screenshot 2024-06-27 at 3 48 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2feba484-83e4-4b60-901e-02c92613ebd5)
-
-
-## Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
+## Phase 0 - Retrieve and Validate the Telephone Numbers from a Society's Patient facing Database
 
 ### Code to evaluate the web site list of physicians
 See `scrape.R` for enthealth.org from AAO-HNS.  
@@ -166,6 +157,12 @@ round(result, digits=0)
 # 259 OBGYNs
 paste0("The required number of OBGYNs to call based on our a priori power analysis was: ", round(result, digits=0), " unique OBGYNS.")
 ```
+## RedCAP
+* https://cctsi.cuanschutz.edu/resources/informatics/redcap-resources#tutorials
+* Upload this data dictionary:  [FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv](https://github.com/user-attachments/files/16021584/FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv)
+* Melanie Mandell also had really nice branching logic in her data dictionary.  
+* Fancy data dictionary to upload to REDCap with fancy date validation so people do not put in the wrong year for upcoming appointments.  There is a file in the repository called: "FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv".    
+![Screenshot 2024-06-27 at 3 48 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2feba484-83e4-4b60-901e-02c92613ebd5)
 
 ### Code to clean up the scrape and get it ready for redcap
 See `Clean data from scrape and ready it for redcap.R`.  You can also see exploratory.io dataframe: 'calling_list_from_enthealth.org_aao-hns_results'.  I then created a loom video to show how the video was created:  https://www.loom.com/share/6695da2af1884af2b994db23651fbc9b. 
@@ -267,9 +264,9 @@ We need to start the study with a very important step to confirm the phone numbe
 * Please transfer data from any excel spreadsheets on your computer to the Google sheet on an hourly basis so we do not worry that calls are not being made.  
 
 ![Screenshot 2024-07-10 at 4 30 36 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/ef40bdb3-5b1b-4823-8a82-73a58ea5837d)
-
-# Phase 1 email
 ```
+
+```r
 Hi all,
 
 I am reaching out again with another reminder that calls are due this Friday at 5:00 pm MST. Thank you to those of you who have reached out to let me know that you have finished your calls. 
