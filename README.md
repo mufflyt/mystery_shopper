@@ -189,14 +189,6 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
 ```
 ![Screenshot 2023-10-22 at 5 03 27 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/53e40746-9fb1-4e05-bfc4-491b6ddf74a5)
 
-## Assigns a scenario an equal number of times to ensure equal distribution among the rows
-```r
-# This code repeats each scenario an equal number of times to ensure equal distribution among the rows, shuffles them, and then adds them to the "scenarios" column in your data frame
-  mutate(scenarios = sample(rep(c("alpha", "beta", "gamma", "omega"), length.out = nrow(.)))) 
-
-  mutate(scenarios = recode(scenarios, "alpha" = "Recurrent/Treatment resistant Vaginitis", "beta" = "Pyelonephritis", "gamma" = "+ pregnancy test after a tubal ligation", "omega" = "6 cm tubo-ovarian abscess", type_convert = TRUE))
-```
-
 ## Sample the Data to have the same number of people per ACOG District, etc.  
 ```r
 # Group by AAO_regions and specialty before sample.  
@@ -254,16 +246,16 @@ Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_cst
 
 The best way to confirm that the physician is included is to say "I'm calling from Dr. Johnson's office and we are confirming our referrals.  Does Dr. X still take new patients?"
 
-[] For Phase 1 have the calling end on a Thursday and that way you can add more offices to call on Friday if you do not meet your power analysis numbers.  
-[] For Phase 1 make sure that you do 2.5 number the power analysis required calls because these databases are so out of date.  
-[] For Phase 1 stress that people should make notes correcting the phone number and adding in how to get through the phone tree (e.g. "press 4 to make appointments")
-[] Healthgrades.com search the final Phase 1 list for physician ages
-[] Check the number of included and exlcuded for phase 1 to make sure the power analysis still works.  
-[] Move redcap to production
+* [] For Phase 1 have the calling end on a Thursday and that way you can add more offices to call on Friday if you do not meet your power analysis numbers.  
+* [] For Phase 1 make sure that you do 2.5 number the power analysis required calls because these databases are so out of date.  
+* [] For Phase 1 stress that people should make notes correcting the phone number and adding in how to get through the phone tree (e.g. "press 4 to make appointments")
+* [] Healthgrades.com search the final Phase 1 list for physician ages
+* [] Check the number of included and exlcuded for phase 1 to make sure the power analysis still works.  
+* [] Move redcap to production
 
 ## Phase 1 e-mail
-
-"Dear All,
+```r
+Dear All,
 
 We need to start the study with a very important step to confirm the phone numbers of the physicians that we are going to call.  It takes a lot of work and time to keep a directory of physicians up to date and so many academic societies do not do so.  We have found anywhere between 15 to 40% of phone numbers are incorrect.  Reasons they are incorrect goes to the physician retiring, moving, etc.  There will be several options in a drop down menu that will let you chose if you could or could not reach the person.  The best way to confirm that the physician is included is to say "I'm calling from Dr. Johnson's office and we are confirming our physician referral contacts.  Does Dr. X still take new patients?"
 
@@ -277,7 +269,8 @@ We need to start the study with a very important step to confirm the phone numbe
 ![Screenshot 2024-07-10 at 4 30 36 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/ef40bdb3-5b1b-4823-8a82-73a58ea5837d)
 
 # Phase 1 email
-"Hi all,
+```
+Hi all,
 
 I am reaching out again with another reminder that calls are due this Friday at 5:00 pm MST. Thank you to those of you who have reached out to let me know that you have finished your calls. 
 
@@ -289,10 +282,10 @@ As always, please let me know if you have any questions or concerns."
 The "Notes" section is incredibly helpful.  Add comments where you can.  Please reach out if you have any concerns.  
 
 Thanks,
-Muffly"
+Muffly
+```
 
-
-## Redcap Survey
+## Redcap Database
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
 * [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
 ![Screen Shot 2023-05-12 at 8 48 59 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/24171fb7-e5bc-4171-a60c-b1de789680cd)
@@ -300,6 +293,15 @@ Muffly"
 * [PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv](https://github.com/mufflyt/mystery_shopper/files/11963387/PessaryServicesAtFederallyQual_DataDictionary_2023-07-05.csv)
 
 # Late Phase 1
+## Assigns a scenario an equal number of times to ensure equal distribution among the rows
+```r
+# This code repeats each scenario an equal number of times to ensure equal distribution among the rows, shuffles them, and then adds them to the "scenarios" column in your data frame
+  mutate(scenarios = sample(rep(c("alpha", "beta", "gamma", "omega"), length.out = nrow(.)))) 
+
+  mutate(scenarios = recode(scenarios, "alpha" = "Recurrent/Treatment resistant Vaginitis", "beta" = "Pyelonephritis", "gamma" = "+ pregnancy test after a tubal ligation", "omega" = "6 cm tubo-ovarian abscess", type_convert = TRUE))
+```
+* [] Upload the physicians to call into the REDCap database.  
+
 ## Split list up to x number of callers
 See `Splitting_dataframe_to_send_to_callers.R` (see files on github)
 This code reads a CSV file named "for_each_caller.csv" located at "/Users/tylermuffly/Dropbox (Personal)/Mystery shopper/mystery_shopper/Corbi study/ENT/For_each_caller" directory and splits the data into eight parts. Each split is saved as a separate XLSX file in the same directory.  The split() function is used to split the data frame into 8 parts based on row numbers. The cut() function is used to create a factor variable that assigns each row to one of the 8 groups. The names() function is then used to get the names of each group.  The for-loop iterates through each group, creates a file name for each group based on the group name, date, and row number. The write.xlsx() function is used to save each split data frame as a separate XLSX file in the output directory.  The output files will have names like "Sophie_2023-05-06_153_rows_1_to_19.xlsx", where "Sophie" is the name of the split, "2023-05-06" is the current date, "153" is the number of rows in the split, and "1_to_19" are the row IDs of the first and last rows in the split.
