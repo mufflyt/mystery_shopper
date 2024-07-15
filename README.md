@@ -482,26 +482,30 @@ We greatly appreciate your contributions and dedication to this project. We trus
 Thank you for your understanding and cooperation."
 ```
 
+* If you need to add more calls at the last minute make 1000% sure that the `upload_to_redcap` column is configured the exact same way as it was in the original data.  Then use the Data Import Tool from the left rail of REDCap to add in the new results.  This is more challenging than you think.  
+
 # Phase 3 e-mails
 ## Phase 3 Review of Week 1 calling results
 ```r
-Hello All,
+Hello Melanie,
 
-Thanks for your great work this week Michaele. This week, we made 897 call attempts with the goal of reaching 1,224 calls to achieve a sufficient sample size. The attached figures provide further information. Based on my current statistics, there is no notable difference between insurance and business days for scheduling new appointments (p=0.06). It's crucial that we complete the necessary calls to confirm or refute this null hypothesis.  
+Thanks for your great work this week. It's crucial that we complete the necessary calls to confirm or refute the null hypothesis that there is no difference in the wait time for Medicaid vs. BCBS or for our secondary outcome that there is no different in wait time for urgent vs emergent.  
 
 Tasks remaining for the group:
-* Complete remaining calls.  If you need help, please don't hesitate to reach out.  
+* Complete any remaining calls.  If you need help, please don't hesitate to reach out.
+* Correct the data at the REDCap level so the data is all correct in the redcap database.  You had edit control over the data so please add or edit as needed.
+* In my opinion, the Notes section is the most informative section to read. However, we came across some errors while reviewing the information. For instance, we found listings of retired physicians, doctors who no longer practice at this location, wrong telephone numbers, and even personal physician numbers while taking phone numbers from the patient directory. 
 
-Here are some tasks for Muffly/Corbisiero:
-* Table 1 of participant and no contact physicians: Finish hand-searching the NPI numbers, as this helps us get the needed demographics from public databases.
-* Table 1 participant and no contact physicians: Lookup of participant ages on healthgrades.com.
-* Figure 1: Create the scatter plot of wait time for Medicaid on the y-axis and wait time for BCBS on the x-axis using Marcos' code.  
-* Send a letter via the United States postal service to participating office explaining that they received a call from our mystery callers in May 2023.  
+Here are some tasks for us:
+* Table 1 of participant and no contact physicians: Finish hand-searching the NPI numbers, as this helps us get the needed demographics from public databases.  DONE.
+* Table 1 participant and no contact physicians: Lookup of participant ages on healthgrades.com.  DONE.  
+* Figure 1: Create the scatter plot of wait time for Medicaid on the y-axis and wait time for BCBS on the x-axis using code.  
+* Send a letter via the United States postal service to participating office explaining that they received a call from our mystery callers in July 2024.  
 * Move REDCap to "analysis/cleanup phase."
 * Finish manuscript results and write the discussion
 
 Long-term tasks:
-* Submit to an ENT journal.  CCM can make some journal recommendations.  
+* Submit to an ENT journal.  CCM can help us make a choice.  
 
 Thanks,
 Muffly
