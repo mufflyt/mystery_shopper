@@ -245,6 +245,7 @@ filter(taxonomies_desc %in% c("Orthopaedic Surgery", "Orthopaedic Surgery, Adult
 https://olucdenver-my.sharepoint.com/personal/hannah_kyllo_cuanschutz_edu/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fhannah%5Fkyllo%5Fcuanschutz%5Fedu%2FDocuments%2FMystery%20Caller%20Study&ga=1
 
 Ortho Study Phase 1 Google Sheets: https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_csti_3ZON9QeuWHoFmRjI/edit#gid=1021493450
+Sports Medicine Ortho Phase 1 Google Sheets:  https://docs.google.com/spreadsheets/d/1R2GMYrXM5pr7JMJm8-nO33X_4Oo_INulA26d-OJ778s/edit?gid=0#gid=0
 
 Google Sheets (https://docs.google.com/spreadsheets/d/1-Cv-QFs9XdBfA0VMz-ww7_csti_3ZON9QeuWHoFmRjI/edit?usp=sharing) has the data from "phase1_needs to be called" dataframe.  This is after the data has a NPI number and been grouped by US Census Bureau Division and 'practice_specialty'.  The data then gets sampled.  I uploaded the 509 rows to Google Sheets to have the group confirm phone numbers.   
 ![Screenshot 2023-10-23 at 8 55 28 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/8bca6923-b36e-4757-a462-8eb098c07e09)
