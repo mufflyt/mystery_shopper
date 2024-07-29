@@ -332,40 +332,6 @@ MD Candidate, Class of 2024
 hannah.kyllo@cuanschutz.edu
 ```
 
-# E-mail for Phase 2, Day 1
-```r
-Hi Team – great work halfway through Day 1!
-
-Please find below a list of common questions/concerns as well as their answers that we received over the last few hours:
-
-* What happens if I have to register as a patient before getting a ballpark appointment date?
-Push it as far as you can! If they still will not give you a ball park date, then “exclude” the patient as “Not accepting new patients” but please type into the notes that registration was required prior to being given an appointment
-
-* What do I do if the doctor does not treat the scenario I present?
-If the doctor you are calling does not treat the case you describe (i.e the hip doctor doesn’t treat the hip case) then “exclude” and mark “Number contacted did not correspond to expected office/speciality” and make mention in the notes section. Please do NOT accept an appointment date for another provider at the same clinic.
-
-* What do I do if I am calling a California practice and they want “medical groups” and other information related to Medicaid?
-Push as far as you can saying the patient you are calling for does not have problems scheduling appointments with specialists and likely has the Medicaid the clinic will see. If they refuse to give you a ballpark date then “exclude” and mark “Does not accept Medicaid”
-
-* Do I make a sheet for each scenario on my excel sheet?
-Yes! You will create a new record PER line on your excel sheet. However, if the clinic does not answer on a first attempt you can mark the sheet as “incomplete” and come back to that SAME sheet next time you call that clinic (i.e there will be 2 sheets per clinic - 1 for Medicaid and 1 for BCBS)
-
-* What do I do if I am given an appointment date but they say they require a referral?
-Mark the date and include the patient. Please mention in the notes they require a referral but still gave you a date.
-
-* Please also remember to call the clinic again 24 hours later if you spend more than 5 minutes on hold, go to voicemail, or no one answers on the first attempt. 
- 
-* Additional Notes:
-
-Make sure to hit the “include” option under “exclusions” if you get an appointment date so we can properly include the patient.
-Please fill out ALL FIELDS in the RedCap sheet (even though some are able to be bypassed)
- 
-Great work Team!
-
-Please continue to call/text with questions and concerns.
-
-Nick
-```
 
 # Late Phase 1
 ## Assigns a scenario an equal number of times to ensure equal distribution among the rows
@@ -432,6 +398,41 @@ The REDCap login can be found here:
 https://redcap.ucdenver.edu/ and the project name is "ENT subspecialty mystery caller."  Please see the left-handed rail where it says "Add/Edit Records."  Click the green button that says "Add New Record".  Type in the physician's name, and you are ready.  Here is a link to a video about how to do the calling:  
 
 https://youtu.be/miW_03ZqqEE
+```
+
+## E-mail for Phase 2, Day 1
+```r
+Hi Team – great work halfway through Day 1!
+
+Please find below a list of common questions/concerns as well as their answers that we received over the last few hours:
+
+* What happens if I have to register as a patient before getting a ballpark appointment date?
+Push it as far as you can! If they still will not give you a ball park date, then “exclude” the patient as “Not accepting new patients” but please type into the notes that registration was required prior to being given an appointment
+
+* What do I do if the doctor does not treat the scenario I present?
+If the doctor you are calling does not treat the case you describe (i.e the hip doctor doesn’t treat the hip case) then “exclude” and mark “Number contacted did not correspond to expected office/speciality” and make mention in the notes section. Please do NOT accept an appointment date for another provider at the same clinic.
+
+* What do I do if I am calling a California practice and they want “medical groups” and other information related to Medicaid?
+Push as far as you can saying the patient you are calling for does not have problems scheduling appointments with specialists and likely has the Medicaid the clinic will see. If they refuse to give you a ballpark date then “exclude” and mark “Does not accept Medicaid”
+
+* Do I make a sheet for each scenario on my excel sheet?
+Yes! You will create a new record PER line on your excel sheet. However, if the clinic does not answer on a first attempt you can mark the sheet as “incomplete” and come back to that SAME sheet next time you call that clinic (i.e there will be 2 sheets per clinic - 1 for Medicaid and 1 for BCBS)
+
+* What do I do if I am given an appointment date but they say they require a referral?
+Mark the date and include the patient. Please mention in the notes they require a referral but still gave you a date.
+
+* Please also remember to call the clinic again 24 hours later if you spend more than 5 minutes on hold, go to voicemail, or no one answers on the first attempt. 
+ 
+* Additional Notes:
+
+Make sure to hit the “include” option under “exclusions” if you get an appointment date so we can properly include the patient.
+Please fill out ALL FIELDS in the RedCap sheet (even though some are able to be bypassed)
+ 
+Great work Team!
+
+Please continue to call/text with questions and concerns.
+
+Nick
 ```
 
 ## Phase 2 Nightly e-mail to the team
