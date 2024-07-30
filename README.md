@@ -857,6 +857,233 @@ Study data were collected and managed using REDCap electronic data capture tools
 
 2PA Harris, R Taylor, BL Minor, V Elliott, M Fernandez, L O’Neal, L McLeod, G Delacqua, F Delacqua, J Kirby, SN Duda, REDCap Consortium, The REDCap consortium: Building an international community of software partners, J Biomed Inform. 2019 May 9 [doi: 10.1016/j.jbi.2019.103208]
 
+## Manuscript reviews
+```r
+Journal of the American Academy of Orthopaedic Surgeons
+ 
+Ref.: Ms. No. JAAOS-D-24-00668
+Navigating the Orthopaedic Maze as a New Patient: A National Mystery Caller Study on Medicaid Coverage and Access to Specialized Surgeons
+Research Section: Research article (submit full manuscript)
+Nicholas A Felan; Elizabeth Garcia-Creighton; Ankit Hirpara; Isabella Narváez; Daniel Stokes; Adam Miller; Alessandra Santiago; Alexis Batiste; Ryan Tseng; Anthony Smyth; Nicholas R Pulciano; Benjamin R Wharton; Eric C McCarty; Tyler M Muffly
+Journal of the AAOS®
+ 
+Dear Medical Student Felan,
+ 
+Thank you for submitting your manuscript to the Journal of the AAOS® (JAAOS). The JAAOS Deputy Editor has requested major revisions.
+ 
+What happens now? In order for your manuscript to be reconsidered, we ask that you revise your work as recommended by the Deputy Editor. Your revision is due 08/28/2024. Only the corresponding author's username and password will work for submitting a revision (not any coauthors' logins). If you anticipate needing more time, please let us know as soon as possible.
+ 
+Please be advised that a request for revision is not a guarantee of acceptance in JAAOS. Upon review of your revisions, the editors may decide on one of the following 4 pathways for your manuscript:
+ 
+    Accept
+    Reject
+    Request further revisions
+    Recommend publication in the JAAOS open-access companion journal JAAOS Global Research & Reviews (in which case an Article Processing Charge [APC] would apply).
+ 
+Please download your manuscript from the File Inventory link in Editorial Manager and use it to make revisions.
+Do not use a previous version.
+ 
+For your guidance, the review comments and a Deputy Editor/Reviewer edited manuscript (if applicable) are included at the end of this e-mail. If an edited manuscript is included, please click the link, download the file(s), and make sure that you address the comments in your revised manuscript and Author Response letter.
+ 
+**********************************************************************
+REQUIREMENTS FOR REVISING YOUR MANUSCRIPT:
+ 
+PLEASE NOTE that the following items are REQUIRED from you and your coauthors in order to process your revision. If any are missing, we will return your revision:
+ 
+    TRACKED CHANGES: Submit your revised version with the changes showing. Incorporate the reviewer and/or Deputy Editor comments into your revision using tracked changes in Word to identify the revisions.
+    AUTHOR RESPONSE LETTER: We require an Author Response Letter with a point-by-point reply to each of the review comments. The responses must include the sentence or paragraph that was changed, or the corresponding line/page numbers in the manuscript. With the exception of deletions, minor grammatical changes, or typos, a response of "done" or "clarified" is not acceptable.
+    LENGTH AND LIMITS: We expect the revision to not exceed the limits for number of words, references, or figures/tables noted in the Instructions for Authors for your article type.
+ 
+ 
+Required for Research/Case Report Manuscripts ONLY:
+Research manuscript: Upload an Institutional Review Board (IRB) approval letter for your study and resubmit. If IRB approval is not required, answer the question about this with "No" and an explanation.
+Case Report manuscript: Upload a letter of informed patient consent for your case and resubmit. If consent was not required, answer the question about this with "No" and an explanation.
+ 
+***************************************************************************************************************
+ 
+HOW TO RESUBMIT:
+ 
+Once you have revised your submission, please resubmit through Editorial Manager for further consideration. We will send your revision to the Editorial Board for additional peer review for a final decision, and notify you once that is available.
+ 
+    You will find this manuscript in the "Submissions Needing Revision" link in your Author main menu.
+    Click "File Inventory" in the Action column to download the previous manuscript in order to make edits.
+    To submit your edits, click "Edit Revision" in the Action column.
+    Proof each screen to ensure the information is still correct (article title, authors, funding, etc), then click "Next" at the bottom of each screen.
+    The "Attach Files" step allows you to upload your revised files. When you are finished, click "Next."
+    Click "Build PDF for My Approval."
+    Click "Go to Revisions Waiting for Author Approval."
+    Wait for the PDF to build. When ready, you will see the "View Revision" link in the Action column. Click it and open the PDF.
+    If you find any problems, click "Edit Revision" in the Action column. If you are done, please click "Approve Revision."
+ 
+Your time and efforts are greatly appreciated, and we look forward to receiving your revision.
+ 
+Kind regards,
+ 
+Chelsea Matthews, MA
+Editorial Coordinator
+Journal of the AAOS®
+ 
+ 
+*************************************************************************************************************
+ 
+Deputy Editor/Reviewer edited manuscript, if applicable:  ********
+(If no link to an edited manuscript appears, the Deputy Editor or Reviewer did not provide an edited manuscript.)
+ 
+Deputy Editor and/or Reviewer comments:
+ 
+Reviewer #1: PEER REVIEWER BLINDED COMMENTS TO AUTHOR (original submission):
+Can authors separate urgent and acute injuries from non-emergent elective problems that are requesting assistance on the calls?  The pediatric calls may have had a greater percentage of trauma suggesting early need for treatment.
+ 
+Can authors comment on practices called and their potential proportioning types of patients and insurances other than Medicaid? Practices may adjust number and timing of WC patients, for example?
+ 
+In the discussion, additional information on the patient medical complexity can be further explored. Last medical exam associated medical problems and if patient has a medical practice treating their personal problems.
+ 
+Telehealth is an interesting option and can be explained further as to an update since covid. How are insurance companies managing this at the time of the study or currently?
+ 
+ 
+Reviewer #2: PEER REVIEWER BLINDED COMMENTS TO AUTHOR (original submission):
+ 
+ 
+This is an interesting study analyzing impact if insurance on clinic appointments in the US with a comparison of Medicaid and BCBS. The authors should be commended for their effort. This study may be re-considered following revisions. 
+ 
+219 patients are included in 47 states. That makes approximately 4 to 5 patients per state. I'm concerned with this cohort would be representative. I think sample analysis should be performed. Further patient inclusion may be needed to achieve meaningful representation.
+ 
+Title.
+Adequate
+ 
+Abstract
+Adequate.
+ 
+Introduction
+ 
+Adequate
+ 
+ 
+Methods
+ 
+Pleas provide a sample analysis as the number of physicians per state is low. 
+ 
+What is the time lapse between the calls to the same office as a simulated patient? Were the calls made the same day?
+ 
+Results 
+ 
+Adequate
+ 
+ 
+Discussion
+ 
+It is important to note that the wait time difference for appointment does not apply to urgent or emergent cases. The proposed scenarios include elective times. Further, it is important that the questions 
+ 
+Adequate
+ 
+Figures and Tables
+Adequate
+ 
+References
+Adequate
+ 
+ 
+ 
+ 
+ 
+Reviewer #3: The authors present a well written "mystery caller" study investigating barriers to access for patients with similar orthopedic conditions based on insurance status coverage. Overall, they find that Medicaid patients had on average a 5 day longer wait time to get access for providers that take Medicaid across the country. Additionally, they found 37% of surgeons in the cohort did not take any Medicaid insurance at all. The manuscript is timely as public healthcare continues to be a larger part of the patient population and access to quality care is essential for great outcomes. Only a few minor suggestions:
+ 
+Introduction
+Nicely done
+ 
+Methods
+The study design is well thought out and I think does a nice job to understand the question on a bigger level. The five minute wait time exclusion seems a little short at least anecdotally based on experiences with call centers. Also did you exclude offices that offered APPs as an earlier appointment versus requiring an APP? A possible mitigation strategy to help with access is to increase APP workforce to allow for screening of patients in a timely manner?
+ 
+Results
+The 37% of surgeons who did not accept Medicaid is higher than I anticipated. Any thoughts about doing a similar study with Medicare?
+As you mention in the discussion the clinical significance of a 5 day longer wait for appointment time may not be clinically significant based on the diagnosis. A subgroup analysis based on clinical scenario may be helpful to discern if there are differences between urgent conditions (e.g. fractures) vs OA. I imagine there would be more striking differences in more degenerative conditions.
+ 
+Discussion
+Well written and sums up the data well
+ 
+ 
+Reviewer's Responses to Questions
+ 
+Editorial Content: Depth of coverage (is it sufficient for a sophisticated reader?)
+ 
+Reviewer #1: Yes
+ 
+Reviewer #2: Yes
+ 
+Reviewer #3: Yes
+ 
+--------------------
+ 
+Editorial Content: Timeliness (is the manuscript of current interest to readers?)
+ 
+Reviewer #1: Yes
+ 
+Reviewer #2: Yes
+ 
+Reviewer #3: Yes
+ 
+--------------------
+ 
+Editorial Content: Perspective (is treatment of the topic balanced?)
+ 
+Reviewer #1: Yes
+ 
+Reviewer #2: Yes
+ 
+Reviewer #3: Yes
+ 
+--------------------
+ 
+Editorial Content: Readability (is the manuscript well organized and readable?)
+ 
+Reviewer #1: Yes
+ 
+Reviewer #2: Yes
+ 
+Reviewer #3: Yes
+ 
+--------------------
+ 
+Illustrations: Are there too many or too few illustrations? (please suggest deletions or additions)
+ 
+Reviewer #1: No
+ 
+Reviewer #2: No
+ 
+Reviewer #3: No
+ 
+--------------------
+ 
+Illustrations: Do the illustrations enhance the presentation of the material?
+ 
+Reviewer #1: No: Not an article that illustration makes a significant difference. Data and charts are fine.
+ 
+Reviewer #2: Yes
+ 
+Reviewer #3: Yes
+ 
+--------------------
+ 
+References: Are the most relevant references cited? If not, please suggest additions or deletions.
+ 
+Reviewer #1: Yes
+ 
+Reviewer #2: Yes
+ 
+Reviewer #3: Yes
+ 
+--------------------
+ 
+ 
+ 
+Video: Authors are always encouraged to submit video with audio to accompany their manuscripts (either surgical video or sawbones/cadaver demonstrations). Video should demonstrate specific procedural steps or show functional outcomes, range of motion, or other activities of patients. The audio should tell the viewer what is happening on the screen. See the Instructions for Authors for specific video guidelines.
+ 
+Author Services:
+If you need assistance revising your manuscript, please note that for a fee, the Journal's publisher (Wolters Kluwer Health) offers various author services, including editing and English translation.
+ 
+__________________________________________________
+In compliance with data protection regulations, you may request that we remove your personal registration details at any time.  (Use the following URL: https://urldefense.com/v3/__https://www.editorialmanager.com/jaaos/login.asp?a=r__;!!LhI-ubG4xQ!hGjVjpuvN3VrN9asrY2piqD3xNCELMCJVbf03tHaC0QSKDyBYs2mz5bZfQ1qym8AIDE6dS-csuT9Z2it-tg$). Please contact the publication office if you have any questions.
+```
 Data Sources 
 ==========
 * https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/, Geographic Correspondence Engine at Missouri Census Data Center
