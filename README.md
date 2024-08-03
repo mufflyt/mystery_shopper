@@ -164,6 +164,17 @@ paste0("The required number of OBGYNs to call based on our a priori power analys
 * Fancy data dictionary to upload to REDCap with fancy date validation so people do not put in the wrong year for upcoming appointments.  There is a file in the repository called: "FelanSportsMedicineOnlyMystery_DataDictionary_2024-06-27.csv".    
 ![Screenshot 2024-06-27 at 3 48 11 PM](https://github.com/mufflyt/mystery_shopper/assets/44621942/2feba484-83e4-4b60-901e-02c92613ebd5)
 
+```r
+Thanks, Lizzy. 
+
+I have set up a Redcap database for your study. It is named "Garcia-Creighton Pediatric Dermatology Mystery Caller."  Please play around with the REDCap project and familiarize yourself with all the functions.  Your project is a copy of Nick's last study, so you will need to make it your own by changing the questions to fit our study and altering the contact information.  Please do not change the "Variable Name (utilized in logic, calcs, and exports)" for each question.  Each person who will be part of the study will need to be added under the Users Rights feature. You should add people using a REDCap username that is different from their CU username (fun).  
+
+The data entry form should be as simple as possible.  Please play around with date range restrictions so people do not accidentally schedule appointments before the calling date when they mean to schedule for next year...  If you can use any piping or branching logic to simplify the data entry forms, that would be cool, too.  In short, nerd out with REDCap!  
+
+Thanks, 
+Muffly
+```
+
 ###  REDCap Database Examples
 * [MysteryCallerDataEntryForm_ENT.pdf](https://github.com/mufflyt/mystery_shopper/files/11468707/MysteryCallerDataEntryForm_ENT.pdf)
 * [ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv](https://github.com/mufflyt/mystery_shopper/files/11468716/ENTSubspecialtyMysteryCaller_DataDictionary_2023-05-12.csv)
