@@ -1095,6 +1095,11 @@ If you need assistance revising your manuscript, please note that for a fee, the
 __________________________________________________
 In compliance with data protection regulations, you may request that we remove your personal registration details at any time.  (Use the following URL: https://urldefense.com/v3/__https://www.editorialmanager.com/jaaos/login.asp?a=r__;!!LhI-ubG4xQ!hGjVjpuvN3VrN9asrY2piqD3xNCELMCJVbf03tHaC0QSKDyBYs2mz5bZfQ1qym8AIDE6dS-csuT9Z2it-tg$). Please contact the publication office if you have any questions.
 ```
+
+### Example of Revision Responses
+[JWEM_reviewer_responses_HD_edits.docx](https://github.com/user-attachments/files/16534795/JWEM_reviewer_responses_HD_edits.docx)
+
+
 Data Sources 
 ==========
 * https://www.psc.isr.umich.edu/dis/census/Features/tract2zip/, Geographic Correspondence Engine at Missouri Census Data Center
