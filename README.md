@@ -531,8 +531,10 @@ Thank you for your understanding and cooperation."
 ```
 
 * If you need to add more calls at the last minute make 1000% sure that the `upload_to_redcap` column is configured the exact same way as it was in the original data.  Then use the Data Import Tool from the left rail of REDCap to add in the new results.  This is more challenging than you think.  
+![image](https://github.com/user-attachments/assets/4979f772-2453-486a-b7b4-c0871c43a871)
 
 # Phase 3 e-mails
+
 ## Phase 3 Review of Week 1 calling results
 ```r
 Hello Melanie,
