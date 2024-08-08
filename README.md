@@ -544,7 +544,8 @@ Tasks remaining for the group:
 * Correct the data at the REDCap level so the data is all correct in the redcap database.  You had edit control over the data so please add or edit as needed.
 * In my opinion, the Notes section is the most informative section to read. However, we came across some errors while reviewing the information. For instance, we found listings of retired physicians, doctors who no longer practice at this location, wrong telephone numbers, and even personal physician numbers while taking phone numbers from the patient directory. 
 
-Here are some tasks for us:
+Here are some tasks for you/us:
+* I want the source of the data to be in REDCAP not on multiple spreadsheets that we cobbled together in data wrangling.  So if we need to change an exclusion or an error pleaes do it in REDCAP.  
 * Table 1 of participant and no contact physicians: Finish hand-searching the NPI numbers, as this helps us get the needed demographics from public databases.  DONE.
 * Table 1 participant and no contact physicians: Lookup of participant ages on healthgrades.com.  DONE.  
 * Figure 1: Create the scatter plot of wait time for Medicaid on the y-axis and wait time for BCBS on the x-axis using code.  
