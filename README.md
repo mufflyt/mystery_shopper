@@ -1754,8 +1754,8 @@ cat("Merged data saved to:", output_merged_file, "\n")
 `00-setup.R` is the starting point.  
 `02-find_people_in_the_same_city2.R` is part of an exploratory script from the Ari project.  It cleans up the phone numbers.  
 
-tyler::city_state_generalist_specialist_matching - The city_state_generalist_specialist_matching function is designed to filter and sample generalists and specialists for city-state combinations from a given dataset. It first ensures that each city-state combination has a minimum number of generalists and specialists as specified by the user. Then, it samples a specified number of generalists and specialists from each qualifying city-state combination. Optionally, the function can save the sampled results to a CSV file.  
-tyler::city_state_sample_specialists - 
+`tyler::city_state_sample_specialists` - The city_state_generalist_specialist_matching function is designed to filter and sample generalists and specialists for city-state combinations from a given dataset. It first ensures that each city-state combination has a minimum number of generalists and specialists as specified by the user. Then, it samples a specified number of generalists and specialists from each qualifying city-state combination. Optionally, the function can save the sampled results to a CSV file.  
+ 
 
 # Closing Time
 * Move REDCap to "analysis/cleanup phase."
