@@ -1755,7 +1755,35 @@ cat("Merged data saved to:", output_merged_file, "\n")
 `02-find_people_in_the_same_city2.R` is part of an exploratory script from the Ari project.  It cleans up the phone numbers.  
 
 `tyler::city_state_sample_specialists` - The city_state_generalist_specialist_matching function is designed to filter and sample generalists and specialists for city-state combinations from a given dataset. It first ensures that each city-state combination has a minimum number of generalists and specialists as specified by the user. Then, it samples a specified number of generalists and specialists from each qualifying city-state combination. Optionally, the function can save the sampled results to a CSV file.  
- 
+
+```r
+result_city_state_sample_specialists <- tyler::city_state_sample_specialists(
+  data = data,
+  generalist = "General Dermatology",
+  specialist1 = "Pediatric Dermatology",
+  general_sample_size = 5,
+  specialist1_sample_size = 2,
+  specialist2 = NULL,
+  specialist2_sample_size = 0,
+  specialist3 = NULL,
+  specialist3_sample_size = 0,
+  output_csv_path = "Lizzy/data/sampled_cities_2peds_5generalists.csv",
+  seed = 1978
+)
+```
+
+ `tyler::city_state_assign_scenarios` - 
+
+```r
+result_city_state_assign_scenarios <- tyler::city_state_assign_scenarios(
+  data = result_city_state_sample_specialists,
+  generalist = "General Dermatology",
+  specialty = "Pediatric Dermatology",
+  case_names = c("Alpha", "Beta", "Gamma"),
+  output_csv_path = "Lizzy/data/city_state_assign_scenarios.csv",
+  seed = 1978
+)
+```
 
 # Closing Time
 * Move REDCap to "analysis/cleanup phase."
